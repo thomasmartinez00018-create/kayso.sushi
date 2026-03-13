@@ -47,7 +47,7 @@ function App() {
       <main className="flex-grow">
         {view === 'HOME' && (
           <>
-            <Hero onViewMenu={() => setView('MENU')} />
+            <Hero onViewMenu={() => setView('MENU')} onOpenBuilder={() => setView('BUILDER')} />
             <MenuPreview items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} />
             <HowToOrder />
             <Testimonials items={reviews} />

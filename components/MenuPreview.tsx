@@ -215,7 +215,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
              if (Array.isArray(entry)) {
                // Render Grouped Card (Combos)
                // entry[0] is safe because we check variants.length > 0
-               return <GroupedMenuItemCard key={entry[0].category} items={entry} />;
+               return <GroupedMenuItemCard key={entry[0].category} items={entry} onOpenBuilder={onOpenBuilder} />;
              } else {
                // Render Single Card
                return <MenuItemCard key={entry.id} item={entry} />;
@@ -270,9 +270,10 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
 );
 
 // New Component for Grouped Variants (Combos)
-const GroupedMenuItemCard: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => void }> = ({ items, onOpenBuilder }) => {
   // Items are already sorted by price
   const [selectedItem, setSelectedItem] = useState(items[0]);
+
 
   // Update state when items prop changes (e.g. when real data loads from Sheet)
   useEffect(() => {
@@ -358,15 +359,24 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[] }> = ({ items }) => {
           {selectedItem.description}
         </p>
         
-        <a 
-          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web\n\n')}Hola! Quiero pedir ${selectedItem.name}`}
-          target="_blank" 
-          rel="noreferrer"
-          className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors mt-auto"
-        >
-          <Plus size={18} />
-          Agregar {getPieces(selectedItem.name)} piezas
-        </a>
+        <div className="flex flex-col gap-3 mt-auto">
+          <a 
+            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web\n\n')}Hola! Quiero pedir ${selectedItem.name}`}
+            target="_blank" 
+            rel="noreferrer"
+            className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
+          >
+            <Plus size={18} />
+            Pedir este combo
+          </a>
+          <button 
+            onClick={onOpenBuilder}
+            className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
+          >
+            <UtensilsCrossed size={18} />
+            Personalizar
+          </button>
+        </div>
       </div>
     </div>
   );

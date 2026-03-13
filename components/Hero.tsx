@@ -1,13 +1,22 @@
 
 import React from 'react';
 import { Star } from 'lucide-react';
-import { WHATSAPP_NUMBER } from '../constants';
 
 interface HeroProps {
   onViewMenu: () => void;
+  onOpenBuilder: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onViewMenu }) => {
+export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
+  const handleViewPremium = () => {
+    const menuSection = document.getElementById('menu');
+    if (menuSection) {
+      menuSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      onViewMenu();
+    }
+  };
+
   return (
     <div className="relative bg-kayso-dark overflow-hidden min-h-[85vh] flex items-center">
       {/* Background Image with Overlay */}
@@ -56,23 +65,21 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu }) => {
           </h1>
           
           <p className="text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Calidad premium, ingredientes frescos y la libertad de elegir. Diseñá tu tabla pieza por pieza o pedí nuestros combos sugeridos.
+            Calidad premium, ingredientes frescos y la libertad de elegir. Elegí una de nuestras selecciones curadas o armá tu tabla pieza por pieza.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-5 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <a 
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web\n\nHola! Quiero hacer un pedido')}`}
-              target="_blank"
-              rel="noreferrer"
+            <button 
+              onClick={handleViewPremium}
               className="group bg-kayso-orange hover:bg-red-700 text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/40 ring-4 ring-kayso-orange/10"
             >
-              PEDIR POR WHATSAPP
-            </a>
+              VER SELECCIONES PREMIUM
+            </button>
             <button 
-              onClick={onViewMenu}
+              onClick={onOpenBuilder}
               className="bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white px-10 py-5 rounded-2xl font-black font-display text-lg transition-all flex items-center justify-center gap-2 hover:border-white/20"
             >
-              Ver Combos
+              Armá tu combo
             </button>
           </div>
 
