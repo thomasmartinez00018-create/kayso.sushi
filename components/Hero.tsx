@@ -1,14 +1,13 @@
 
 import React from 'react';
-import { ChevronRight, Star, UtensilsCrossed } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 
 interface HeroProps {
   onViewMenu: () => void;
-  onOpenBuilder?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
+export const Hero: React.FC<HeroProps> = ({ onViewMenu }) => {
   return (
     <div className="relative bg-kayso-dark overflow-hidden min-h-[85vh] flex items-center">
       {/* Background Image with Overlay */}
@@ -49,36 +48,45 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black font-display text-white leading-[0.9] mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            PASIÓN POR EL <br/>
+            ARMÁ TU COMBO Y <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-kayso-orange via-red-500 to-orange-400">
-               BUEN SUSHI
+               PEDÍ POR WHATSAPP
             </span>
+            <span className="block text-4xl md:text-5xl mt-2">EN MINUTOS</span>
           </h1>
           
           <p className="text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Rolls premium, ingredientes frescos y la libertad de elegir. Diseñá tu tabla pieza por pieza con nuestro armador interactivo.
+            Calidad premium, ingredientes frescos y la libertad de elegir. Diseñá tu tabla pieza por pieza o pedí nuestros combos sugeridos.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-5 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <button 
-              onClick={onOpenBuilder}
+            <a 
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web\n\nHola! Quiero hacer un pedido')}`}
+              target="_blank"
+              rel="noreferrer"
               className="group bg-kayso-orange hover:bg-red-700 text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/40 ring-4 ring-kayso-orange/10"
             >
-              <UtensilsCrossed size={22} className="group-hover:rotate-12 transition-transform" />
-              ARMÁ TU COMBO
-            </button>
+              PEDIR POR WHATSAPP
+            </a>
             <button 
               onClick={onViewMenu}
               className="bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white px-10 py-5 rounded-2xl font-black font-display text-lg transition-all flex items-center justify-center gap-2 hover:border-white/20"
             >
-              Ver Carta
+              Ver Combos
             </button>
           </div>
 
-          <div className="mt-12 flex items-center gap-4 text-xs font-bold text-gray-500 tracking-widest uppercase animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web')}`} target="_blank" rel="noreferrer" className="hover:text-kayso-orange transition-colors flex items-center gap-2 group">
-              O pedí por WhatsApp <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </a>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] md:text-xs font-bold text-gray-400 tracking-widest uppercase animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <div className="flex items-center gap-2">
+              <div className="flex text-yellow-500">
+                {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="currentColor" />)}
+              </div>
+              <span>+500 RESEÑAS EN GOOGLE</span>
+            </div>
+            <div className="hidden sm:block w-1 h-1 bg-gray-700 rounded-full"></div>
+            <span>DELIVERY PROPIO</span>
+            <div className="hidden sm:block w-1 h-1 bg-gray-700 rounded-full"></div>
+            <span>ZONA SAN MIGUEL / MUÑIZ</span>
           </div>
         </div>
       </div>

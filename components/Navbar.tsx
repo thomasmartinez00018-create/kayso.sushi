@@ -8,41 +8,6 @@ interface NavbarProps {
   setView: (view: ViewState) => void;
 }
 
-const SushiMascot = () => (
-  // Positioned absolutely relative to Navbar. 
-  // Centered on the bottom edge (translate-y-1/2) and shifted left (right-16) to avoid mobile menu overlap.
-  <div className="absolute bottom-0 translate-y-1/2 right-16 md:right-24 z-50 pointer-events-none select-none">
-    <div className="relative w-20 h-20 md:w-24 md:h-24 drop-shadow-2xl pointer-events-auto hover:scale-110 transition-transform cursor-pointer group">
-       <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
-         {/* Group for the Roll to allow independent hover effect */}
-         <g className="origin-center transition-transform duration-300">
-            {/* Main Sushi Roll Body */}
-            <circle cx="50" cy="50" r="38" fill="#1a1a1a" stroke="#2d2d2d" strokeWidth="2" className="drop-shadow-lg" /> {/* Nori */}
-            <circle cx="50" cy="50" r="30" fill="#f4f4f5" /> {/* Rice */}
-            <circle cx="50" cy="50" r="18" fill="#FF2200" /> {/* Salmon Core (Brand Red) */}
-            
-            {/* Details */}
-            <circle cx="56" cy="45" r="6" fill="#4ade80" opacity="0.9" /> {/* Avocado */}
-            <path d="M 40 50 Q 50 60 60 50" stroke="#ff9f43" strokeWidth="2" fill="none" opacity="0.6" />
-         </g>
-         
-         {/* Animated Chopsticks */}
-         <g className="animate-chopsticks origin-center">
-            {/* Left Chopstick */}
-            <rect x="20" y="-20" width="6" height="100" rx="3" fill="#d4a373" transform="rotate(-25 50 50)" stroke="#8d6e63" strokeWidth="1" />
-            {/* Right Chopstick */}
-            <rect x="74" y="-20" width="6" height="100" rx="3" fill="#eebb99" transform="rotate(25 50 50)" stroke="#8d6e63" strokeWidth="1" />
-         </g>
-         
-         {/* Speech Bubble on Hover */}
-         <div className="absolute -top-10 right-0 bg-white text-kayso-dark text-xs font-bold px-3 py-1 rounded-xl rounded-br-none opacity-0 group-hover:opacity-100 transition-opacity shadow-lg w-32 text-center font-display">
-            ¡Armá tu Combo!
-         </div>
-       </svg>
-    </div>
-  </div>
-);
-
 export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,14 +15,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
     { label: 'Inicio', value: 'HOME' },
     { label: 'Menú', value: 'MENU' },
     { label: 'Sucursales', value: 'LOCATIONS' },
-    { label: 'Blog', value: 'BLOG' },
   ];
 
   return (
     <nav className="sticky top-0 z-50 bg-kayso-dark/95 backdrop-blur-sm border-b border-gray-800 relative shadow-2xl">
-      {/* The Mascot that rests on the border */}
-      <SushiMascot />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
