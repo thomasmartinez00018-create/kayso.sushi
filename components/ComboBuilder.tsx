@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { COMBO_SIZES, WHATSAPP_GELLY, WHATSAPP_PERON, BUILDER_UPSELLS } from '../constants';
 import { ComboSize, MenuItem, Category } from '../types';
 import { Check, ChevronRight, Minus, Plus, ShoppingCart, ArrowLeft, Star, Heart } from 'lucide-react';
+import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 
 interface ComboBuilderProps {
   menuItems?: MenuItem[];
@@ -154,7 +155,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
     setSelectedExtras(newSelection);
   };
 
-  const generateWhatsAppMessage = () => {
+  const generateRawMessage = () => {
     if (!selectedSize) return '';
 
     let message = `hola vengo de la web\n\n`;
@@ -180,7 +181,24 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
     message += `\n*TOTAL ESTIMADO: $${totalPrice.toLocaleString()}*`;
     message += `\n\nGracias!`;
 
-    return encodeURIComponent(message);
+    return message;
+  };
+
+  const generateResumen = () => {
+    if (!selectedSize) return 'Combo Personalizado';
+    const rolls = Object.entries(selectedRolls).map(([id, count]: [string, number]) => {
+      const roll = availableRolls.find(r => String(r.id) === String(id));
+      return roll ? `${count}x ${roll.name}` : '';
+    }).filter(Boolean).join(', ');
+    
+    const extras = Object.entries(selectedExtras).map(([id, count]: [string, number]) => {
+      const extra = availableExtras.find(e => String(e.id) === String(id));
+      return extra ? `${count}x ${extra.name}` : '';
+    }).filter(Boolean).join(', ');
+
+    let res = `Combo ${selectedSize.pieces}p (${rolls})`;
+    if (extras) res += ` + Extras: ${extras}`;
+    return res;
   };
 
   // Render Functions
@@ -392,10 +410,8 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
 
                 {step === 3 && (
                   <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                    <a 
-                      href={`https://wa.me/${WHATSAPP_GELLY}?text=${generateWhatsAppMessage()}`}
-                      target="_blank"
-                      rel="noreferrer"
+                    <button 
+                      onClick={() => trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_GELLY, { resumen: generateResumen(), zona: 'San Miguel' })}
                       className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg"
                     >
                       <ShoppingCart size={18} className="flex-shrink-0" />
@@ -403,11 +419,9 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
                         <span className="text-sm">Pedir a Gelly y Obes</span>
                         <span className="text-[10px] opacity-90 font-normal">San Miguel</span>
                       </div>
-                    </a>
-                    <a 
-                      href={`https://wa.me/${WHATSAPP_PERON}?text=${generateWhatsAppMessage()}`}
-                      target="_blank"
-                      rel="noreferrer"
+                    </button>
+                    <button 
+                      onClick={() => trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_PERON, { resumen: generateResumen(), zona: 'San Miguel' })}
                       className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg"
                     >
                       <ShoppingCart size={18} className="flex-shrink-0" />
@@ -415,7 +429,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
                         <span className="text-sm">Pedir a Pte. Perón</span>
                         <span className="text-[10px] opacity-90 font-normal">San Miguel</span>
                       </div>
-                    </a>
+                    </button>
                   </div>
                 )}
             </div>

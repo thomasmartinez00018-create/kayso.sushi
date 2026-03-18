@@ -1,6 +1,8 @@
 
 import React from 'react';
-import { Star } from 'lucide-react';
+import { Star, ChevronRight } from 'lucide-react';
+import { WHATSAPP_NUMBER } from '../constants';
+import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 
 interface HeroProps {
   onViewMenu: () => void;
@@ -94,6 +96,15 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
             <span>DELIVERY PROPIO</span>
             <div className="hidden sm:block w-1 h-1 bg-gray-700 rounded-full"></div>
             <span>ZONA SAN MIGUEL / MUÑIZ</span>
+          </div>
+
+          <div className="mt-6 flex items-center gap-4 text-xs font-bold text-gray-500 tracking-widest uppercase animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <button 
+              onClick={() => trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_NUMBER, { resumen: 'Contacto desde Hero' })} 
+              className="hover:text-kayso-orange transition-colors flex items-center gap-2 group"
+            >
+              O pedí por WhatsApp <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
         </div>
       </div>

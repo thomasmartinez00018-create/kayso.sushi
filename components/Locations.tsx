@@ -2,6 +2,7 @@
 import React from 'react';
 import { MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
 import { WHATSAPP_GELLY, WHATSAPP_PERON } from '../constants';
+import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 
 export const Locations: React.FC = () => {
   return (
@@ -46,15 +47,13 @@ export const Locations: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <a 
-                href={`https://wa.me/${WHATSAPP_GELLY}?text=${encodeURIComponent('hola vengo de la web')}`}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg"
+              <button 
+                onClick={() => trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_GELLY, { resumen: 'Contacto Sucursal Gelly y Obes', zona: 'San Miguel' })}
+                className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
               >
                 <MessageCircle size={20} />
                 Pedir a Gelly y Obes
-              </a>
+              </button>
             </div>
           </div>
 
@@ -89,15 +88,13 @@ export const Locations: React.FC = () => {
                   </div>
                 </div>
               </div>
-               <a 
-                href={`https://wa.me/${WHATSAPP_PERON}?text=${encodeURIComponent('hola vengo de la web')}`}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg"
+               <button 
+                onClick={() => trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_PERON, { resumen: 'Contacto Sucursal Presidente Perón', zona: 'San Miguel' })}
+                className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
               >
                 <MessageCircle size={20} />
                 Pedir a Pte. Perón
-              </a>
+              </button>
             </div>
           </div>
         </div>

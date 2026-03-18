@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { WHATSAPP_NUMBER } from '../constants';
 import { MenuItem } from '../types';
 import { Plus, Flame, UtensilsCrossed, ArrowRight } from 'lucide-react';
+import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 
 interface MenuPreviewProps {
   fullMenu?: boolean;
@@ -256,15 +257,13 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
       <p className="text-gray-400 text-sm mb-4 min-h-[40px] flex-grow">
         {item.description}
       </p>
-      <a 
-        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web\n\n')}Hola! Quiero pedir ${item.name}`}
-        target="_blank" 
-        rel="noreferrer"
+      <button 
+        onClick={() => trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${item.name}`, WHATSAPP_NUMBER, { resumen: item.name })}
         className="w-full bg-gray-700 hover:bg-kayso-orange text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors mt-auto"
       >
         <Plus size={18} />
         Agregar al pedido
-      </a>
+      </button>
     </div>
   </div>
 );
@@ -360,15 +359,13 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
         </p>
         
         <div className="flex flex-col gap-3 mt-auto">
-          <a 
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('hola vengo de la web\n\n')}Hola! Quiero pedir ${selectedItem.name}`}
-            target="_blank" 
-            rel="noreferrer"
+          <button 
+            onClick={() => trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${selectedItem.name}`, WHATSAPP_NUMBER, { resumen: selectedItem.name })}
             className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
           >
             <Plus size={18} />
             Pedir este combo
-          </a>
+          </button>
           <button 
             onClick={onOpenBuilder}
             className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
