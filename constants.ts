@@ -152,6 +152,16 @@ export const MENU_ITEMS: MenuItem[] = [
 
   // --- NUESTROS ROLLS (x10u) ---
   {
+    id: 'r_ba',
+    name: 'Buenos Aires (10u)',
+    description: 'Langostino, phila, palta, recubierto en salmón.',
+    price: 12000,
+    category: Category.ROLLS,
+    image: getAIImage('sushi roll buenos aires style salmon topping shrimp filling', 4003),
+    popular: true,
+    badge: 'Favorito del barrio'
+  },
+  {
     id: 'r_phila',
     name: 'Philadelphia (10u)',
     description: 'Salmón y queso philadelphia.',
@@ -166,15 +176,6 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 12000,
     category: Category.ROLLS,
     image: getAIImage('sushi roll new york style salmon avocado sesame seeds', 4002)
-  },
-  {
-    id: 'r_ba',
-    name: 'Buenos Aires (10u)',
-    description: 'Langostino, phila, palta, recubierto en salmón.',
-    price: 12000,
-    category: Category.ROLLS,
-    image: getAIImage('sushi roll buenos aires style salmon topping shrimp filling', 4003),
-    popular: true
   },
   {
     id: 'r_cali',
@@ -508,8 +509,39 @@ export const BLOG_POSTS: BlogPost[] = [
   }
 ];
 
-// --- TESTIMONIALS (Empty as requested) ---
-export const TESTIMONIALS: Testimonial[] = [];
+// --- TESTIMONIALS ---
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    id: '1',
+    name: 'Brenda Camaño',
+    handle: '@brendac',
+    text: 'El Buenos Aires es adictivo, realmente muy fresco todo. El mejor sushi de San Miguel.',
+    avatar: 'https://i.pravatar.cc/150?u=brenda',
+    stars: 5,
+    date: 'Hace 2 semanas',
+    product: 'Buenos Aires Roll'
+  },
+  {
+    id: '2',
+    name: 'Agostina Hellner',
+    handle: '@agostina',
+    text: 'Excelente relación precio-calidad. Los combos premium son increíbles.',
+    avatar: 'https://i.pravatar.cc/150?u=agostina',
+    stars: 5,
+    date: 'Hace 1 mes',
+    product: 'Combinado Premium'
+  },
+  {
+    id: '3',
+    name: 'Mauro Benitez',
+    handle: '@mauro',
+    text: 'Llegó súper rápido y la presentación es de 10. Muy recomendable.',
+    avatar: 'https://i.pravatar.cc/150?u=mauro',
+    stars: 5,
+    date: 'Hace 3 días',
+    product: 'Combinado Salmón'
+  }
+];
 
 // --- BUILDER CONFIGURATION ---
 
@@ -527,6 +559,10 @@ export const BUILDER_UPSELLS: BuilderExtraOption[] = [
   { id: 'u_mara', name: 'Salsa Maracuyá', price: 1500, type: 'UPSELL' },
   { id: 'u_wasabi', name: 'Wasabi Extra', price: 1000, type: 'UPSELL' },
   { id: 'u_jengibre', name: 'Jengibre', price: 1000, type: 'UPSELL' },
+  { id: 'u_coca', name: 'Coca-Cola 500ml', price: 2500, type: 'UPSELL' },
+  { id: 'u_coca_zero', name: 'Coca-Cola Zero 500ml', price: 2500, type: 'UPSELL' },
+  { id: 'u_agua', name: 'Agua Mineral 500ml', price: 2000, type: 'UPSELL' },
+  { id: 'u_postre', name: 'Postre Chocotorta', price: 4500, type: 'UPSELL' },
 ];
 
 export const BUILDER_ROLLS: BuilderRollOption[] = [];

@@ -223,14 +223,14 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
 
   const renderStep2 = () => (
     <div className="animate-fade-in">
-      <div className="bg-gray-800/50 border border-kayso-orange/30 rounded-xl p-4 mb-6 flex justify-between items-center sticky top-20 z-30 backdrop-blur-md shadow-lg">
+      <div className="bg-gray-800/80 border border-kayso-orange/30 rounded-xl p-3 md:p-4 mb-6 flex justify-between items-center sticky top-2 z-30 backdrop-blur-md shadow-lg">
         <div>
-          <p className="text-gray-400 text-sm uppercase font-bold tracking-wider">Elegí tus rolls</p>
-          <p className="text-white font-bold font-display">
+          <p className="text-gray-400 text-[10px] md:text-sm uppercase font-bold tracking-wider">Elegí tus rolls</p>
+          <p className="text-white text-sm md:text-base font-bold font-display">
             {totalRollsSelected} / {selectedSize?.slots} Seleccionados
           </p>
         </div>
-        <div className="h-2 w-32 bg-gray-700 rounded-full overflow-hidden">
+        <div className="h-1.5 md:h-2 w-24 md:w-32 bg-gray-700 rounded-full overflow-hidden">
           <div 
             className={`h-full transition-all duration-500 ${isSelectionComplete ? 'bg-green-500' : 'bg-kayso-orange'}`}
             style={{ width: `${selectedSize ? (totalRollsSelected / selectedSize.slots) * 100 : 0}%` }}
@@ -356,18 +356,18 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
         </div>
 
         {/* Steps Progress */}
-        <div className="flex items-center mb-12">
+        <div className="flex items-center mb-8 md:mb-12">
           {[1, 2, 3].map((s) => (
              <div key={s} className="flex items-center flex-1 last:flex-none">
-               <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold font-display border-2 transition-all ${
+               <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-base font-bold font-display border-2 transition-all ${
                  step >= s 
                   ? 'bg-kayso-orange border-kayso-orange text-white' 
                   : 'bg-transparent border-gray-700 text-gray-700'
                }`}>
-                 {step > s ? <Check size={20} /> : s}
+                 {step > s ? <Check size={16} /> : s}
                </div>
                {s < 3 && (
-                 <div className={`flex-1 h-1 mx-4 rounded-full transition-all ${
+                 <div className={`flex-1 h-0.5 md:h-1 mx-2 md:mx-4 rounded-full transition-all ${
                     step > s ? 'bg-kayso-orange' : 'bg-gray-800'
                  }`} />
                )}

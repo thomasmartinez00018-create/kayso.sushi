@@ -240,8 +240,13 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
       />
       {item.popular && (
-        <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 shadow-md">
+        <div className="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-black px-2 py-1 rounded flex items-center gap-1 shadow-md uppercase tracking-wider">
           <Flame size={12} /> TOP
+        </div>
+      )}
+      {item.badge && (
+        <div className="absolute top-3 left-3 bg-kayso-orange text-white text-[10px] font-black px-2 py-1 rounded flex items-center gap-1 shadow-md uppercase tracking-wider">
+          {item.badge}
         </div>
       )}
     </div>

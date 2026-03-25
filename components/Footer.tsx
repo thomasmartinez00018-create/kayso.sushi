@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
              </p>
              <div className="flex items-center gap-2 text-kayso-orange font-bold text-sm">
                <Star size={16} fill="currentColor" />
-               <span>+500 Reseñas en Google</span>
+               <span>4.9 en Google (+90 Reseñas)</span>
              </div>
           </div>
 

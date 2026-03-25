@@ -19,6 +19,7 @@ export interface MenuItem {
   category: Category;
   image: string;
   popular?: boolean;
+  badge?: string;
 }
 
 export interface Testimonial {
@@ -29,6 +30,7 @@ export interface Testimonial {
   avatar: string;
   stars?: number;
   date?: string;
+  product?: string;
 }
 
 export interface BlogPost {

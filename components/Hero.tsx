@@ -58,13 +58,27 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
             </div>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-black font-display text-white leading-[0.9] mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-6xl md:text-8xl font-black font-display text-white leading-[0.9] mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             ARMÁ TU COMBO Y <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-kayso-orange via-red-500 to-orange-400">
                PEDÍ POR WHATSAPP
             </span>
             <span className="block text-4xl md:text-5xl mt-2">EN MINUTOS</span>
           </h1>
+
+          <div className="flex flex-wrap items-center gap-4 mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl">
+              <p className="text-kayso-orange text-xs font-black uppercase tracking-wider">Combos desde</p>
+              <p className="text-white text-xl font-black font-display">$14.500 <span className="text-[10px] font-bold text-gray-400">· 15 PIEZAS</span></p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl">
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Abierto hoy</p>
+              <p className="text-white text-sm font-bold">19:00 a 23:30 hs</p>
+            </div>
+            <div className="w-full sm:w-auto mt-2 sm:mt-0">
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Delivery propio · San Miguel / Muñiz</p>
+            </div>
+          </div>
           
           <p className="text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Calidad premium, ingredientes frescos y la libertad de elegir. Elegí una de nuestras selecciones curadas o armá tu tabla pieza por pieza.
@@ -90,7 +104,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="currentColor" />)}
               </div>
-              <span>+500 RESEÑAS EN GOOGLE</span>
+              <span>4.9 EN GOOGLE (+90 RESEÑAS)</span>
             </div>
             <div className="hidden sm:block w-1 h-1 bg-gray-700 rounded-full"></div>
             <span>DELIVERY PROPIO</span>

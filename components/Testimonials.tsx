@@ -35,31 +35,37 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {items.slice(0, 3).map((item) => (
             <div key={item.id} className="bg-gray-800 p-6 rounded-2xl relative border border-gray-700/50 hover:border-gray-600 transition-colors shadow-lg">
+              <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={14} className={`${i < (item.stars || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} />
+                  ))}
+              </div>
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
                     {item.avatar ? (
                         <img src={item.avatar} alt={item.name} className="w-10 h-10 rounded-full" />
                     ) : (
-                        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
                             {item.name.charAt(0)}
                         </div>
                     )}
                     <div>
                         <p className="font-bold text-white text-sm">{item.name}</p>
-                        <p className="text-xs text-gray-500">{item.date}</p>
+                        <p className="text-[10px] text-gray-500">{item.date}</p>
                     </div>
                 </div>
                 {/* Google Icon Small */}
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" className="w-5 h-5 opacity-80" />
-              </div>
-              
-              <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className={`${i < (item.stars || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} />
-                  ))}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" className="w-4 h-4 opacity-80" />
               </div>
 
-              <p className="text-gray-300 text-sm leading-relaxed">"{item.text}"</p>
+              <p className="text-gray-300 text-sm leading-relaxed italic mb-4">"{item.text}"</p>
+              
+              {item.product && (
+                <div className="mt-auto pt-4 border-t border-gray-700/50">
+                  <p className="text-[10px] text-gray-500 uppercase tracking-wider font-bold mb-1">Pidió:</p>
+                  <p className="text-xs text-kayso-orange font-bold">{item.product}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>

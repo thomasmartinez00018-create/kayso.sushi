@@ -13,8 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
 
   const navItems: { label: string; value: ViewState }[] = [
     { label: 'Inicio', value: 'HOME' },
-    { label: 'Menú', value: 'MENU' },
-    { label: 'Sucursales', value: 'LOCATIONS' },
   ];
 
   return (
