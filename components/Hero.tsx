@@ -7,9 +7,10 @@ import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 interface HeroProps {
   onViewMenu: () => void;
   onOpenBuilder: () => void;
+  onRedirect?: (url: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
+export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirect }) => {
   const handleViewPremium = () => {
     const menuSection = document.getElementById('menu');
     if (menuSection) {
@@ -17,6 +18,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
     } else {
       onViewMenu();
     }
+  };
+
+  const handleWhatsAppOrder = () => {
+    const url = trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_NUMBER, { resumen: 'Contacto desde Hero' });
+    if (onRedirect) onRedirect(url);
   };
 
   return (
@@ -114,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder }) => {
 
           <div className="mt-6 flex items-center gap-4 text-xs font-bold text-gray-500 tracking-widest uppercase animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <button 
-              onClick={() => trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_NUMBER, { resumen: 'Contacto desde Hero' })} 
+              onClick={handleWhatsAppOrder} 
               className="hover:text-kayso-orange transition-colors flex items-center gap-2 group"
             >
               O pedí por WhatsApp <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />

@@ -9,10 +9,11 @@ interface MenuPreviewProps {
   fullMenu?: boolean;
   items: MenuItem[];
   onOpenBuilder?: () => void;
+  onRedirect?: (url: string) => void;
   loading?: boolean;
 }
 
-export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, items, onOpenBuilder, loading = false }) => {
+export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, items, onOpenBuilder, onRedirect, loading = false }) => {
   // Default state is 'COMBOS'
   const [activeCategory, setActiveCategory] = React.useState<string>('COMBOS');
 
@@ -216,10 +217,10 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
              if (Array.isArray(entry)) {
                // Render Grouped Card (Combos)
                // entry[0] is safe because we check variants.length > 0
-               return <GroupedMenuItemCard key={entry[0].category} items={entry} onOpenBuilder={onOpenBuilder} />;
+               return <GroupedMenuItemCard key={entry[0].category} items={entry} onOpenBuilder={onOpenBuilder} onRedirect={onRedirect} />;
              } else {
                // Render Single Card
-               return <MenuItemCard key={entry.id} item={entry} />;
+               return <MenuItemCard key={entry.id} item={entry} onRedirect={onRedirect} />;
              }
           })}
         </div>
@@ -228,7 +229,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
   );
 };
 
-const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
+const MenuItemCard: React.FC<{ item: MenuItem; onRedirect?: (url: string) => void }> = ({ item, onRedirect }) => (
   <div className="group bg-gray-800 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-kayso-orange/10 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700/50 h-full flex flex-col">
     <div className="relative h-48 overflow-hidden flex-shrink-0">
       <img 
@@ -263,7 +264,10 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
         {item.description}
       </p>
       <button 
-        onClick={() => trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${item.name}`, WHATSAPP_NUMBER, { resumen: item.name })}
+        onClick={() => {
+          const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${item.name}`, WHATSAPP_NUMBER, { resumen: item.name });
+          if (onRedirect) onRedirect(url);
+        }}
         className="w-full bg-gray-700 hover:bg-kayso-orange text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors mt-auto"
       >
         <Plus size={18} />
@@ -274,7 +278,7 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
 );
 
 // New Component for Grouped Variants (Combos)
-const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => void }> = ({ items, onOpenBuilder }) => {
+const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => void; onRedirect?: (url: string) => void }> = ({ items, onOpenBuilder, onRedirect }) => {
   // Items are already sorted by price
   const [selectedItem, setSelectedItem] = useState(items[0]);
 
@@ -365,7 +369,10 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
         
         <div className="flex flex-col gap-3 mt-auto">
           <button 
-            onClick={() => trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${selectedItem.name}`, WHATSAPP_NUMBER, { resumen: selectedItem.name })}
+            onClick={() => {
+              const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${selectedItem.name}`, WHATSAPP_NUMBER, { resumen: selectedItem.name });
+              if (onRedirect) onRedirect(url);
+            }}
             className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
           >
             <Plus size={18} />

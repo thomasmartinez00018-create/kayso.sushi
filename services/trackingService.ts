@@ -46,6 +46,9 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   // 2. Open WhatsApp immediately to prevent popup blockers
+  // We use a small timeout to ensure tracking starts but redirect happens
+  // On some Androids, window.open might be blocked if not directly in the click handler
+  // But this function is usually called in a click handler.
   window.open(whatsappUrl, '_blank');
 
   // 3. Send to Meta Pixel
@@ -61,8 +64,6 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
     action: 'create_lead',
     fecha_lead: timestamp,
     client_id: clientId,
-    // The Apps Script ignores 'resumen' and builds it from zona, tipo_pedido, and retiro_delivery.
-    // So we pass the order details in 'tipo_pedido' and the full message in 'notas'.
     zona: orderDetails.zona || '',
     tipo_pedido: orderDetails.resumen || baseMessage.substring(0, 150),
     retiro_delivery: orderDetails.modalidad || '',
@@ -94,4 +95,6 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
     },
     body: JSON.stringify(payload),
   }).catch(err => console.error('Error tracking lead:', err));
+
+  return whatsappUrl;
 };

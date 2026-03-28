@@ -7,9 +7,10 @@ import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 
 interface ComboBuilderProps {
   menuItems?: MenuItem[];
+  onComplete?: (url: string) => void;
 }
 
-export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) => {
+export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onComplete }) => {
   // State
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedSize, setSelectedSize] = useState<ComboSize | null>(null);
@@ -411,7 +412,10 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
                 {step === 3 && (
                   <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                     <button 
-                      onClick={() => trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_GELLY, { resumen: generateResumen(), zona: 'San Miguel' })}
+                      onClick={() => {
+                        const url = trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_GELLY, { resumen: generateResumen(), zona: 'San Miguel' });
+                        if (onComplete) onComplete(url);
+                      }}
                       className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg"
                     >
                       <ShoppingCart size={18} className="flex-shrink-0" />
@@ -421,7 +425,10 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [] }) =>
                       </div>
                     </button>
                     <button 
-                      onClick={() => trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_PERON, { resumen: generateResumen(), zona: 'San Miguel' })}
+                      onClick={() => {
+                        const url = trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_PERON, { resumen: generateResumen(), zona: 'San Miguel' });
+                        if (onComplete) onComplete(url);
+                      }}
                       className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg"
                     >
                       <ShoppingCart size={18} className="flex-shrink-0" />

@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { HowToOrder } from './components/HowToOrder';
 import { ComboBuilder } from './components/ComboBuilder';
 import { Testimonials } from './components/Testimonials';
+import { RedirectScreen } from './components/RedirectScreen';
 import { ViewState, MenuItem, Testimonial } from './types';
 import { fetchMenuFromSheet, fetchReviewsFromSheet } from './services/sheetService';
 import { MENU_ITEMS, TESTIMONIALS } from './constants';
@@ -17,6 +18,12 @@ function App() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>(MENU_ITEMS);
   const [reviews, setReviews] = useState<Testimonial[]>(TESTIMONIALS);
   const [loading, setLoading] = useState(true);
+  const [redirectUrl, setRedirectUrl] = useState<string>('');
+
+  const handleRedirect = (url: string) => {
+    setRedirectUrl(url);
+    setView('REDIRECT');
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,8 +54,8 @@ function App() {
       <main className="flex-grow">
         {view === 'HOME' && (
           <>
-            <Hero onViewMenu={() => setView('MENU')} onOpenBuilder={() => setView('BUILDER')} />
-            <MenuPreview items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} />
+            <Hero onViewMenu={() => setView('MENU')} onOpenBuilder={() => setView('BUILDER')} onRedirect={handleRedirect} />
+            <MenuPreview items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} onRedirect={handleRedirect} />
             <HowToOrder />
             <Testimonials items={reviews} />
           </>
@@ -60,7 +67,7 @@ function App() {
               <h1 className="text-5xl font-black text-white mb-2 font-display uppercase tracking-tighter">Nuestro Menú</h1>
               <p className="text-gray-400 font-light text-xl">Calidad premium en cada pieza</p>
             </div>
-            <MenuPreview fullMenu={true} items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} />
+            <MenuPreview fullMenu={true} items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} onRedirect={handleRedirect} />
           </div>
         )}
 
@@ -71,7 +78,11 @@ function App() {
         )}
 
         {view === 'BUILDER' && (
-          <ComboBuilder menuItems={menuItems} />
+          <ComboBuilder menuItems={menuItems} onComplete={handleRedirect} />
+        )}
+
+        {view === 'REDIRECT' && (
+          <RedirectScreen whatsappUrl={redirectUrl} />
         )}
       </main>
 

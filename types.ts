@@ -42,7 +42,7 @@ export interface BlogPost {
   content: string;
 }
 
-export type ViewState = 'HOME' | 'MENU' | 'LOCATIONS' | 'BLOG' | 'BUILDER' | 'BLOG_POST';
+export type ViewState = 'HOME' | 'MENU' | 'LOCATIONS' | 'BLOG' | 'BUILDER' | 'BLOG_POST' | 'REDIRECT';
 
 export interface BuilderRollOption {
   id: string;
