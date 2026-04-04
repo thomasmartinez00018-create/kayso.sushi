@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { WHATSAPP_NUMBER } from '../constants';
+import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 
 interface NavbarProps {
   currentView: ViewState;
   setView: (view: ViewState) => void;
+  onRedirect?: (url: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleWhatsApp = () => {
+    const url = trackAndRedirectToWhatsApp(
+      'Hola! Quiero hacer un pedido 🍣',
+      WHATSAPP_NUMBER,
+      { resumen: 'CTA Navbar WhatsApp' }
+    );
+    if (onRedirect) onRedirect(url);
+    setIsOpen(false);
+  };
 
   const navItems: { label: string; value: ViewState }[] = [
     { label: 'Inicio', value: 'HOME' },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-kayso-dark/95 backdrop-blur-sm border-b border-gray-800 relative shadow-2xl">
+    <nav className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-gray-900 relative" style={{ boxShadow: '0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.6)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
@@ -41,11 +54,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
                   {item.label}
                 </button>
               ))}
-              <button 
+              <button
                 onClick={() => setView('BUILDER')}
                 className="bg-kayso-orange hover:bg-red-700 text-white px-4 py-2 rounded-full font-bold font-display text-sm transition-transform hover:scale-105 shadow-lg shadow-kayso-orange/20"
               >
                 Armá tu Combo
+              </button>
+              <button
+                onClick={handleWhatsApp}
+                className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-2 rounded-full font-bold font-display text-sm transition-transform hover:scale-105 shadow-lg"
+              >
+                <MessageCircle size={15} />
+                WhatsApp
               </button>
             </div>
           </div>
@@ -82,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
                 {item.label}
               </button>
             ))}
-             <button 
+              <button
                 onClick={() => {
                   setView('BUILDER');
                   setIsOpen(false);
@@ -90,6 +110,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView }) => {
                 className="w-full mt-4 bg-kayso-orange text-white px-3 py-3 rounded-md font-bold font-display text-base text-center"
               >
                 Armá tu Combo
+              </button>
+              <button
+                onClick={handleWhatsApp}
+                className="w-full mt-2 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-3 py-3 rounded-md font-bold font-display text-base"
+              >
+                <MessageCircle size={18} />
+                Pedí por WhatsApp
               </button>
           </div>
         </div>

@@ -9,6 +9,7 @@ import { HowToOrder } from './components/HowToOrder';
 import { ComboBuilder } from './components/ComboBuilder';
 import { Testimonials } from './components/Testimonials';
 import { RedirectScreen } from './components/RedirectScreen';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { ViewState, MenuItem, Testimonial } from './types';
 import { fetchMenuFromSheet, fetchReviewsFromSheet } from './services/sheetService';
 import { MENU_ITEMS, TESTIMONIALS } from './constants';
@@ -49,14 +50,14 @@ function App() {
 
   return (
     <div className="min-h-screen bg-kayso-dark flex flex-col font-sans selection:bg-kayso-orange selection:text-white">
-      <Navbar currentView={view} setView={setView} />
+      <Navbar currentView={view} setView={setView} onRedirect={handleRedirect} />
       
       <main className="flex-grow">
         {view === 'HOME' && (
           <>
             <Hero onViewMenu={() => setView('MENU')} onOpenBuilder={() => setView('BUILDER')} onRedirect={handleRedirect} />
             <MenuPreview items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} onRedirect={handleRedirect} />
-            <HowToOrder />
+            <HowToOrder onRedirect={handleRedirect} />
             <Testimonials items={reviews} />
           </>
         )}
@@ -87,6 +88,9 @@ function App() {
       </main>
 
       <Footer />
+      {view !== 'BUILDER' && view !== 'REDIRECT' && (
+        <FloatingWhatsApp onRedirect={handleRedirect} />
+      )}
     </div>
   );
 }

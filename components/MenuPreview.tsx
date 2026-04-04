@@ -124,28 +124,24 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
 
   if (loading) {
     return (
-      <section id="menu" className="py-20 bg-gray-900">
+      <section id="menu" className="py-24 bg-[#060606] bg-grid">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="h-10 bg-gray-800 rounded w-1/3 mx-auto mb-4 animate-pulse"></div>
+            <div className="h-3 bg-gray-800 rounded w-24 mx-auto mb-4 animate-pulse"></div>
+            <div className="h-10 bg-gray-800 rounded w-1/3 mx-auto mb-3 animate-pulse"></div>
             <div className="h-4 bg-gray-800 rounded w-1/2 mx-auto animate-pulse"></div>
           </div>
-          
-          {/* Skeleton Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-gray-800 rounded-2xl overflow-hidden h-[450px] border border-gray-700 animate-pulse">
-                <div className="h-48 bg-gray-700"></div>
-                <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
-                  <div className="flex justify-between mb-4">
-                    <div className="h-6 bg-gray-700 rounded w-1/2"></div>
-                    <div className="h-6 bg-gray-700 rounded w-1/4"></div>
+              <div key={i} className="bg-[#0c0c0c] rounded-2xl overflow-hidden h-[430px] border border-gray-800 animate-pulse">
+                <div className="h-52 bg-gray-900"></div>
+                <div className="p-5 flex flex-col h-[calc(100%-13rem)]">
+                  <div className="h-5 bg-gray-900 rounded w-2/3 mb-3"></div>
+                  <div className="space-y-2 mb-5">
+                    <div className="h-3 bg-gray-900 rounded w-full"></div>
+                    <div className="h-3 bg-gray-900 rounded w-3/4"></div>
                   </div>
-                  <div className="space-y-2 mb-6">
-                    <div className="h-4 bg-gray-700 rounded w-full"></div>
-                    <div className="h-4 bg-gray-700 rounded w-2/3"></div>
-                  </div>
-                  <div className="h-12 bg-gray-700 rounded-xl mt-auto"></div>
+                  <div className="h-11 bg-gray-900 rounded-xl mt-auto"></div>
                 </div>
               </div>
             ))}
@@ -156,14 +152,15 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
   }
 
   return (
-    <section id="menu" className="py-20 bg-gray-900">
+    <section id="menu" className="py-24 bg-[#060606] bg-grid">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black font-display text-white mb-4">
+        <div className="text-center mb-14">
+          <p className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.3em] mb-3">— Menú —</p>
+          <h2 className="text-4xl md:text-5xl font-black font-display text-white mb-4 leading-tight">
             Nuestros <span className="text-kayso-orange">Hits</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Desde los clásicos que nunca fallan hasta nuestras creaciones exclusivas. 
+          <p className="text-gray-500 max-w-xl mx-auto text-sm">
+            Desde los clásicos que nunca fallan hasta nuestras creaciones exclusivas.
           </p>
         </div>
 
@@ -200,10 +197,10 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${
+              className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
                 activeCategory === cat
-                  ? 'bg-kayso-orange text-white'
-                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+                  ? 'bg-kayso-orange text-white shadow-lg shadow-kayso-orange/20'
+                  : 'bg-transparent text-gray-500 border border-gray-800 hover:border-gray-600 hover:text-gray-300'
               }`}
             >
               {cat}
@@ -230,47 +227,46 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
 };
 
 const MenuItemCard: React.FC<{ item: MenuItem; onRedirect?: (url: string) => void }> = ({ item, onRedirect }) => (
-  <div className="group bg-gray-800 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-kayso-orange/10 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700/50 h-full flex flex-col">
-    <div className="relative h-48 overflow-hidden flex-shrink-0">
-      <img 
-        key={item.image} // Force re-render if URL changes
-        src={item.image} 
-        alt={item.name} 
-        loading="lazy" 
+  <div className="group card-glow bg-[#0c0c0c] rounded-2xl overflow-hidden border border-gray-800/80 h-full flex flex-col">
+    <div className="relative h-52 overflow-hidden flex-shrink-0 img-fade">
+      <img
+        key={item.image}
+        src={item.image}
+        alt={item.name}
+        loading="lazy"
         decoding="async"
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
       />
       {item.popular && (
-        <div className="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-black px-2 py-1 rounded flex items-center gap-1 shadow-md uppercase tracking-wider">
-          <Flame size={12} /> TOP
+        <div className="absolute top-3 right-3 z-10 bg-kayso-orange text-white text-[9px] font-black px-2.5 py-1 rounded flex items-center gap-1 shadow-lg uppercase tracking-widest">
+          <Flame size={10} /> TOP
         </div>
       )}
       {item.badge && (
-        <div className="absolute top-3 left-3 bg-kayso-orange text-white text-[10px] font-black px-2 py-1 rounded flex items-center gap-1 shadow-md uppercase tracking-wider">
+        <div className="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-sm text-kayso-orange border border-kayso-orange/30 text-[9px] font-black px-2.5 py-1 rounded uppercase tracking-widest">
           {item.badge}
         </div>
       )}
-    </div>
-    <div className="p-6 flex flex-col flex-grow">
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="text-xl font-bold text-white group-hover:text-kayso-orange transition-colors">
-          {item.name}
-        </h3>
-        <span className="text-lg font-bold text-kayso-orange whitespace-nowrap">
-          ${item.price.toLocaleString()}
-        </span>
+      {/* Price in image overlay */}
+      <div className="absolute bottom-3 right-3 z-10 bg-black/70 backdrop-blur-sm border border-white/10 px-2.5 py-1 rounded-lg">
+        <span className="text-white font-black text-base font-display">${item.price.toLocaleString()}</span>
       </div>
-      <p className="text-gray-400 text-sm mb-4 min-h-[40px] flex-grow">
+    </div>
+    <div className="p-5 flex flex-col flex-grow">
+      <h3 className="text-lg font-black text-white group-hover:text-kayso-orange transition-colors mb-2 font-display leading-tight">
+        {item.name}
+      </h3>
+      <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">
         {item.description}
       </p>
-      <button 
+      <button
         onClick={() => {
           const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${item.name}`, WHATSAPP_NUMBER, { resumen: item.name });
           if (onRedirect) onRedirect(url);
         }}
-        className="w-full bg-gray-700 hover:bg-kayso-orange text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors mt-auto"
+        className="w-full bg-kayso-orange/10 hover:bg-kayso-orange border border-kayso-orange/25 hover:border-transparent text-kayso-orange hover:text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all mt-auto text-sm"
       >
-        <Plus size={18} />
+        <Plus size={16} />
         Agregar al pedido
       </button>
     </div>
@@ -315,74 +311,73 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
     : (items.find(i => getValidImage(i.image))?.image || '');
 
   return (
-    <div className="group bg-gray-800 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-kayso-orange/10 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700/50 h-full flex flex-col">
-      <div className="relative h-48 overflow-hidden flex-shrink-0">
-        <img 
-          key={displayImage} // Force re-render if image URL changes
-          src={displayImage} 
-          alt={selectedItem.name} 
+    <div className="group card-glow bg-[#0c0c0c] rounded-2xl overflow-hidden border border-gray-800/80 h-full flex flex-col">
+      <div className="relative h-52 overflow-hidden flex-shrink-0 img-fade">
+        <img
+          key={displayImage}
+          src={displayImage}
+          alt={selectedItem.name}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute top-3 right-3 bg-kayso-orange text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1 shadow-md">
-           COMBOS
+        <div className="absolute top-3 right-3 z-10 bg-kayso-orange text-white text-[9px] font-black px-2.5 py-1 rounded uppercase tracking-widest shadow-lg">
+          COMBOS
+        </div>
+        {/* Price in overlay */}
+        <div className="absolute bottom-3 right-3 z-10 bg-black/70 backdrop-blur-sm border border-white/10 px-2.5 py-1 rounded-lg">
+          <span className="text-white font-black text-base font-display">${selectedItem.price.toLocaleString()}</span>
         </div>
       </div>
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-bold text-white group-hover:text-kayso-orange transition-colors">
-            {cleanTitle}
-          </h3>
-          <span className="text-lg font-bold text-kayso-orange whitespace-nowrap animate-fade-in key={selectedItem.price}">
-            ${selectedItem.price.toLocaleString()}
-          </span>
-        </div>
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-lg font-black text-white group-hover:text-kayso-orange transition-colors font-display leading-tight mb-3">
+          {cleanTitle}
+        </h3>
 
         {/* Size Selectors */}
         <div className="mb-4">
-            <p className="text-xs text-gray-500 mb-2 uppercase font-bold tracking-wider">Elegí el tamaño:</p>
-            <div className="flex flex-wrap gap-2">
-                {items.map(variant => {
-                    const pieces = getPieces(variant.name);
-                    const isSelected = selectedItem.id === variant.id;
-                    return (
-                        <button
-                            key={variant.id}
-                            onClick={() => setSelectedItem(variant)}
-                            className={`px-3 py-1 text-sm rounded-lg border font-bold transition-all ${
-                                isSelected 
-                                ? 'bg-white text-kayso-dark border-white' 
-                                : 'bg-gray-700 text-gray-300 border-transparent hover:border-gray-500'
-                            }`}
-                        >
-                            {pieces} p.
-                        </button>
-                    )
-                })}
-            </div>
+          <p className="text-[9px] text-gray-600 mb-2 uppercase font-black tracking-[0.2em]">Elegí el tamaño:</p>
+          <div className="flex flex-wrap gap-2">
+            {items.map(variant => {
+              const pieces = getPieces(variant.name);
+              const isSelected = selectedItem.id === variant.id;
+              return (
+                <button
+                  key={variant.id}
+                  onClick={() => setSelectedItem(variant)}
+                  className={`px-3 py-1.5 text-xs rounded-lg font-black transition-all ${
+                    isSelected
+                      ? 'bg-kayso-orange text-white shadow-md shadow-kayso-orange/20'
+                      : 'bg-gray-900 text-gray-400 border border-gray-800 hover:border-gray-600 hover:text-gray-200'
+                  }`}
+                >
+                  {pieces} p.
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <p className="text-gray-400 text-sm mb-4 min-h-[40px] flex-grow">
+        <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">
           {selectedItem.description}
         </p>
-        
-        <div className="flex flex-col gap-3 mt-auto">
-          <button 
+
+        <div className="flex flex-col gap-2.5 mt-auto">
+          <button
             onClick={() => {
               const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${selectedItem.name}`, WHATSAPP_NUMBER, { resumen: selectedItem.name });
               if (onRedirect) onRedirect(url);
             }}
-            className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
+            className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm shadow-lg shadow-kayso-orange/15"
           >
-            <Plus size={18} />
+            <Plus size={16} />
             Pedir este combo
           </button>
-          <button 
+          <button
             onClick={onOpenBuilder}
-            className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors"
+            className="w-full bg-transparent hover:bg-white/5 text-gray-500 hover:text-gray-300 border border-gray-800 hover:border-gray-600 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm"
           >
-            <UtensilsCrossed size={18} />
+            <UtensilsCrossed size={15} />
             Personalizar
           </button>
         </div>

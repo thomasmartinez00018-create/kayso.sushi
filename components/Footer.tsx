@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { Instagram, MapPin, Clock, Star } from 'lucide-react';
+import { Instagram, MapPin, Clock, Star, MessageCircle } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-black border-t border-gray-800 pt-16 pb-8 relative">
+    <footer className="bg-[#030303] border-t border-gray-900 pt-16 pb-8 relative">
       {/* Wave Decoration */}
       <div className="absolute top-0 left-0 right-0 h-3 wave-separator opacity-60"></div>
 
@@ -43,7 +43,9 @@ export const Footer: React.FC = () => {
                 <div>
                     <p className="text-white font-bold">Gelly y Obes</p>
                     <p>Gelly y Obes 2308</p>
-                    <p className="text-kayso-orange">11 5053-8254</p>
+                    <a href="https://wa.me/5491150538254" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-[#25D366] hover:text-green-400 transition-colors font-bold">
+                      <MessageCircle size={13} /> 11 5053-8254
+                    </a>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -51,7 +53,9 @@ export const Footer: React.FC = () => {
                  <div>
                     <p className="text-white font-bold">Presidente Perón</p>
                     <p>Av. Pte. Perón 1991</p>
-                    <p className="text-kayso-orange">11 2862-7514</p>
+                    <a href="https://wa.me/5491128627514" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-[#25D366] hover:text-green-400 transition-colors font-bold">
+                      <MessageCircle size={13} /> 11 2862-7514
+                    </a>
                 </div>
               </div>
             </div>

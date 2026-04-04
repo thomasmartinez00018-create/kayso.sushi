@@ -12,11 +12,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="py-20 bg-gray-900 overflow-hidden relative border-t border-gray-800">
+    <section className="py-24 bg-[#060606] overflow-hidden relative border-t border-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-14">
            <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="bg-white/10 p-2 rounded-full">
+              <span className="bg-white/[0.06] border border-white/[0.08] p-2 rounded-full">
                 {/* Google G Logo SVG */}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.79 15.68 17.57V20.33H19.24C21.32 18.42 22.56 15.6 22.56 12.25Z" fill="#4285F4"/>
@@ -27,42 +27,50 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
               </span>
               <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">RESEÑAS VERIFICADAS</p>
            </div>
-           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-            Esto dicen en <span className="text-white">Google</span>
+          <p className="text-[10px] text-gray-600 uppercase tracking-[0.3em] font-black mb-2">— Reseñas verificadas —</p>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-0 font-display">
+            Lo que dicen en <span className="text-kayso-orange">Google</span>
           </h2>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {items.slice(0, 3).map((item) => (
-            <div key={item.id} className="bg-gray-800 p-6 rounded-2xl relative border border-gray-700/50 hover:border-gray-600 transition-colors shadow-lg">
-              <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} className={`${i < (item.stars || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} />
-                  ))}
-              </div>
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex items-center gap-3">
-                    {item.avatar ? (
-                        <img src={item.avatar} alt={item.name} className="w-10 h-10 rounded-full" />
-                    ) : (
-                        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
-                            {item.name.charAt(0)}
-                        </div>
-                    )}
-                    <div>
-                        <p className="font-bold text-white text-sm">{item.name}</p>
-                        <p className="text-[10px] text-gray-500">{item.date}</p>
-                    </div>
-                </div>
-                {/* Google Icon Small */}
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" className="w-4 h-4 opacity-80" />
+            <div key={item.id} className="relative bg-[#0a0a0a] p-6 rounded-2xl border border-gray-800/80 hover:border-gray-700 transition-colors overflow-hidden group">
+              {/* Decorative quotation mark */}
+              <div
+                className="absolute -top-2 -left-1 font-black leading-none select-none pointer-events-none font-display"
+                style={{ fontSize: '6rem', color: 'rgba(255,34,0,0.08)', lineHeight: 1 }}
+                aria-hidden="true"
+              >"</div>
+
+              <div className="flex gap-1 mb-4 relative z-10">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={13} className={`${i < (item.stars || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-700 fill-gray-700'}`} />
+                ))}
               </div>
 
-              <p className="text-gray-300 text-sm leading-relaxed italic mb-4">"{item.text}"</p>
-              
+              <p className="text-gray-300 text-sm leading-relaxed mb-5 relative z-10">{item.text}</p>
+
+              <div className="flex justify-between items-center relative z-10">
+                <div className="flex items-center gap-3">
+                  {item.avatar ? (
+                    <img src={item.avatar} alt={item.name} className="w-9 h-9 rounded-full border border-gray-700" />
+                  ) : (
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white font-bold text-xs border border-blue-500/20">
+                      {item.name.charAt(0)}
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-bold text-white text-sm leading-tight">{item.name}</p>
+                    <p className="text-[10px] text-gray-600">{item.date}</p>
+                  </div>
+                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="w-4 h-4 opacity-50" />
+              </div>
+
               {item.product && (
-                <div className="mt-auto pt-4 border-t border-gray-700/50">
-                  <p className="text-[10px] text-gray-500 uppercase tracking-wider font-bold mb-1">Pidió:</p>
+                <div className="mt-4 pt-4 border-t border-gray-800/80 relative z-10">
+                  <p className="text-[9px] text-gray-600 uppercase tracking-widest font-black mb-0.5">Pidió:</p>
                   <p className="text-xs text-kayso-orange font-bold">{item.product}</p>
                 </div>
               )}
@@ -71,14 +79,14 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
         </div>
 
         <div className="text-center mt-10">
-            <a 
-                href="https://www.google.com/maps/search/kayso+sushi+san+miguel/" 
-                target="_blank" 
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors border-b border-gray-600 hover:border-white pb-1"
-            >
-                Ver todas las opiniones en Google Maps <Star size={14} />
-            </a>
+          <a
+            href="https://www.google.com/maps/search/kayso+sushi+san+miguel/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-white transition-all text-xs font-bold uppercase tracking-widest border border-gray-800 hover:border-gray-600 px-5 py-2.5 rounded-lg"
+          >
+            Ver todas las reseñas en Google <Star size={12} />
+          </a>
         </div>
       </div>
     </section>
