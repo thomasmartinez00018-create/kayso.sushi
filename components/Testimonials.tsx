@@ -65,7 +65,12 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
                     <p className="text-[10px] text-gray-600">{item.date}</p>
                   </div>
                 </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="w-4 h-4 opacity-50" />
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-label="Google" className="opacity-50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.79 15.68 17.57V20.33H19.24C21.32 18.42 22.56 15.6 22.56 12.25Z" fill="#4285F4"/>
+                    <path d="M12 23C14.97 23 17.46 22.01 19.24 20.37L15.68 17.6C14.7 18.26 13.44 18.67 12 18.67C9.13 18.67 6.71 16.73 5.84 14.12H2.16V16.97C3.91 20.45 7.68 22.84 12 23V23Z" fill="#34A853"/>
+                    <path d="M5.84 14.12C5.62 13.46 5.5 12.75 5.5 12C5.5 11.25 5.62 10.54 5.84 9.88V7.03H2.16C1.44 8.47 1.03 10.18 1.03 12C1.03 13.82 1.44 15.53 2.16 16.97L5.84 14.12Z" fill="#FBBC05"/>
+                    <path d="M12 5.38C13.62 5.38 15.06 5.94 16.2 7.03L19.34 3.89C17.45 2.13 14.97 1.05 12 1.05C7.68 1.05 3.91 3.44 2.16 6.93L5.84 9.78C6.71 7.17 9.13 5.38 12 5.38Z" fill="#EA4335"/>
+                </svg>
               </div>
 
               {item.product && (

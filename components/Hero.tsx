@@ -30,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=90&w=2500&auto=format&fit=crop" 
+          src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=75&w=1200&auto=format&fit=crop"
           alt="Sushi Background Kayso" 
           className="w-full h-full object-cover opacity-40 scale-105 animate-slow-zoom"
           // @ts-ignore
@@ -65,12 +65,12 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
           </div>
           
-          <h1 className="text-6xl md:text-8xl xl:text-[9rem] font-black font-display text-white leading-[0.88] mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-[9rem] font-black font-display text-white leading-[0.88] mb-4 animate-fade-in-up overflow-hidden" style={{ animationDelay: '0.1s' }}>
             ARMÁ TU COMBO Y <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-kayso-orange via-red-500 to-orange-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-kayso-orange via-red-500 to-orange-400 break-words">
                PEDÍ POR WHATSAPP
             </span>
-            <span className="block text-4xl md:text-5xl mt-2">EN MINUTOS</span>
+            <span className="block text-3xl sm:text-4xl md:text-5xl mt-2">EN MINUTOS</span>
           </h1>
 
           <div className="flex flex-wrap items-stretch gap-3 mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
@@ -83,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Abierto hoy</p>
               <p className="text-white text-sm font-bold leading-none">19:00 — 23:30</p>
             </div>
-            <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3 hidden sm:block">
+            <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
               <p className="text-white text-xs font-bold leading-none">San Miguel / Muñiz</p>
             </div>

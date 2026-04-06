@@ -56,6 +56,8 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
     (window as any).fbq('track', 'Lead', {
       external_id: clientId,
       content_name: orderDetails.resumen || 'Pedido WhatsApp',
+      value: 14500,
+      currency: 'ARS',
     }, { eventID: `lead_${clientId}` });
   }
 
