@@ -45,13 +45,7 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
 
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-  // 2. Open WhatsApp immediately to prevent popup blockers
-  // We use a small timeout to ensure tracking starts but redirect happens
-  // On some Androids, window.open might be blocked if not directly in the click handler
-  // But this function is usually called in a click handler.
-  window.open(whatsappUrl, '_blank');
-
-  // 3. Send to Meta Pixel
+  // 2. Fire Meta Pixel FIRST (non-blocking, ensures attribution even if redirect fails)
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', 'Lead', {
       external_id: clientId,
@@ -60,6 +54,9 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
       currency: 'ARS',
     }, { eventID: `lead_${clientId}` });
   }
+
+  // 3. Open WhatsApp (must stay in click handler call stack for popup blocker compat)
+  window.open(whatsappUrl, '_blank');
 
   // 4. Send to Google Sheets via Apps Script (Background)
   const payload = {

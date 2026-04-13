@@ -12,9 +12,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 4000);
+    const timer = setTimeout(() => setVisible(true), 1500);
     const handleScroll = () => {
-      if (window.scrollY > 600) setVisible(true);
+      if (window.scrollY > 300) setVisible(true);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {

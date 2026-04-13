@@ -134,6 +134,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <MessageCircle size={18} className="relative z-10" />
               <span className="relative z-10">Pedí directo por WhatsApp</span>
             </button>
+            <p className="text-gray-500 text-[10px] font-semibold mt-2 ml-1 tracking-wide">Responden en 2 min &middot; 4.9&#9733; en Google (90+ reviews)</p>
           </div>
         </div>
       </div>
