@@ -10,6 +10,7 @@ interface FloatingWhatsAppProps {
 
 export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }) => {
   const [visible, setVisible] = useState(false);
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 1500);
@@ -30,6 +31,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
       { resumen: 'Botón flotante WhatsApp' }
     );
     onRedirect(url);
+    setFallbackUrl(url);
   };
 
   return (
@@ -48,6 +50,16 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
         <MessageCircle size={20} className="flex-shrink-0 relative z-10" />
         <span className="font-black text-sm whitespace-nowrap relative z-10">Pedí por WhatsApp</span>
       </button>
+      {fallbackUrl && (
+        <a
+          href={fallbackUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-center text-[10px] text-[#25D366] underline mt-1.5 opacity-80"
+        >
+          ¿No se abrió? Tocá acá
+        </a>
+      )}
     </div>
   );
 };

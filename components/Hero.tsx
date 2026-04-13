@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Star, MessageCircle } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
@@ -11,6 +11,8 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirect }) => {
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
+
   const handleViewPremium = () => {
     const menuSection = document.getElementById('menu');
     if (menuSection) {
@@ -23,6 +25,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
   const handleWhatsAppOrder = () => {
     const url = trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_NUMBER, { resumen: 'Contacto desde Hero' });
     if (onRedirect) onRedirect(url);
+    setFallbackUrl(url);
   };
 
   return (
@@ -135,6 +138,16 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <span className="relative z-10">Pedí directo por WhatsApp</span>
             </button>
             <p className="text-gray-500 text-[10px] font-semibold mt-2 ml-1 tracking-wide">Responden en 2 min &middot; 4.9&#9733; en Google (90+ reviews)</p>
+            {fallbackUrl && (
+              <a
+                href={fallbackUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[10px] text-[#25D366] underline mt-1 ml-1 opacity-80"
+              >
+                ¿No se abrió WhatsApp? Tocá acá
+              </a>
+            )}
           </div>
         </div>
       </div>
