@@ -1,9 +1,78 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { WHATSAPP_NUMBER } from '../constants';
+import { WHATSAPP_GELLY, WHATSAPP_PERON } from '../constants';
 import { MenuItem } from '../types';
-import { Plus, Flame, UtensilsCrossed, ArrowRight } from 'lucide-react';
+import { Plus, Flame, UtensilsCrossed, ArrowRight, MapPin } from 'lucide-react';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
+
+const BranchPicker: React.FC<{
+  itemName: string;
+  onSelect: (phone: string, branch: string) => void;
+  onCancel: () => void;
+}> = ({ itemName, onSelect, onCancel }) => (
+  <div className="flex flex-col gap-2 animate-fade-in">
+    <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest text-center mb-1">Elegí la sucursal</p>
+    <button
+      onClick={() => onSelect(WHATSAPP_GELLY, 'Gelly y Obes')}
+      className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm shadow-lg shadow-kayso-orange/15"
+    >
+      <MapPin size={14} />
+      Gelly y Obes
+    </button>
+    <button
+      onClick={() => onSelect(WHATSAPP_PERON, 'Pte. Perón')}
+      className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm shadow-lg shadow-kayso-orange/15"
+    >
+      <MapPin size={14} />
+      Pte. Perón
+    </button>
+    <button
+      onClick={onCancel}
+      className="w-full text-gray-600 hover:text-gray-400 text-xs py-1 transition-colors"
+    >
+      Cancelar
+    </button>
+  </div>
+);
+
+const ComboOrderButtons: React.FC<{
+  selectedItem: MenuItem;
+  onOpenBuilder?: () => void;
+  onRedirect?: (url: string) => void;
+}> = ({ selectedItem, onOpenBuilder, onRedirect }) => {
+  const [showBranch, setShowBranch] = useState(false);
+
+  const handleBranchSelect = (phone: string, branch: string) => {
+    const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${selectedItem.name}`, phone, { resumen: selectedItem.name, zona: branch });
+    if (onRedirect) onRedirect(url);
+    setShowBranch(false);
+  };
+
+  return (
+    <div className="flex flex-col gap-2.5 mt-auto">
+      {showBranch ? (
+        <BranchPicker itemName={selectedItem.name} onSelect={handleBranchSelect} onCancel={() => setShowBranch(false)} />
+      ) : (
+        <>
+          <button
+            onClick={() => setShowBranch(true)}
+            className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm shadow-lg shadow-kayso-orange/15"
+          >
+            <Plus size={16} />
+            Pedir este combo
+          </button>
+          <button
+            onClick={onOpenBuilder}
+            className="w-full bg-transparent hover:bg-white/5 text-gray-500 hover:text-gray-300 border border-gray-800 hover:border-gray-600 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm"
+          >
+            <UtensilsCrossed size={15} />
+            Personalizar
+          </button>
+        </>
+      )}
+    </div>
+  );
+};
 
 interface MenuPreviewProps {
   fullMenu?: boolean;
@@ -226,7 +295,16 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
   );
 };
 
-const MenuItemCard: React.FC<{ item: MenuItem; onRedirect?: (url: string) => void }> = ({ item, onRedirect }) => (
+const MenuItemCard: React.FC<{ item: MenuItem; onRedirect?: (url: string) => void }> = ({ item, onRedirect }) => {
+  const [showBranch, setShowBranch] = useState(false);
+
+  const handleBranchSelect = (phone: string, branch: string) => {
+    const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${item.name}`, phone, { resumen: item.name, zona: branch });
+    if (onRedirect) onRedirect(url);
+    setShowBranch(false);
+  };
+
+  return (
   <div className="group card-glow bg-[#0c0c0c] rounded-2xl overflow-hidden border border-gray-800/80 h-full flex flex-col">
     <div className="relative h-52 overflow-hidden flex-shrink-0 img-fade">
       <img
@@ -259,19 +337,21 @@ const MenuItemCard: React.FC<{ item: MenuItem; onRedirect?: (url: string) => voi
       <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">
         {item.description}
       </p>
+      {showBranch ? (
+        <BranchPicker itemName={item.name} onSelect={handleBranchSelect} onCancel={() => setShowBranch(false)} />
+      ) : (
       <button
-        onClick={() => {
-          const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${item.name}`, WHATSAPP_NUMBER, { resumen: item.name });
-          if (onRedirect) onRedirect(url);
-        }}
+        onClick={() => setShowBranch(true)}
         className="w-full bg-kayso-orange/10 hover:bg-kayso-orange border border-kayso-orange/25 hover:border-transparent text-kayso-orange hover:text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all mt-auto text-sm"
       >
         <Plus size={16} />
         Agregar al pedido
       </button>
+      )}
     </div>
   </div>
-);
+  );
+};
 
 // New Component for Grouped Variants (Combos)
 const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => void; onRedirect?: (url: string) => void }> = ({ items, onOpenBuilder, onRedirect }) => {
@@ -362,25 +442,7 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
           {selectedItem.description}
         </p>
 
-        <div className="flex flex-col gap-2.5 mt-auto">
-          <button
-            onClick={() => {
-              const url = trackAndRedirectToWhatsApp(`Hola! Quiero pedir ${selectedItem.name}`, WHATSAPP_NUMBER, { resumen: selectedItem.name });
-              if (onRedirect) onRedirect(url);
-            }}
-            className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm shadow-lg shadow-kayso-orange/15"
-          >
-            <Plus size={16} />
-            Pedir este combo
-          </button>
-          <button
-            onClick={onOpenBuilder}
-            className="w-full bg-transparent hover:bg-white/5 text-gray-500 hover:text-gray-300 border border-gray-800 hover:border-gray-600 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm"
-          >
-            <UtensilsCrossed size={15} />
-            Personalizar
-          </button>
-        </div>
+        <ComboOrderButtons selectedItem={selectedItem} onOpenBuilder={onOpenBuilder} onRedirect={onRedirect} />
       </div>
     </div>
   );
