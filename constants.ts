@@ -546,9 +546,9 @@ export const TESTIMONIALS: Testimonial[] = [
 // --- BUILDER CONFIGURATION ---
 
 export const COMBO_SIZES: ComboSize[] = [
-  { id: 's15', pieces: 15, slots: 3, basePrice: 19000 },
-  { id: 's30', pieces: 30, slots: 6, basePrice: 39000 },
-  { id: 's50', pieces: 50, slots: 10, basePrice: 65000 },
+  { id: 's15', pieces: 15, slots: 3, basePrice: 21000 },
+  { id: 's30', pieces: 30, slots: 6, basePrice: 41000 },
+  { id: 's50', pieces: 50, slots: 10, basePrice: 68000 },
 ];
 
 export const BUILDER_UPSELLS: BuilderExtraOption[] = [
