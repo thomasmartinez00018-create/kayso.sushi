@@ -10,11 +10,16 @@ import { ComboBuilder } from './components/ComboBuilder';
 import { Testimonials } from './components/Testimonials';
 import { RedirectScreen } from './components/RedirectScreen';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { FloatingCart } from './components/FloatingCart';
+import { CartDrawer } from './components/CartDrawer';
+import { CartToast } from './components/CartToast';
+import { Checkout } from './components/Checkout';
+import { CartProvider } from './contexts/CartContext';
 import { ViewState, MenuItem, Testimonial } from './types';
 import { fetchMenuFromSheet, fetchReviewsFromSheet } from './services/sheetService';
 import { MENU_ITEMS, TESTIMONIALS } from './constants';
 
-function App() {
+function AppInner() {
   const [view, setView] = useState<ViewState>('HOME');
   const [menuItems, setMenuItems] = useState<MenuItem[]>(MENU_ITEMS);
   const [reviews, setReviews] = useState<Testimonial[]>(TESTIMONIALS);
@@ -26,32 +31,37 @@ function App() {
     setView('REDIRECT');
   };
 
+  const goToCheckout = () => setView('CHECKOUT');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [view]);
 
   useEffect(() => {
     const loadData = async () => {
-        try {
-            const [menuData, reviewsData] = await Promise.all([
-                fetchMenuFromSheet(),
-                fetchReviewsFromSheet()
-            ]);
-            setMenuItems(menuData);
-            setReviews(reviewsData);
-        } catch (e) {
-            console.error("Using fallback data", e);
-        } finally {
-            setLoading(false);
-        }
+      try {
+        const [menuData, reviewsData] = await Promise.all([
+          fetchMenuFromSheet(),
+          fetchReviewsFromSheet(),
+        ]);
+        setMenuItems(menuData);
+        setReviews(reviewsData);
+      } catch (e) {
+        console.error('Using fallback data', e);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);
 
+  const showCartUI = view !== 'REDIRECT';
+  const showFloatingCart = showCartUI && view !== 'CHECKOUT';
+
   return (
     <div className="min-h-screen bg-kayso-dark flex flex-col font-sans selection:bg-kayso-orange selection:text-white">
       <Navbar currentView={view} setView={setView} onRedirect={handleRedirect} />
-      
+
       <main className="flex-grow">
         {view === 'HOME' && (
           <>
@@ -74,12 +84,16 @@ function App() {
 
         {view === 'LOCATIONS' && (
           <div className="pt-10 animate-fade-in">
-             <Locations />
+            <Locations />
           </div>
         )}
 
         {view === 'BUILDER' && (
-          <ComboBuilder menuItems={menuItems} onComplete={handleRedirect} />
+          <ComboBuilder menuItems={menuItems} onAdded={() => setView('HOME')} />
+        )}
+
+        {view === 'CHECKOUT' && (
+          <Checkout onBack={() => setView('HOME')} onComplete={handleRedirect} />
         )}
 
         {view === 'REDIRECT' && (
@@ -88,10 +102,32 @@ function App() {
       </main>
 
       <Footer />
-      {view !== 'BUILDER' && view !== 'REDIRECT' && (
+
+      {/* WhatsApp floating CTA — hidden in builder/redirect/checkout */}
+      {view !== 'BUILDER' && view !== 'REDIRECT' && view !== 'CHECKOUT' && (
         <FloatingWhatsApp onRedirect={handleRedirect} />
       )}
+
+      {/* Cart UI — shown everywhere except the redirect screen */}
+      {showCartUI && (
+        <>
+          {showFloatingCart && <FloatingCart />}
+          <CartDrawer
+            onCheckout={goToCheckout}
+            onContinueShopping={() => setView('MENU')}
+          />
+          <CartToast />
+        </>
+      )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <CartProvider>
+      <AppInner />
+    </CartProvider>
   );
 }
 

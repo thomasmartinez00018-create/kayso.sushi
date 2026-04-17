@@ -1,16 +1,17 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { COMBO_SIZES, WHATSAPP_GELLY, WHATSAPP_PERON, BUILDER_UPSELLS } from '../constants';
+import { COMBO_SIZES, BUILDER_UPSELLS } from '../constants';
 import { ComboSize, MenuItem, Category } from '../types';
 import { Check, ChevronRight, Minus, Plus, ShoppingCart, ArrowLeft, Star, Heart } from 'lucide-react';
-import { trackAndRedirectToWhatsApp } from '../services/trackingService';
+import { useCart } from '../contexts/CartContext';
 
 interface ComboBuilderProps {
   menuItems?: MenuItem[];
-  onComplete?: (url: string) => void;
+  onAdded?: () => void;   // called after combo is added to cart (to open drawer / navigate)
 }
 
-export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onComplete }) => {
+export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAdded }) => {
+  const { addItem, openDrawer } = useCart();
   // State
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedSize, setSelectedSize] = useState<ComboSize | null>(null);
@@ -156,50 +157,42 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onCo
     setSelectedExtras(newSelection);
   };
 
-  const generateRawMessage = () => {
-    if (!selectedSize) return '';
-
-    let message = `hola vengo de la web\n\n`;
-    message += `Hola Kayso! 👋 Quiero pedir un combo personalizado: \n\n`;
-    message += `*Base:* ${selectedSize.pieces} Piezas ($${selectedSize.basePrice})\n`;
-    
-    message += `\n*Rolls Elegidos (x5u c/u):* \n`;
-    Object.entries(selectedRolls).forEach(([rollId, count]: [string, number]) => {
-      // Fix: Ensure comparison works even if IDs are numbers in Excel
-      const roll = availableRolls.find(r => String(r.id) === String(rollId));
-      if (roll) message += `- ${count}x ${roll.name} ${roll.extraPrice ? '(+$' + roll.extraPrice + ' c/u)' : ''}\n`;
-    });
-
-    const upsells = Object.entries(selectedExtras);
-    if (upsells.length > 0) {
-      message += `\n*Adicionales:* \n`;
-      upsells.forEach(([id, count]: [string, number]) => {
-        const item = availableExtras.find(e => String(e.id) === String(id));
-        if(item) message += `- ${count}x ${item.name} ($${item.price})\n`;
-      });
-    }
-
-    message += `\n*TOTAL ESTIMADO: $${totalPrice.toLocaleString()}*`;
-    message += `\n\nGracias!`;
-
-    return message;
+  const buildRollsSummary = (): string => {
+    const parts = Object.entries(selectedRolls)
+      .map(([rollId, count]: [string, number]) => {
+        const roll = availableRolls.find(r => String(r.id) === String(rollId));
+        return roll ? `${count}x ${roll.name}` : '';
+      })
+      .filter(Boolean);
+    return parts.join(', ');
   };
 
-  const generateResumen = () => {
-    if (!selectedSize) return 'Combo Personalizado';
-    const rolls = Object.entries(selectedRolls).map(([id, count]: [string, number]) => {
-      const roll = availableRolls.find(r => String(r.id) === String(id));
-      return roll ? `${count}x ${roll.name}` : '';
-    }).filter(Boolean).join(', ');
-    
-    const extras = Object.entries(selectedExtras).map(([id, count]: [string, number]) => {
-      const extra = availableExtras.find(e => String(e.id) === String(id));
-      return extra ? `${count}x ${extra.name}` : '';
-    }).filter(Boolean).join(', ');
+  const handleAddComboToCart = () => {
+    if (!selectedSize) return;
 
-    let res = `Combo ${selectedSize.pieces}p (${rolls})`;
-    if (extras) res += ` + Extras: ${extras}`;
-    return res;
+    // 1) Add the combo base + chosen rolls as a single line item
+    const rollsSummary = buildRollsSummary();
+    addItem({
+      productId: `custom-combo-${selectedSize.pieces}`,
+      name: `Combo personalizado ${selectedSize.pieces} piezas`,
+      price: selectedSize.basePrice,
+      details: rollsSummary ? `Rolls: ${rollsSummary}` : undefined,
+    });
+
+    // 2) Add each selected extra as its own cart line
+    Object.entries(selectedExtras).forEach(([extraId, count]: [string, number]) => {
+      const extra = availableExtras.find(e => String(e.id) === String(extraId));
+      if (!extra) return;
+      addItem({
+        productId: `extra-${extra.id}`,
+        name: extra.name,
+        price: extra.price,
+        quantity: count,
+      });
+    });
+
+    openDrawer();
+    onAdded?.();
   };
 
   // Render Functions
@@ -410,34 +403,13 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onCo
                 )}
 
                 {step === 3 && (
-                  <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                    <button 
-                      onClick={() => {
-                        const url = trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_GELLY, { resumen: generateResumen(), zona: 'San Miguel' });
-                        if (onComplete) onComplete(url);
-                      }}
-                      className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg"
-                    >
-                      <ShoppingCart size={18} className="flex-shrink-0" />
-                      <div className="flex flex-col items-start leading-tight">
-                        <span className="text-sm">Pedir a Gelly y Obes</span>
-                        <span className="text-[10px] opacity-90 font-normal">San Miguel</span>
-                      </div>
-                    </button>
-                    <button 
-                      onClick={() => {
-                        const url = trackAndRedirectToWhatsApp(generateRawMessage(), WHATSAPP_PERON, { resumen: generateResumen(), zona: 'San Miguel' });
-                        if (onComplete) onComplete(url);
-                      }}
-                      className="w-full sm:w-auto bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg"
-                    >
-                      <ShoppingCart size={18} className="flex-shrink-0" />
-                      <div className="flex flex-col items-start leading-tight">
-                        <span className="text-sm">Pedir a Pte. Perón</span>
-                        <span className="text-[10px] opacity-90 font-normal">San Miguel</span>
-                      </div>
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleAddComboToCart}
+                    className="w-full sm:w-auto bg-kayso-orange hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black font-display flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg shadow-kayso-orange/25"
+                  >
+                    <ShoppingCart size={18} className="flex-shrink-0" />
+                    <span className="text-sm">Agregar al pedido</span>
+                  </button>
                 )}
             </div>
           </div>
