@@ -10,7 +10,6 @@ import { ComboBuilder } from './components/ComboBuilder';
 import { Testimonials } from './components/Testimonials';
 import { RedirectScreen } from './components/RedirectScreen';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { FloatingCart } from './components/FloatingCart';
 import { CartDrawer } from './components/CartDrawer';
 import { CartToast } from './components/CartToast';
 import { Checkout } from './components/Checkout';
@@ -56,7 +55,6 @@ function AppInner() {
   }, []);
 
   const showCartUI = view !== 'REDIRECT';
-  const showFloatingCart = showCartUI && view !== 'CHECKOUT';
 
   return (
     <div className="min-h-screen bg-kayso-dark flex flex-col font-sans selection:bg-kayso-orange selection:text-white">
@@ -108,10 +106,9 @@ function AppInner() {
         <FloatingWhatsApp onRedirect={handleRedirect} />
       )}
 
-      {/* Cart UI — shown everywhere except the redirect screen */}
+      {/* Cart UI — drawer + toast. Floating cart is unified into FloatingWhatsApp */}
       {showCartUI && (
         <>
-          {showFloatingCart && <FloatingCart />}
           <CartDrawer
             onCheckout={goToCheckout}
             onContinueShopping={() => setView('MENU')}

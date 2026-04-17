@@ -58,7 +58,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addItem = useCallback<CartContextValue['addItem']>((item) => {
     const quantityToAdd = item.quantity ?? 1;
+    let wasEmpty = false;
     setItems(prev => {
+      if (prev.length === 0) wasEmpty = true;
       // Merge identical products (same productId + same details + same price)
       const existing = prev.findIndex(
         i => i.productId === item.productId && i.details === item.details && i.price === item.price
@@ -80,6 +82,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return [...prev, newItem];
     });
     showToast(`Agregado: ${item.name}`);
+
+    // Teaching moment: when the cart goes from empty to 1 item, auto-open
+    // the drawer so the user learns the flow (multi-product order).
+    // On subsequent adds we only show the toast — no interruption.
+    if (wasEmpty) {
+      setTimeout(() => setDrawerOpen(true), 450);
+    }
   }, [showToast]);
 
   const removeItem = useCallback((id: string) => {
