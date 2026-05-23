@@ -150,6 +150,102 @@ export const MENU_ITEMS: MenuItem[] = [
     image: getAIImage('classic sushi combo 60 pieces party platter', 3005)
   },
 
+  // --- SUSHI BURGER (NOVEDAD) ---
+  {
+    id: 'sb_salmon_fresco',
+    name: 'Sushi Burger de Salmón Fresco',
+    description: 'Hamburguesa de sushi rebozada con salmón fresco, queso philadelphia y palta.',
+    price: 18000,
+    category: Category.SUSHI_BURGER,
+    image: getAIImage('sushi burger fresh salmon philadelphia avocado crispy rice bun gourmet', 5001),
+    popular: true,
+    badge: 'Novedad'
+  },
+  {
+    id: 'sb_salmon_cocido',
+    name: 'Sushi Burger de Salmón Cocido',
+    description: 'Hamburguesa de sushi con salmón cocido, queso philadelphia y palta.',
+    price: 18000,
+    category: Category.SUSHI_BURGER,
+    image: getAIImage('sushi burger cooked salmon philadelphia avocado crispy rice bun', 5002),
+    badge: 'Novedad'
+  },
+  {
+    id: 'sb_langostinos',
+    name: 'Sushi Burger de Langostinos',
+    description: 'Hamburguesa de sushi con langostinos rebozados, queso philadelphia y palta.',
+    price: 18000,
+    category: Category.SUSHI_BURGER,
+    image: getAIImage('sushi burger crispy shrimp tempura philadelphia avocado rice bun', 5003),
+    badge: 'Novedad'
+  },
+  {
+    id: 'sb_kanikama',
+    name: 'Sushi Burger de Kanikama',
+    description: 'Hamburguesa de sushi con kanikama, queso philadelphia y palta.',
+    price: 18000,
+    category: Category.SUSHI_BURGER,
+    image: getAIImage('sushi burger kanikama crab philadelphia avocado crispy rice bun', 5004),
+    badge: 'Novedad'
+  },
+  {
+    id: 'sb_veggie',
+    name: 'Sushi Burger Veggie',
+    description: 'Hamburguesa de sushi vegetariana con palta, queso philadelphia y verduras frescas.',
+    price: 18000,
+    category: Category.SUSHI_BURGER,
+    image: getAIImage('sushi burger vegetarian avocado philadelphia fresh vegetables rice bun', 5005),
+    badge: 'Novedad'
+  },
+
+  // --- PANCHO SUSHI (NOVEDAD) ---
+  {
+    id: 'ps_salmon_fresco',
+    name: 'Pancho Sushi de Salmón Fresco',
+    description: 'Pancho de sushi rebozado con salmón fresco, queso philadelphia y palta.',
+    price: 16000,
+    category: Category.PANCHO_SUSHI,
+    image: getAIImage('sushi hot dog pancho fresh salmon philadelphia avocado crispy rice', 6001),
+    popular: true,
+    badge: 'Novedad'
+  },
+  {
+    id: 'ps_salmon_cocido',
+    name: 'Pancho Sushi de Salmón Cocido',
+    description: 'Pancho de sushi con salmón cocido, queso philadelphia y palta.',
+    price: 16000,
+    category: Category.PANCHO_SUSHI,
+    image: getAIImage('sushi hot dog pancho cooked salmon philadelphia avocado rice', 6002),
+    badge: 'Novedad'
+  },
+  {
+    id: 'ps_langostinos',
+    name: 'Pancho Sushi de Langostinos',
+    description: 'Pancho de sushi con langostinos rebozados, queso philadelphia y palta.',
+    price: 16000,
+    category: Category.PANCHO_SUSHI,
+    image: getAIImage('sushi hot dog pancho crispy shrimp tempura philadelphia avocado', 6003),
+    badge: 'Novedad'
+  },
+  {
+    id: 'ps_kanikama',
+    name: 'Pancho Sushi de Kanikama',
+    description: 'Pancho de sushi con kanikama, queso philadelphia y palta.',
+    price: 16000,
+    category: Category.PANCHO_SUSHI,
+    image: getAIImage('sushi hot dog pancho kanikama crab philadelphia avocado rice', 6004),
+    badge: 'Novedad'
+  },
+  {
+    id: 'ps_veggie',
+    name: 'Pancho Sushi Veggie',
+    description: 'Pancho de sushi vegetariano con palta, queso philadelphia y verduras frescas.',
+    price: 16000,
+    category: Category.PANCHO_SUSHI,
+    image: getAIImage('sushi hot dog pancho vegetarian avocado philadelphia vegetables rice', 6005),
+    badge: 'Novedad'
+  },
+
   // --- NUESTROS ROLLS (x10u) ---
   {
     id: 'r_ba',
@@ -559,8 +655,8 @@ export const BUILDER_UPSELLS: BuilderExtraOption[] = [
   { id: 'u_mara', name: 'Salsa Maracuyá', price: 1500, type: 'UPSELL' },
   { id: 'u_wasabi', name: 'Wasabi Extra', price: 1000, type: 'UPSELL' },
   { id: 'u_jengibre', name: 'Jengibre', price: 1000, type: 'UPSELL' },
-  { id: 'u_coca', name: 'Coca-Cola 500ml', price: 2500, type: 'UPSELL' },
-  { id: 'u_coca_zero', name: 'Coca-Cola Zero 500ml', price: 2500, type: 'UPSELL' },
+  { id: 'u_coca', name: 'Coca-Cola 500ml', price: 3000, type: 'UPSELL' },
+  { id: 'u_coca_zero', name: 'Coca-Cola Zero 500ml', price: 3000, type: 'UPSELL' },
   { id: 'u_agua', name: 'Agua Mineral 500ml', price: 2000, type: 'UPSELL' },
   { id: 'u_postre', name: 'Postre Chocotorta', price: 4500, type: 'UPSELL' },
 ];

@@ -3,6 +3,8 @@ export enum Category {
   COMBO_CLASSIC = 'Combinados Clásicos',
   COMBO_SALMON = 'Combinados de Salmón',
   COMBO_PREMIUM = 'Combinados Premium',
+  SUSHI_BURGER = 'Sushi Burger',
+  PANCHO_SUSHI = 'Pancho Sushi',
   VEGGIE = 'Vegetarianos',
   HOT = 'Hot Rolls',
   STARTER = 'Entraditas',

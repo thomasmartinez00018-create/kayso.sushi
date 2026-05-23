@@ -23,7 +23,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
   };
 
   const handleWhatsAppOrder = () => {
-    const url = trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_NUMBER, { resumen: 'Contacto desde Hero' });
+    const url = trackAndRedirectToWhatsApp(
+      'Hola! Vi la web de Kayso y quiero hacer un pedido para hoy. ¿Tienen disponibilidad y hacen delivery a San Miguel/Muñiz?',
+      WHATSAPP_NUMBER,
+      { resumen: 'Contacto desde Hero', zona: 'San Miguel/Muñiz', modalidad: 'A definir' }
+    );
     if (onRedirect) onRedirect(url);
     setFallbackUrl(url);
   };
@@ -79,12 +83,12 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
           <div className="flex flex-wrap items-stretch gap-3 mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Combos desde</p>
-              <p className="text-white text-xl font-black font-display leading-none">$14.500</p>
+              <p className="text-white text-xl font-black font-display leading-none">$17.500</p>
               <p className="text-gray-600 text-[9px] font-bold mt-0.5">· 15 PIEZAS</p>
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Abierto hoy</p>
-              <p className="text-white text-sm font-bold leading-none">19:00 — 23:30</p>
+              <p className="text-white text-sm font-bold leading-none">19 a 23hs</p>
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
