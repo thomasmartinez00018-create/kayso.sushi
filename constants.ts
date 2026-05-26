@@ -658,7 +658,7 @@ export const BUILDER_UPSELLS: BuilderExtraOption[] = [
   { id: 'u_coca', name: 'Coca-Cola 500ml', price: 3000, type: 'UPSELL' },
   { id: 'u_coca_zero', name: 'Coca-Cola Zero 500ml', price: 3000, type: 'UPSELL' },
   { id: 'u_agua', name: 'Agua Mineral 500ml', price: 2000, type: 'UPSELL' },
-  { id: 'u_postre', name: 'Postre Chocotorta', price: 4500, type: 'UPSELL' },
+  { id: 'u_franui', name: 'Franui', price: 9000, type: 'UPSELL' },
 ];
 
 export const BUILDER_ROLLS: BuilderRollOption[] = [];
