@@ -16,9 +16,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
 
   const handleWhatsApp = () => {
     const url = trackAndRedirectToWhatsApp(
-      'Hola! Quiero hacer un pedido 🍣',
+      'Hola! Estoy en la web de Kayso y quiero hacer un pedido. ¿Hacen delivery a mi zona en San Miguel?',
       WHATSAPP_NUMBER,
-      { resumen: 'CTA Navbar WhatsApp' }
+      { resumen: 'CTA Navbar WhatsApp', zona: 'San Miguel/Muñiz' }
     );
     if (onRedirect) onRedirect(url);
     setIsOpen(false);

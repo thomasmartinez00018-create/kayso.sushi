@@ -47,8 +47,12 @@ export const Locations: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <button 
-                onClick={() => trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_GELLY, { resumen: 'Contacto Sucursal Gelly y Obes', zona: 'San Miguel' })}
+              <button
+                onClick={() => trackAndRedirectToWhatsApp(
+                  'Hola! Quiero pedir a la sucursal Gelly y Obes. ¿Cuál es el tiempo de delivery hoy y a qué zonas llegan?',
+                  WHATSAPP_GELLY,
+                  { resumen: 'Contacto Sucursal Gelly y Obes', zona: 'Gelly y Obes — San Miguel', modalidad: 'A definir' }
+                )}
                 className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
               >
                 <MessageCircle size={20} />
@@ -88,8 +92,12 @@ export const Locations: React.FC = () => {
                   </div>
                 </div>
               </div>
-               <button 
-                onClick={() => trackAndRedirectToWhatsApp('Hola! Quiero hacer un pedido', WHATSAPP_PERON, { resumen: 'Contacto Sucursal Presidente Perón', zona: 'San Miguel' })}
+               <button
+                onClick={() => trackAndRedirectToWhatsApp(
+                  'Hola! Quiero pedir a la sucursal Pte. Perón. ¿Cuál es el tiempo de delivery hoy y a qué zonas llegan?',
+                  WHATSAPP_PERON,
+                  { resumen: 'Contacto Sucursal Pte. Perón', zona: 'Pte. Perón — San Miguel', modalidad: 'A definir' }
+                )}
                 className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
               >
                 <MessageCircle size={20} />

@@ -99,14 +99,27 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
   fireContactEvent(contentName, clientId);
 
   const leadEventId = generateEventId();
+  // SOFT lead — user clicked WA but didn't pre-qualify. No fake value/currency to keep ROAS data clean.
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', 'Lead', {
       external_id: clientId,
       content_name: contentName,
-      value: orderDetails.value || 14500,
-      currency: 'ARS',
     }, { eventID: leadEventId });
   }
+
+  // Server-side CAPI for Lead — no value/currency (clean signal). Geo defaults applied server-side.
+  fetch('/api/meta-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: 'Lead',
+      eventId: leadEventId,
+      content_name: contentName,
+      external_id: clientId,
+      fbp,
+      fbc,
+    }),
+  }).catch(() => {});
 
   window.open(whatsappUrl, '_blank');
 
@@ -190,43 +203,67 @@ function buildCheckoutMessage(clientId: string, items: CartItem[], data: Checkou
   return msg;
 }
 
-function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutData, total: number): { leadEventId: string; purchaseEventId: string } {
+function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutData, total: number): { leadEventId: string; purchaseEventId: string; qualifiedLeadEventId: string } {
   const queryParams = getQueryParams();
   const fbp = getCookie('_fbp');
   const fbc = getCookie('_fbc') || (queryParams.fbclid ? `fb.1.${Date.now()}.${queryParams.fbclid}` : '');
   const contents = items.map(i => ({ id: i.productId, quantity: i.quantity, item_price: i.price }));
   const contentName = items.map(i => `${i.quantity}x ${i.name}`).join(' + ');
+  const numItems = items.reduce((n, i) => n + i.quantity, 0);
+
+  // Customer info passed to CAPI for higher EMQ (Meta hashes server-side)
+  const customerName = (data.customerName || '').trim();
+  const firstName = customerName ? customerName.split(' ')[0] : '';
+  const lastName = customerName && customerName.includes(' ') ? customerName.split(' ').slice(1).join(' ') : '';
 
   // Fire Contact (for fatigue-proof tracking; deduplicated by resumen hash)
   fireContactEvent(`Checkout: ${contentName.slice(0, 60)}`, clientId);
 
-  // Lead event (campaign optimization)
+  // 1. Lead event (campaign optimization — backwards-compatible)
   const leadEventId = generateEventId();
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', 'Lead', {
       external_id: clientId,
       content_name: contentName,
       contents,
-      num_items: items.reduce((n, i) => n + i.quantity, 0),
+      num_items: numItems,
       value: total,
       currency: 'ARS',
     }, { eventID: leadEventId });
   }
 
-  // Purchase event (higher-intent signal — the user confirmed the order)
+  fetch('/api/meta-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: 'Lead',
+      eventId: leadEventId,
+      content_name: contentName,
+      external_id: clientId,
+      fbp,
+      fbc,
+      value: total,
+      currency: 'ARS',
+      contents,
+      num_items: numItems,
+      fn: firstName,
+      ln: lastName,
+    }),
+  }).catch(() => {});
+
+  // 2. InitiateCheckout (browser + CAPI) — every checkout submit fires this
   const purchaseEventId = generateEventId();
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', 'InitiateCheckout', {
       external_id: clientId,
       content_name: contentName,
       contents,
-      num_items: items.reduce((n, i) => n + i.quantity, 0),
+      num_items: numItems,
       value: total,
       currency: 'ARS',
     }, { eventID: purchaseEventId });
   }
 
-  // Server-side CAPI for InitiateCheckout
   fetch('/api/meta-event', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -239,10 +276,45 @@ function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutD
       fbc,
       value: total,
       currency: 'ARS',
+      contents,
+      num_items: numItems,
+      fn: firstName,
+      ln: lastName,
     }),
   }).catch(() => {});
 
-  return { leadEventId, purchaseEventId };
+  // 3. QualifiedLead custom event — fires ONLY when user completed the form (high-intent signal)
+  // Use this as the campaign optimization event in Ads Manager → "QualifiedLead"
+  const qualifiedLeadEventId = generateEventId();
+  if (typeof window !== 'undefined' && (window as any).fbq) {
+    (window as any).fbq('trackCustom', 'QualifiedLead', {
+      external_id: clientId,
+      content_name: contentName,
+      branch: data.branch,
+      mode: data.mode,
+      value: total,
+      currency: 'ARS',
+    }, { eventID: qualifiedLeadEventId });
+  }
+
+  fetch('/api/meta-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: 'QualifiedLead',
+      eventId: qualifiedLeadEventId,
+      content_name: contentName,
+      external_id: clientId,
+      fbp,
+      fbc,
+      value: total,
+      currency: 'ARS',
+      fn: firstName,
+      ln: lastName,
+    }),
+  }).catch(() => {});
+
+  return { leadEventId, purchaseEventId, qualifiedLeadEventId };
 }
 
 export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutData, total: number): string => {
@@ -256,7 +328,7 @@ export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutDa
   const phone = BRANCH_PHONES[data.branch].phone;
   const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-  const { leadEventId, purchaseEventId } = fireCheckoutEvents(clientId, items, data, total);
+  const { leadEventId, purchaseEventId, qualifiedLeadEventId } = fireCheckoutEvents(clientId, items, data, total);
 
   // Open WhatsApp inside click handler (popup blocker compat)
   window.open(whatsappUrl, '_blank');
@@ -292,6 +364,7 @@ export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutDa
     meta_event_name: 'InitiateCheckout',
     meta_event_id: purchaseEventId,
     meta_lead_event_id: leadEventId,
+    meta_qualified_lead_event_id: qualifiedLeadEventId,
     origen_actualizacion: 'checkout',
   };
 

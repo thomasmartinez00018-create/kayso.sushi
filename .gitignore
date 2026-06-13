@@ -14,3 +14,12 @@ dist/
 .DS_Store
 .claude/
 *.log
+.vercel
+# Documentos internos de trabajo (no publicar en repo público)
+*-REPORT.md
+PLAN-*.md
+REPORTE-*.md
+TRACKING-SETUP.md
+BRAND.md
+ad-assets-*/
+migrated_prompt_history/

@@ -10,9 +10,9 @@ interface HowToOrderProps {
 export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
   const handleWhatsApp = () => {
     const url = trackAndRedirectToWhatsApp(
-      'Hola! Quiero hacer un pedido 🍣',
+      'Hola! Vi cómo funciona el pedido en la web y quiero arrancar. ¿Hacen delivery a mi zona en San Miguel/Muñiz?',
       WHATSAPP_NUMBER,
-      { resumen: 'CTA sección Cómo Pedir' }
+      { resumen: 'CTA sección Cómo Pedir', zona: 'San Miguel/Muñiz' }
     );
     if (onRedirect) onRedirect(url);
   };

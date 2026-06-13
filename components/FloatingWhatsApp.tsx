@@ -29,9 +29,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
 
   const handleWhatsApp = () => {
     const url = trackAndRedirectToWhatsApp(
-      'Hola! Quiero hacer un pedido 🍣',
+      'Hola! Estoy mirando los combos en la web. Quiero hacer un pedido — ¿hacen delivery a mi zona?',
       WHATSAPP_NUMBER,
-      { resumen: 'Botón flotante WhatsApp' }
+      { resumen: 'Botón flotante WhatsApp', zona: 'San Miguel/Muñiz' }
     );
     onRedirect(url);
     setFallbackUrl(url);

@@ -13,13 +13,22 @@ import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { CartDrawer } from './components/CartDrawer';
 import { CartToast } from './components/CartToast';
 import { Checkout } from './components/Checkout';
+import { ArmaTuComboLanding } from './components/ArmaTuComboLanding';
 import { CartProvider } from './contexts/CartContext';
 import { ViewState, MenuItem, Testimonial } from './types';
 import { fetchMenuFromSheet, fetchReviewsFromSheet } from './services/sheetService';
 import { MENU_ITEMS, TESTIMONIALS } from './constants';
 
+const getInitialView = (): ViewState => {
+  if (typeof window !== 'undefined') {
+    const path = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+    if (path === '/armatucombo') return 'ARMATUCOMBO';
+  }
+  return 'HOME';
+};
+
 function AppInner() {
-  const [view, setView] = useState<ViewState>('HOME');
+  const [view, setView] = useState<ViewState>(getInitialView);
   const [menuItems, setMenuItems] = useState<MenuItem[]>(MENU_ITEMS);
   const [reviews, setReviews] = useState<Testimonial[]>(TESTIMONIALS);
   const [loading, setLoading] = useState(true);
@@ -58,9 +67,15 @@ function AppInner() {
 
   return (
     <div className="min-h-screen bg-kayso-dark flex flex-col font-sans selection:bg-kayso-orange selection:text-white">
-      <Navbar currentView={view} setView={setView} onRedirect={handleRedirect} />
+      {view !== 'ARMATUCOMBO' && (
+        <Navbar currentView={view} setView={setView} onRedirect={handleRedirect} />
+      )}
 
       <main className="flex-grow">
+        {view === 'ARMATUCOMBO' && (
+          <ArmaTuComboLanding menuItems={menuItems} onCheckout={goToCheckout} />
+        )}
+
         {view === 'HOME' && (
           <>
             <Hero onViewMenu={() => setView('MENU')} onOpenBuilder={() => setView('BUILDER')} onRedirect={handleRedirect} />
@@ -99,10 +114,10 @@ function AppInner() {
         )}
       </main>
 
-      <Footer />
+      {view !== 'ARMATUCOMBO' && <Footer />}
 
-      {/* WhatsApp floating CTA — hidden in builder/redirect/checkout */}
-      {view !== 'BUILDER' && view !== 'REDIRECT' && view !== 'CHECKOUT' && (
+      {/* WhatsApp floating CTA — hidden in builder/redirect/checkout/landing */}
+      {view !== 'BUILDER' && view !== 'REDIRECT' && view !== 'CHECKOUT' && view !== 'ARMATUCOMBO' && (
         <FloatingWhatsApp onRedirect={handleRedirect} />
       )}
 

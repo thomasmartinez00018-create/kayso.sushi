@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowLeft, MapPin, Truck, Store, Banknote, CreditCard, Smartphone, FileText, User, Check, ShoppingCart, AlertCircle } from 'lucide-react';
+import { ArrowLeft, MapPin, Truck, Store, Banknote, CreditCard, Smartphone, FileText, User, Check, ShoppingCart, AlertCircle, Clock, Shield } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { DeliveryMode, PaymentMethod, Branch, CheckoutData } from '../types';
 import { trackAndRedirectFromCheckout } from '../services/trackingService';
@@ -85,7 +85,10 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
           <h1 className="text-4xl font-black font-display text-white mb-2">
             Último <span className="text-kayso-orange">paso</span>
           </h1>
-          <p className="text-gray-400 text-sm">Completá los datos para que preparemos tu pedido sin demoras.</p>
+          <p className="text-gray-400 text-sm mb-3">Completá los datos para que preparemos tu pedido sin demoras.</p>
+          <div className="inline-flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/25 text-[#25D366] px-3 py-1.5 rounded-full text-[11px] font-bold">
+            <Clock size={12} /> Solo 30 segundos · Te respondemos por WhatsApp en 2 min
+          </div>
         </div>
 
         {/* Order Summary */}
@@ -112,28 +115,14 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
           </div>
         </section>
 
-        {/* Customer Name */}
-        <section className="mb-6">
-          <label className="block text-white font-bold text-sm mb-2 flex items-center gap-2">
-            <User size={15} className="text-kayso-orange" /> Tu nombre <span className="text-gray-600 text-xs font-normal">(opcional)</span>
-          </label>
-          <input
-            type="text"
-            value={customerName}
-            onChange={e => setCustomerName(e.target.value)}
-            placeholder="Para saludarte al confirmar"
-            className="w-full bg-[#0c0c0c] border border-gray-800 focus:border-kayso-orange text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-700"
-          />
-        </section>
-
         {/* Branch */}
         <section className="mb-6">
           <label className="block text-white font-bold text-sm mb-3 flex items-center gap-2">
             <MapPin size={15} className="text-kayso-orange" /> Sucursal
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <BranchOption selected={branch === 'gelly'} onClick={() => setBranch('gelly')} title="Gelly y Obes" subtitle="San Miguel" />
             <BranchOption selected={branch === 'peron'} onClick={() => setBranch('peron')} title="Pte. Perón" subtitle="San Miguel" />
+            <BranchOption selected={branch === 'gelly'} onClick={() => setBranch('gelly')} title="Gelly y Obes" subtitle="San Miguel" />
           </div>
           {attemptedSubmit && errors.branch && <FieldError message={errors.branch} />}
         </section>
@@ -187,6 +176,20 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
           {attemptedSubmit && errors.payment && <FieldError message={errors.payment} />}
         </section>
 
+        {/* Customer Name (opcional, al final) */}
+        <section className="mb-6">
+          <label className="block text-white font-bold text-sm mb-2 flex items-center gap-2">
+            <User size={15} className="text-kayso-orange" /> Tu nombre <span className="text-gray-600 text-xs font-normal">(opcional)</span>
+          </label>
+          <input
+            type="text"
+            value={customerName}
+            onChange={e => setCustomerName(e.target.value)}
+            placeholder="Para saludarte al confirmar"
+            className="w-full bg-[#0c0c0c] border border-gray-800 focus:border-kayso-orange text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-700"
+          />
+        </section>
+
         {/* Notes */}
         <section className="mb-6">
           <label className="block text-white font-bold text-sm mb-2 flex items-center gap-2">
@@ -200,6 +203,12 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
             className="w-full bg-[#0c0c0c] border border-gray-800 focus:border-kayso-orange text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors resize-none placeholder:text-gray-700"
           />
         </section>
+
+        {/* Trust signal */}
+        <div className="mb-2 flex items-start gap-2 text-gray-500 text-[11px] leading-relaxed">
+          <Shield size={13} className="text-[#25D366] flex-shrink-0 mt-0.5" />
+          <p>Tu pedido va directo al WhatsApp de la sucursal elegida. <span className="text-gray-400">Confirmamos disponibilidad y tiempo en menos de 2 minutos.</span></p>
+        </div>
 
         {/* Submit button — sticky */}
         <div className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-xl border-t border-gray-800 p-4 z-40 pb-safe">
@@ -217,7 +226,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
                   : 'bg-gray-800 text-gray-500 cursor-not-allowed'
               }`}
             >
-              <Check size={18} /> Enviar pedido por WhatsApp
+              <Check size={18} /> Enviar pedido — respuesta en 2 min
             </button>
           </div>
         </div>

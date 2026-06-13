@@ -648,6 +648,10 @@ export const COMBO_SIZES: ComboSize[] = [
 ];
 
 export const BUILDER_UPSELLS: BuilderExtraOption[] = [
+  // Cross-sell de comida de alto valor primero (sube el ticket mucho más que la bebida)
+  { id: 'u_burger', name: 'Sushi Burger (salmón fresco)', price: 18000, type: 'UPSELL' },
+  { id: 'u_pancho', name: 'Pancho Sushi (salmón fresco)', price: 16000, type: 'UPSELL' },
+  { id: 'u_langostinos', name: 'Langostinos Rebozados (x7)', price: 14000, type: 'UPSELL' },
   { id: 'u_palitos', name: 'Palitos Extra', price: 500, type: 'UPSELL' },
   { id: 'u_soja', name: 'Salsa de Soja Extra', price: 1000, type: 'UPSELL' },
   { id: 'u_ba', name: 'Salsa Buenos Aires', price: 1500, type: 'UPSELL' },

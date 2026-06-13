@@ -44,7 +44,7 @@ export interface BlogPost {
   content: string;
 }
 
-export type ViewState = 'HOME' | 'MENU' | 'LOCATIONS' | 'BLOG' | 'BUILDER' | 'BLOG_POST' | 'REDIRECT' | 'CHECKOUT';
+export type ViewState = 'HOME' | 'MENU' | 'LOCATIONS' | 'BLOG' | 'BUILDER' | 'BLOG_POST' | 'REDIRECT' | 'CHECKOUT' | 'ARMATUCOMBO';
 
 export interface CartItem {
   id: string;           // unique cart line id
