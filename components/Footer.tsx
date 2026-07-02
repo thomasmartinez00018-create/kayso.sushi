@@ -34,8 +34,8 @@ export const Footer: React.FC = () => {
                 <Clock size={16} className="text-kayso-orange flex-shrink-0 mt-1" />
                 <div>
                     <p className="text-white font-bold">Horarios</p>
-                    <p>Mar a Dom: 11:30 a 14:30</p>
-                    <p>y 19:00 a 23:30</p>
+                    <p>Mediodía (Perón): Mar a Sáb 11:30 a 14:30</p>
+                    <p>Noche: Mar a Dom 18:30 a 22:30</p>
                 </div>
               </div>
               <div className="flex gap-2">

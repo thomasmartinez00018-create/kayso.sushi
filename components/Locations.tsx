@@ -39,7 +39,7 @@ export const Locations: React.FC = () => {
                   </div>
                   <div className="flex items-start gap-3">
                     <Clock className="text-kayso-orange flex-shrink-0" />
-                    <span className="text-gray-300">Mar a Dom: 11:30 a 14:30 y 19:00 a 23:30</span>
+                    <span className="text-gray-300">Mié a Dom: 18:00 a 22:30</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="text-kayso-orange flex-shrink-0" />
@@ -84,7 +84,7 @@ export const Locations: React.FC = () => {
                   </div>
                   <div className="flex items-start gap-3">
                     <Clock className="text-kayso-orange flex-shrink-0" />
-                    <span className="text-gray-300">Mar a Dom: 11:30 a 14:30 y 19:00 a 23:30</span>
+                    <span className="text-gray-300">Mar a Sáb: 11:30 a 14:30 · Mar a Dom: 18:30 a 22:30</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="text-kayso-orange flex-shrink-0" />

@@ -88,7 +88,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Abierto hoy</p>
-              <p className="text-white text-sm font-bold leading-none">19 a 23hs</p>
+              <p className="text-white text-sm font-bold leading-none">18:30 a 22:30hs</p>
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>

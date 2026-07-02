@@ -139,7 +139,7 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
       {/* ============ FIRMA ============ */}
       <footer className="py-10 text-center border-t border-white/5">
         <p className="font-display font-black text-2xl tracking-tight">KAYSO<span className="text-kayso-orange">.</span></p>
-        <p className="text-gray-500 text-sm mt-1">Gelly y Obes 2308 · Pte. Perón 1991 — San Miguel · Mar a Dom 19 a 23hs</p>
+        <p className="text-gray-500 text-sm mt-1">Gelly y Obes 2308 · Pte. Perón 1991 — San Miguel · Noches 18:30 a 22:30</p>
       </footer>
     </div>
   );
