@@ -81,6 +81,7 @@ function AppInner() {
             <Hero onViewMenu={() => setView('MENU')} onOpenBuilder={() => setView('BUILDER')} onRedirect={handleRedirect} />
             <MenuPreview items={menuItems} onOpenBuilder={() => setView('BUILDER')} loading={loading} onRedirect={handleRedirect} />
             <HowToOrder onRedirect={handleRedirect} />
+            <Locations />
             <Testimonials items={reviews} />
           </>
         )}
