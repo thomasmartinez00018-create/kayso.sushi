@@ -25,11 +25,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
                     <path d="M12 5.38C13.62 5.38 15.06 5.94 16.2 7.03L19.34 3.89C17.45 2.13 14.97 1.05 12 1.05C7.68 1.05 3.91 3.44 2.16 6.93L5.84 9.78C6.71 7.17 9.13 5.38 12 5.38Z" fill="#EA4335"/>
                 </svg>
               </span>
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">RESEÑAS VERIFICADAS</p>
+              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">OPINIONES DE CLIENTES</p>
            </div>
-          <p className="text-[10px] text-gray-600 uppercase tracking-[0.3em] font-black mb-2">— Reseñas verificadas —</p>
+          <p className="text-[10px] text-gray-600 uppercase tracking-[0.3em] font-black mb-2">— Opiniones de clientes —</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-0 font-display">
-            Lo que dicen en <span className="text-kayso-orange">Google</span>
+            Lo que dicen nuestros <span className="text-kayso-orange">clientes</span>
           </h2>
         </div>
 
