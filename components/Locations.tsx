@@ -106,6 +106,30 @@ export const Locations: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Envíos por zona + descuentos (datos Gladys 2-jul-2026) */}
+        <div className="mt-8 bg-gray-800 rounded-2xl border border-gray-700 p-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-white mb-3">🛵 Envío a domicilio</h3>
+              <p className="text-gray-300 mb-2"><span className="text-kayso-orange font-bold">GRATIS</span> en la zona céntrica de San Miguel.</p>
+              <p className="text-gray-300 mb-4">Resto de las zonas entre <span className="font-bold text-white">$1.500 y $3.000</span> según tu barrio.</p>
+              <a
+                href="https://goo.gl/maps/jgtWdWvo47fQjyYN8"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-2 text-kayso-orange font-bold hover:underline"
+              >
+                Ver el mapa de zonas y costos →
+              </a>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-3">💵 Pagando en efectivo</h3>
+              <p className="text-gray-300 mb-2"><span className="text-kayso-orange font-bold">10% de descuento</span> todos los días.</p>
+              <p className="text-gray-300"><span className="text-kayso-orange font-bold">20% de descuento</span> los miércoles.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

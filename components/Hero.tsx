@@ -94,6 +94,10 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
               <p className="text-white text-xs font-bold leading-none">San Miguel / Muñiz</p>
             </div>
+            <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
+              <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Pagando en efectivo</p>
+              <p className="text-white text-xs font-bold leading-none">10% OFF · Miérc. 20% OFF</p>
+            </div>
           </div>
           
           <p className="text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

@@ -56,7 +56,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
                   {item.avatar ? (
                     <img src={item.avatar} alt={item.name} className="w-9 h-9 rounded-full border border-gray-700" />
                   ) : (
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white font-bold text-xs border border-blue-500/20">
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white font-bold text-xs border border-red-500/20">
                       {item.name.charAt(0)}
                     </div>
                   )}

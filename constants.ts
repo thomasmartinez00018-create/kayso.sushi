@@ -612,7 +612,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Brenda Camaño',
     handle: '@brendac',
     text: 'El Buenos Aires es adictivo, realmente muy fresco todo. El mejor sushi de San Miguel.',
-    avatar: 'https://i.pravatar.cc/150?u=brenda',
+    avatar: '',
     stars: 5,
     date: 'Hace 2 semanas',
     product: 'Buenos Aires Roll'
@@ -622,7 +622,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Agostina Hellner',
     handle: '@agostina',
     text: 'Excelente relación precio-calidad. Los combos premium son increíbles.',
-    avatar: 'https://i.pravatar.cc/150?u=agostina',
+    avatar: '',
     stars: 5,
     date: 'Hace 1 mes',
     product: 'Combinado Premium'
@@ -632,7 +632,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Mauro Benitez',
     handle: '@mauro',
     text: 'Llegó súper rápido y la presentación es de 10. Muy recomendable.',
-    avatar: 'https://i.pravatar.cc/150?u=mauro',
+    avatar: '',
     stars: 5,
     date: 'Hace 3 días',
     product: 'Combinado Salmón'
