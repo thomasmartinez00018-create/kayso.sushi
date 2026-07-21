@@ -3,6 +3,7 @@ import { ArrowLeft, MapPin, Truck, Store, Banknote, CreditCard, Smartphone, File
 import { useCart } from '../contexts/CartContext';
 import { DeliveryMode, PaymentMethod, Branch, CheckoutData } from '../types';
 import { trackAndRedirectFromCheckout } from '../services/trackingService';
+import { getCashDiscountRate } from '../constants';
 
 interface CheckoutProps {
   onBack: () => void;
@@ -32,6 +33,10 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
   }, [branch, mode, address, payment]);
 
   const canSubmit = Object.keys(errors).length === 0 && items.length > 0 && !submitting;
+
+  const discountRate = getCashDiscountRate(payment);
+  const discount = Math.round(subtotal * discountRate);
+  const finalTotal = subtotal - discount;
 
   const handleSubmit = () => {
     setAttemptedSubmit(true);
@@ -104,14 +109,27 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
                   {item.details && <span className="block text-gray-600 text-[11px] mt-0.5">{item.details}</span>}
                 </span>
                 <span className="text-white font-black font-display whitespace-nowrap">
-                  ${(item.price * item.quantity).toLocaleString()}
+                  ${(item.price * item.quantity).toLocaleString('es-AR')}
                 </span>
               </div>
             ))}
           </div>
+          {discountRate > 0 && (
+            <div className="flex justify-between items-center text-sm mb-1 animate-fade-in">
+              <span className="text-[#25D366] font-bold flex items-center gap-1.5">
+                <Banknote size={14} /> Descuento efectivo ({Math.round(discountRate * 100)}% OFF)
+              </span>
+              <span className="text-[#25D366] font-black font-display whitespace-nowrap">−${discount.toLocaleString('es-AR')}</span>
+            </div>
+          )}
           <div className="border-t border-gray-800 pt-3 flex justify-between items-center">
             <span className="text-gray-500 text-xs uppercase tracking-widest font-bold">Total</span>
-            <span className="text-kayso-orange font-black font-display text-2xl">${subtotal.toLocaleString()}</span>
+            <span className="flex items-baseline gap-2">
+              {discountRate > 0 && (
+                <span className="text-gray-600 text-base font-display line-through">${subtotal.toLocaleString('es-AR')}</span>
+              )}
+              <span className="text-kayso-orange font-black font-display text-2xl">${finalTotal.toLocaleString('es-AR')}</span>
+            </span>
           </div>
         </section>
 
@@ -169,7 +187,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
         <section className="mb-6">
           <label className="block text-white font-bold text-sm mb-3">Forma de pago</label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <PaymentOption selected={payment === 'efectivo'} onClick={() => setPayment('efectivo')} icon={<Banknote size={20} />} title="Efectivo" />
+            <PaymentOption selected={payment === 'efectivo'} onClick={() => setPayment('efectivo')} icon={<Banknote size={20} />} title="Efectivo" badge="10% OFF · miérc. 20%" />
             <PaymentOption selected={payment === 'transferencia'} onClick={() => setPayment('transferencia')} icon={<CreditCard size={20} />} title="Transferencia" />
             <PaymentOption selected={payment === 'mercadopago'} onClick={() => setPayment('mercadopago')} icon={<Smartphone size={20} />} title="Mercado Pago" />
           </div>
@@ -215,7 +233,15 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             <div className="flex-1 w-full sm:w-auto">
               <p className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Total</p>
-              <p className="text-white font-black font-display text-2xl">${subtotal.toLocaleString()}</p>
+              <div className="flex items-baseline gap-2">
+                {discountRate > 0 && (
+                  <span className="text-gray-600 text-base font-display line-through">${subtotal.toLocaleString('es-AR')}</span>
+                )}
+                <p className="text-white font-black font-display text-2xl">${finalTotal.toLocaleString('es-AR')}</p>
+              </div>
+              {discountRate > 0 && (
+                <p className="text-[#25D366] text-[10px] font-bold">{Math.round(discountRate * 100)}% OFF pagando en efectivo</p>
+              )}
             </div>
             <button
               onClick={handleSubmit}
@@ -277,10 +303,10 @@ const ModeOption: React.FC<{ selected: boolean; onClick: () => void; icon: React
   </button>
 );
 
-const PaymentOption: React.FC<{ selected: boolean; onClick: () => void; icon: React.ReactNode; title: string }> = ({ selected, onClick, icon, title }) => (
+const PaymentOption: React.FC<{ selected: boolean; onClick: () => void; icon: React.ReactNode; title: string; badge?: string }> = ({ selected, onClick, icon, title, badge }) => (
   <button
     onClick={onClick}
-    className={`relative p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 text-center ${
+    className={`relative p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 text-center ${
       selected
         ? 'border-kayso-orange bg-kayso-orange/10'
         : 'border-gray-800 bg-[#0c0c0c] hover:border-gray-600'
@@ -293,6 +319,7 @@ const PaymentOption: React.FC<{ selected: boolean; onClick: () => void; icon: Re
     )}
     <div className={selected ? 'text-kayso-orange' : 'text-gray-500'}>{icon}</div>
     <h3 className="text-white font-bold text-sm">{title}</h3>
+    {badge && <span className="text-[#25D366] text-[10px] font-black uppercase tracking-wide leading-tight">{badge}</span>}
   </button>
 );
 

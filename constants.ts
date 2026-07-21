@@ -13,7 +13,18 @@ export const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwyL6GF
 export const WHATSAPP_GELLY = "5491150538254";
 export const WHATSAPP_PERON = "5491128627514";
 // Default number for general CTA
-export const WHATSAPP_NUMBER = WHATSAPP_GELLY; 
+export const WHATSAPP_NUMBER = WHATSAPP_GELLY;
+
+// --- DESCUENTO EN EFECTIVO (fuente única: checkout + mensaje de WhatsApp) ---
+export const CASH_DISCOUNT_BASE = 0.10;      // 10% todos los días pagando en efectivo
+export const CASH_DISCOUNT_WEDNESDAY = 0.20; // 20% los miércoles
+
+/** Tasa de descuento vigente pagando en efectivo según el día (0 si no es efectivo). */
+export const getCashDiscountRate = (payment?: string | null): number => {
+  if (payment !== 'efectivo') return 0;
+  const isWednesday = new Date().getDay() === 3; // 3 = miércoles
+  return isWednesday ? CASH_DISCOUNT_WEDNESDAY : CASH_DISCOUNT_BASE;
+};
 
 // Helper to generate AI Image URLs - Optimized for sharpness
 const getAIImage = (prompt: string, seed: number) => 

@@ -32,6 +32,17 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
     setFallbackUrl(url);
   };
 
+  // Banner que continúa la promesa del ad de origen (?promo=miercoles|enviogratis). Inerte sin el param.
+  const promoMessage = (() => {
+    if (typeof window === 'undefined') return null;
+    const p = new URLSearchParams(window.location.search).get('promo');
+    const PROMOS: Record<string, string> = {
+      miercoles: 'Los miércoles: 20% OFF pagando en efectivo',
+      enviogratis: 'Envío GRATIS en la zona céntrica de San Miguel',
+    };
+    return p && PROMOS[p] ? PROMOS[p] : null;
+  })();
+
   return (
     <div className="relative bg-kayso-dark overflow-hidden min-h-[85vh] flex items-center">
       {/* Background Image with Overlay */}
@@ -62,9 +73,15 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
         <div className="absolute top-0 right-[38%] w-px h-full opacity-[0.07]" style={{ background: 'linear-gradient(to bottom, transparent 0%, #FF2200 40%, transparent 100%)' }}></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         <div className="md:w-2/3 lg:w-1/2">
-          <div className="flex items-center gap-4 mb-8 animate-fade-in-up">
+          {promoMessage && (
+            <div className="mb-5 inline-flex items-center gap-2 bg-kayso-orange text-white px-4 py-2 rounded-full text-xs sm:text-sm font-black uppercase tracking-wide animate-fade-in-up shadow-lg shadow-kayso-orange/30">
+              🔥 {promoMessage}
+            </div>
+          )}
+
+          <div className="flex items-center gap-4 mb-5 sm:mb-8 animate-fade-in-up">
             <div className="w-8 h-px bg-kayso-orange flex-shrink-0"></div>
             <span className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.28em]">San Miguel & Muñiz</span>
             <div className="flex text-yellow-500 gap-0.5">
@@ -80,7 +97,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             <span className="block text-3xl sm:text-4xl md:text-5xl mt-2">EN MINUTOS</span>
           </h1>
 
-          <div className="flex flex-wrap items-stretch gap-3 mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="flex flex-wrap items-stretch gap-2 sm:gap-3 mb-5 sm:mb-8 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Combos desde</p>
               <p className="text-white text-xl font-black font-display leading-none">$17.500</p>
@@ -92,7 +109,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
-              <p className="text-white text-xs font-bold leading-none">San Miguel / Muñiz</p>
+              <p className="text-white text-xs font-bold leading-none">San Miguel · Muñiz · B. Vista · J.C. Paz</p>
             </div>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Pagando en efectivo</p>
@@ -100,24 +117,24 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
           </div>
           
-          <p className="text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <p className="hidden sm:block text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Calidad premium, ingredientes frescos y la libertad de elegir. Elegí una de nuestras selecciones curadas o armá tu tabla pieza por pieza.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+
+          <div data-cta-anchor className="flex flex-col sm:flex-row gap-4 animate-fade-in-up mt-2 sm:mt-0" style={{ animationDelay: '0.3s' }}>
             <button
-              onClick={handleViewPremium}
+              onClick={onOpenBuilder}
               className="group relative overflow-hidden bg-kayso-orange text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/30"
               style={{ boxShadow: '0 8px 32px rgba(255,34,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)' }}
             >
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
-              VER SELECCIONES PREMIUM
+              ARMÁ TU COMBO
             </button>
             <button
-              onClick={onOpenBuilder}
+              onClick={handleViewPremium}
               className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl border border-white/[0.1] hover:border-white/20 text-white px-10 py-5 rounded-2xl font-black font-display text-lg transition-all flex items-center justify-center gap-2"
             >
-              Armá tu combo
+              Ver selecciones
             </button>
           </div>
 

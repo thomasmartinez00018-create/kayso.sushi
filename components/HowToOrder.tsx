@@ -74,7 +74,7 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center gap-5">
+        <div data-cta-anchor className="mt-16 flex flex-col items-center gap-5">
           <div className="flex items-center gap-3 text-gray-600">
             <div className="w-12 h-px bg-gray-800"></div>
             <p className="text-xs font-bold uppercase tracking-widest">¿Listo para pedir?</p>

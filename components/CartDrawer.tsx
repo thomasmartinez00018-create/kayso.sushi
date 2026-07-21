@@ -148,7 +148,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
                         </button>
                       </div>
                       <p className="text-white font-black font-display">
-                        ${(item.price * item.quantity).toLocaleString()}
+                        ${(item.price * item.quantity).toLocaleString('es-AR')}
                       </p>
                     </div>
                   </div>
@@ -160,7 +160,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
             <div className="border-t border-gray-800 px-5 py-4 bg-black/40 backdrop-blur-md">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-gray-500 text-xs uppercase tracking-widest font-bold">Subtotal</span>
-                <span className="text-white font-black font-display text-2xl">${subtotal.toLocaleString()}</span>
+                <span className="text-white font-black font-display text-2xl">${subtotal.toLocaleString('es-AR')}</span>
               </div>
               <p className="text-gray-600 text-[11px] mb-3 leading-relaxed">
                 Envío y forma de pago se coordinan en el siguiente paso.

@@ -15,6 +15,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
   const { count, subtotal, openDrawer } = useCart();
   const hasCart = count > 0;
 
+  // Se esconde mientras un CTA de la página esté visible (no pisar botones del hero/sucursales/CTA final)
+  const [ctaVisible, setCtaVisible] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 1500);
     const handleScroll = () => {
@@ -25,6 +28,24 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
       clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    const anchors = document.querySelectorAll('[data-cta-anchor]');
+    if (anchors.length === 0) return;
+    const shown = new Set<Element>();
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) shown.add(e.target);
+          else shown.delete(e.target);
+        });
+        setCtaVisible(shown.size > 0);
+      },
+      { rootMargin: '-10% 0px -10% 0px' }
+    );
+    anchors.forEach(a => observer.observe(a));
+    return () => observer.disconnect();
   }, []);
 
   const handleWhatsApp = () => {
@@ -44,7 +65,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
   return (
     <div
       className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        visible && (hasCart || !ctaVisible) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >
       {hasCart ? (
@@ -65,7 +86,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
             </div>
             <div className="flex flex-col items-start leading-tight">
               <span className="text-[10px] font-bold uppercase tracking-wider opacity-90">Tu pedido</span>
-              <span className="text-sm font-black whitespace-nowrap">${subtotal.toLocaleString()} · Finalizar</span>
+              <span className="text-sm font-black whitespace-nowrap">${subtotal.toLocaleString('es-AR')} · Finalizar</span>
             </div>
             <ArrowRight size={16} className="ml-1" />
           </div>

@@ -247,7 +247,7 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
         </div>
       )}
       <div className="absolute bottom-3 right-3 z-10 bg-black/70 backdrop-blur-sm border border-white/10 px-2.5 py-1 rounded-lg">
-        <span className="text-white font-black text-base font-display">${item.price.toLocaleString()}</span>
+        <span className="text-white font-black text-base font-display">${item.price.toLocaleString('es-AR')}</span>
       </div>
     </div>
     <div className="p-5 flex flex-col flex-grow">
@@ -303,7 +303,7 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
           COMBOS
         </div>
         <div className="absolute bottom-3 right-3 z-10 bg-black/70 backdrop-blur-sm border border-white/10 px-2.5 py-1 rounded-lg">
-          <span className="text-white font-black text-base font-display">${selectedItem.price.toLocaleString()}</span>
+          <span className="text-white font-black text-base font-display">${selectedItem.price.toLocaleString('es-AR')}</span>
         </div>
       </div>
       <div className="p-5 flex flex-col flex-grow">

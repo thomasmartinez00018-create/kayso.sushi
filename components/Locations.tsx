@@ -48,6 +48,7 @@ export const Locations: React.FC = () => {
                 </div>
               </div>
               <button
+                data-cta-anchor
                 onClick={() => trackAndRedirectToWhatsApp(
                   'Hola! Quiero pedir a la sucursal Gelly y Obes. ¿Cuál es el tiempo de delivery hoy y a qué zonas llegan?',
                   WHATSAPP_GELLY,
@@ -93,6 +94,7 @@ export const Locations: React.FC = () => {
                 </div>
               </div>
                <button
+                data-cta-anchor
                 onClick={() => trackAndRedirectToWhatsApp(
                   'Hola! Quiero pedir a la sucursal Pte. Perón. ¿Cuál es el tiempo de delivery hoy y a qué zonas llegan?',
                   WHATSAPP_PERON,

@@ -1,4 +1,5 @@
 import { CartItem, CheckoutData } from '../types';
+import { getCashDiscountRate } from '../constants';
 
 export const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUk07_6e3m4kbpSKEJW1K5yUDmUtCzEbNrPTDMiWo7LreAmaXIybt0vosZrI8yUaQI4w/exec';
 
@@ -189,11 +190,20 @@ function buildCheckoutMessage(clientId: string, items: CartItem[], data: Checkou
 
   msg += `\n*Productos:*\n`;
   items.forEach(item => {
-    msg += `• ${item.quantity}x ${item.name} — $${(item.price * item.quantity).toLocaleString()}\n`;
+    msg += `• ${item.quantity}x ${item.name} — $${(item.price * item.quantity).toLocaleString('es-AR')}\n`;
     if (item.details) msg += `   _${item.details}_\n`;
   });
 
-  msg += `\n*TOTAL: $${total.toLocaleString()}*\n`;
+  const discountRate = getCashDiscountRate(payment);
+  if (discountRate > 0) {
+    const discount = Math.round(total * discountRate);
+    const finalTotal = total - discount;
+    msg += `\nSubtotal: $${total.toLocaleString('es-AR')}\n`;
+    msg += `Descuento efectivo (${Math.round(discountRate * 100)}% OFF): −$${discount.toLocaleString('es-AR')}\n`;
+    msg += `\n*TOTAL A COBRAR: $${finalTotal.toLocaleString('es-AR')}*\n`;
+  } else {
+    msg += `\n*TOTAL: $${total.toLocaleString('es-AR')}*\n`;
+  }
 
   if (notes && notes.trim().length > 0) {
     msg += `\n📝 *Notas:* ${notes.trim()}\n`;

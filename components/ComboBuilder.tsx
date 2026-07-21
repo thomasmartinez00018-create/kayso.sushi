@@ -208,7 +208,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
             {size.slots} Gustos
           </div>
           <h3 className="text-3xl font-bold font-display text-white mb-2">{size.pieces} <span className="text-xl font-normal font-sans text-gray-400">Piezas</span></h3>
-          <p className="text-kayso-orange font-bold font-display text-2xl mb-4">${size.basePrice.toLocaleString()}</p>
+          <p className="text-kayso-orange font-bold font-display text-2xl mb-4">${size.basePrice.toLocaleString('es-AR')}</p>
           <p className="text-gray-400 text-sm">Ideal para {Math.round((size.pieces as number) / 15)} personas aprox.</p>
         </button>
       ))}
@@ -383,7 +383,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
             <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-start">
               <div>
                 <p className="text-gray-400 text-xs uppercase">Total Estimado</p>
-                <p className="text-3xl font-bold font-display text-white">${totalPrice.toLocaleString()}</p>
+                <p className="text-3xl font-bold font-display text-white">${totalPrice.toLocaleString('es-AR')}</p>
               </div>
               <div className="text-right sm:text-left">
                  <p className="text-gray-400 text-xs uppercase">Detalle</p>
