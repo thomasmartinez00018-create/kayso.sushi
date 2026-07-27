@@ -88,11 +88,13 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
   const fbc = getCookie('_fbc') || (queryParams.fbclid ? `fb.1.${Date.now()}.${queryParams.fbclid}` : '');
   const timestamp = new Date().toISOString();
 
-  let whatsappMessage = `Pedido Kayso | ID: ${clientId}\n`;
-  if (orderDetails.zona) whatsappMessage += `Zona: ${orderDetails.zona}\n`;
-  if (orderDetails.tipo) whatsappMessage += `Tipo: ${orderDetails.tipo}\n`;
-  if (orderDetails.modalidad) whatsappMessage += `Modalidad: ${orderDetails.modalidad}\n`;
-  whatsappMessage += `\n${baseMessage}`;
+  const trackingTags: string[] = [];
+  if (orderDetails.zona) trackingTags.push(`Zona: ${orderDetails.zona}`);
+  if (orderDetails.tipo) trackingTags.push(`Tipo: ${orderDetails.tipo}`);
+  if (orderDetails.modalidad) trackingTags.push(`Modalidad: ${orderDetails.modalidad}`);
+  trackingTags.push(`ID: ${clientId}`);
+
+  const whatsappMessage = `${baseMessage}\n\n(${trackingTags.join(' · ')})`;
 
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
   const contentName = orderDetails.resumen || 'Pedido WhatsApp';
