@@ -42,7 +42,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
         });
         setCtaVisible(shown.size > 0);
       },
-      { rootMargin: '-10% 0px -10% 0px' }
+      { rootMargin: '-55% 0px 0px 0px' }
     );
     anchors.forEach(a => observer.observe(a));
     return () => observer.disconnect();

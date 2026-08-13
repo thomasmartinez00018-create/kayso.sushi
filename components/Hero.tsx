@@ -121,7 +121,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             Calidad premium, ingredientes frescos y la libertad de elegir. Elegí una de nuestras selecciones curadas o armá tu tabla pieza por pieza.
           </p>
 
-          <div data-cta-anchor className="flex flex-col sm:flex-row gap-4 animate-fade-in-up mt-2 sm:mt-0" style={{ animationDelay: '0.3s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up mt-2 sm:mt-0" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onOpenBuilder}
               className="group relative overflow-hidden bg-kayso-orange text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/30"
