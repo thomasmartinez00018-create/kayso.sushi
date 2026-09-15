@@ -340,7 +340,10 @@ export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutDa
   const phone = BRANCH_PHONES[data.branch].phone;
   const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-  const { leadEventId, purchaseEventId, qualifiedLeadEventId } = fireCheckoutEvents(clientId, items, data, total);
+  // `total` llega como subtotal: el mensaje de WhatsApp aplica el descuento en efectivo por su cuenta.
+  // A Meta le mandamos lo que realmente se cobra, así el valor de los eventos no queda inflado.
+  const chargedTotal = total - Math.round(total * getCashDiscountRate(data.payment));
+  const { leadEventId, purchaseEventId, qualifiedLeadEventId } = fireCheckoutEvents(clientId, items, data, chargedTotal);
 
   // Open WhatsApp inside click handler (popup blocker compat)
   window.open(whatsappUrl, '_blank');
