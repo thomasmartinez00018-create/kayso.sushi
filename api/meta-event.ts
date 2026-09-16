@@ -72,8 +72,9 @@ export default async function handler(req: any, res: any) {
   }
 
   // Geographic defaults — every Kayso lead is in San Miguel/Muñiz, AR
-  userData.ct = sha256(ct || DEFAULT_CITY);
-  userData.st = sha256(st || DEFAULT_STATE);
+  // Meta normaliza ciudad y provincia en minúsculas y sin espacios: 'sanmiguel', 'buenosaires'
+  userData.ct = sha256(String(ct || DEFAULT_CITY).replace(/[^a-z]/gi, ''));
+  userData.st = sha256(String(st || DEFAULT_STATE).replace(/[^a-z]/gi, ''));
   userData.country = sha256(country || DEFAULT_COUNTRY);
   if (zp) userData.zp = sha256(zp);
 

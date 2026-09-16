@@ -86,7 +86,12 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '866675959278129');
+    // Advanced matching: ID de visitante estable + zona. El mismo ID viaja por CAPI (trackingService),
+    // así la copia del navegador y la del servidor llevan los mismos datos de coincidencia.
+    var kvid; try { kvid = localStorage.getItem('_kayso_vid'); if (!kvid) { kvid = 'v' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10); localStorage.setItem('_kayso_vid', kvid); } } catch (e) {}
+    var kam = { ct: 'sanmiguel', st: 'buenosaires', country: 'ar' };
+    if (kvid) kam.external_id = kvid;
+    fbq('init', '866675959278129', kam);
     fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code Part 1 -->

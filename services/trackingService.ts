@@ -37,6 +37,12 @@ export interface OrderDetails {
   value?: number;
 }
 
+// ID de visitante estable (lo crea index.html al iniciar el píxel). Es el external_id que ve Meta.
+// El clientId de cada acción sigue siendo el ID de pedido para WhatsApp y la planilla.
+function getVisitorId(fallback: string): string {
+  try { return localStorage.getItem('_kayso_vid') || fallback; } catch { return fallback; }
+}
+
 // --- Contact event (dedup per session + CAPI + ContactRedirected) ---
 function fireContactEvent(contentName: string, clientId: string): void {
   const sessionKey = `_fired_contact_${contentName}`;
@@ -62,7 +68,7 @@ function fireContactEvent(contentName: string, clientId: string): void {
       event_name: 'Contact',
       eventId,
       content_name: contentName,
-      external_id: clientId,
+      external_id: getVisitorId(clientId),
       fbp,
       fbc,
     }),
@@ -118,7 +124,7 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
       event_name: 'Lead',
       eventId: leadEventId,
       content_name: contentName,
-      external_id: clientId,
+      external_id: getVisitorId(clientId),
       fbp,
       fbc,
     }),
@@ -251,7 +257,7 @@ function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutD
       event_name: 'Lead',
       eventId: leadEventId,
       content_name: contentName,
-      external_id: clientId,
+      external_id: getVisitorId(clientId),
       fbp,
       fbc,
       value: total,
@@ -283,7 +289,7 @@ function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutD
       event_name: 'InitiateCheckout',
       eventId: purchaseEventId,
       content_name: contentName,
-      external_id: clientId,
+      external_id: getVisitorId(clientId),
       fbp,
       fbc,
       value: total,
@@ -316,7 +322,7 @@ function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutD
       event_name: 'QualifiedLead',
       eventId: qualifiedLeadEventId,
       content_name: contentName,
-      external_id: clientId,
+      external_id: getVisitorId(clientId),
       fbp,
       fbc,
       value: total,
