@@ -1,20 +1,33 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { MenuPreview } from './components/MenuPreview';
 import { Locations } from './components/Locations';
 import { Footer } from './components/Footer';
 import { HowToOrder } from './components/HowToOrder';
-import { ComboBuilder } from './components/ComboBuilder';
+
 import { Testimonials } from './components/Testimonials';
-import { RedirectScreen } from './components/RedirectScreen';
+
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { CartDrawer } from './components/CartDrawer';
 import { CartToast } from './components/CartToast';
-import { Checkout } from './components/Checkout';
-import { ArmaTuComboLanding } from './components/ArmaTuComboLanding';
+
+
 import { CartProvider } from './contexts/CartContext';
+
+// Estas pantallas no se ven al entrar: se bajan cuando se abren. Antes viajaban en el
+// mismo archivo de 383 KB que bloqueaba la primera pintura.
+const ComboBuilder = lazy(() => import('./components/ComboBuilder').then(m => ({ default: m.ComboBuilder })));
+const Checkout = lazy(() => import('./components/Checkout').then(m => ({ default: m.Checkout })));
+const RedirectScreen = lazy(() => import('./components/RedirectScreen').then(m => ({ default: m.RedirectScreen })));
+const ArmaTuComboLanding = lazy(() => import('./components/ArmaTuComboLanding').then(m => ({ default: m.ArmaTuComboLanding })));
+
+const Cargando = () => (
+  <div className="min-h-[60vh] flex items-center justify-center text-gray-400 text-sm" role="status" aria-live="polite">
+    Cargando…
+  </div>
+);
 import { ViewState, MenuItem, Testimonial } from './types';
 import { fetchMenuFromSheet, fetchReviewsFromSheet } from './services/sheetService';
 import { MENU_ITEMS, TESTIMONIALS } from './constants';
@@ -31,7 +44,8 @@ function AppInner() {
   const [view, setView] = useState<ViewState>(getInitialView);
   const [menuItems, setMenuItems] = useState<MenuItem[]>(MENU_ITEMS);
   const [reviews, setReviews] = useState<Testimonial[]>(TESTIMONIALS);
-  const [loading, setLoading] = useState(true);
+  // El menú de respaldo ya es el de la planilla (snapshot), así que se puede mostrar sin esperar.
+  const [loading, setLoading] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState<string>('');
 
   const handleRedirect = (url: string) => {
@@ -61,6 +75,17 @@ function AppInner() {
       }
     };
     loadData();
+
+    // Cuando el navegador queda libre, precargamos el armador y el checkout para que
+    // abrirlos sea instantáneo sin costarle nada a la primera pintura.
+    const precargar = () => {
+      import('./components/ComboBuilder');
+      import('./components/Checkout');
+      import('./components/RedirectScreen');
+    };
+    const w = window as any;
+    const id = w.requestIdleCallback ? w.requestIdleCallback(precargar, { timeout: 4000 }) : window.setTimeout(precargar, 2500);
+    return () => { if (w.cancelIdleCallback) w.cancelIdleCallback(id); else clearTimeout(id); };
   }, []);
 
   const showCartUI = view !== 'REDIRECT';
@@ -72,6 +97,7 @@ function AppInner() {
       )}
 
       <main className="flex-grow">
+        <Suspense fallback={<Cargando />}>
         {view === 'ARMATUCOMBO' && (
           <ArmaTuComboLanding menuItems={menuItems} onCheckout={goToCheckout} />
         )}
@@ -113,6 +139,7 @@ function AppInner() {
         {view === 'REDIRECT' && (
           <RedirectScreen whatsappUrl={redirectUrl} />
         )}
+        </Suspense>
       </main>
 
       {view !== 'ARMATUCOMBO' && <Footer />}

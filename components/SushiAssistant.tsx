@@ -79,7 +79,7 @@ export const SushiAssistant: React.FC<SushiAssistantProps> = ({ menuItems }) => 
                  </div>
                  <button 
                   onClick={() => setResponse(null)}
-                  className="mt-3 text-[10px] text-gray-500 hover:text-white uppercase font-bold tracking-widest transition-colors"
+                  className="mt-3 text-[10px] text-gray-400 hover:text-white uppercase font-bold tracking-widest transition-colors"
                  >
                    Hacer otra pregunta
                  </button>
@@ -95,12 +95,12 @@ export const SushiAssistant: React.FC<SushiAssistantProps> = ({ menuItems }) => 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ej: Tengo ganas de algo con mango..."
-                className="w-full bg-gray-800 text-white rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-kayso-orange border border-gray-700 placeholder:text-gray-500"
+                className="w-full bg-gray-800 text-white rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-kayso-orange border border-gray-700 placeholder:text-gray-400"
               />
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-kayso-orange text-white p-2 rounded-lg transition-all disabled:opacity-50 disabled:grayscale"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-kayso-orange-deep text-white p-2 rounded-lg transition-all disabled:opacity-50 disabled:grayscale"
               >
                 <Send size={16} />
               </button>

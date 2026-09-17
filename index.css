@@ -1,3 +1,13 @@
+/* Fuentes propias (antes venían de Google Fonts y bloqueaban la pintura 490 ms).
+   Solo los pesos que la web usa de verdad. */
+@import '@fontsource/lato/latin-300.css';
+@import '@fontsource/lato/latin-400.css';
+@import '@fontsource/lato/latin-700.css';
+@import '@fontsource/lato/latin-900.css';
+@import '@fontsource/montserrat/latin-400.css';
+@import '@fontsource/montserrat/latin-700.css';
+@import '@fontsource/montserrat/latin-900.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -53,24 +63,12 @@ body::after {
     opacity: 1;
   }
 }
-@keyframes slowZoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.14);
-  }
-}
 .animate-fade-in-up {
   animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .animate-fade-in {
   animation: fadeIn 0.6s ease both;
 }
-.animate-slow-zoom {
-  animation: slowZoom 30s ease-in-out alternate infinite;
-}
-
 /* ── Pattern: Seigaiha ── */
 .pattern-seigaiha {
   background-image:

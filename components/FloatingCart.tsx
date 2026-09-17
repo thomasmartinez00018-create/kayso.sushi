@@ -23,13 +23,13 @@ export const FloatingCart: React.FC = () => {
     <button
       onClick={openDrawer}
       aria-label={`Abrir carrito — ${count} productos`}
-      className={`fixed bottom-6 right-[205px] sm:right-[215px] z-50 bg-kayso-orange hover:bg-red-700 text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 w-[52px] h-[52px] flex items-center justify-center ${
+      className={`fixed bottom-6 right-[205px] sm:right-[215px] z-50 bg-kayso-orange-deep hover:bg-red-700 text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 w-[52px] h-[52px] flex items-center justify-center ${
         pulse ? 'animate-[ping_0.45s_ease-out_1]' : ''
       }`}
       style={{ boxShadow: '0 4px 24px rgba(255,34,0,0.45)' }}
     >
       <ShoppingBag size={22} className="flex-shrink-0" />
-      <span className="absolute -top-1 -right-1 bg-white text-kayso-orange border-2 border-kayso-orange text-[11px] font-black rounded-full min-w-[22px] h-[22px] flex items-center justify-center px-1">
+      <span className="absolute -top-1 -right-1 bg-white text-kayso-orange-deep border-2 border-kayso-orange text-[11px] font-black rounded-full min-w-[22px] h-[22px] flex items-center justify-center px-1">
         {count}
       </span>
     </button>

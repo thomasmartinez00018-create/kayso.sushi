@@ -27,7 +27,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
               </span>
               <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">OPINIONES DE CLIENTES</p>
            </div>
-          <p className="text-[10px] text-gray-600 uppercase tracking-[0.3em] font-black mb-2">— Opiniones de clientes —</p>
+          <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black mb-2">— Opiniones de clientes —</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-0 font-display">
             Lo que dicen nuestros <span className="text-kayso-orange">clientes</span>
           </h2>
@@ -62,7 +62,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
                   )}
                   <div>
                     <p className="font-bold text-white text-sm leading-tight">{item.name}</p>
-                    <p className="text-[10px] text-gray-600">{item.date}</p>
+                    <p className="text-[10px] text-gray-400">{item.date}</p>
                   </div>
                 </div>
                 <svg width="16" height="16" viewBox="0 0 24 24" aria-label="Google" className="opacity-50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
 
               {item.product && (
                 <div className="mt-4 pt-4 border-t border-gray-800/80 relative z-10">
-                  <p className="text-[9px] text-gray-600 uppercase tracking-widest font-black mb-0.5">Pidió:</p>
+                  <p className="text-[9px] text-gray-400 uppercase tracking-widest font-black mb-0.5">Pidió:</p>
                   <p className="text-xs text-kayso-orange font-bold">{item.product}</p>
                 </div>
               )}
@@ -88,7 +88,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
             href="https://www.google.com/maps/search/kayso+sushi+san+miguel/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-white transition-all text-xs font-bold uppercase tracking-widest border border-gray-800 hover:border-gray-600 px-5 py-2.5 rounded-lg"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-all text-xs font-bold uppercase tracking-widest border border-gray-800 hover:border-gray-600 px-5 py-2.5 rounded-lg"
           >
             Ver todas las reseñas en Google <Star size={12} />
           </a>

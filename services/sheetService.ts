@@ -1,6 +1,24 @@
 
-import { MenuItem, BlogPost, Testimonial } from '../types';
-import { GOOGLE_SHEET_URL, MENU_ITEMS, BLOG_POSTS, TESTIMONIALS } from '../constants';
+import { MenuItem, Testimonial } from '../types';
+import { GOOGLE_SHEET_URL, MENU_ITEMS, TESTIMONIALS } from '../constants';
+
+// Caché en el navegador: la planilla se consultaba en vivo en cada visita y con un parámetro
+// que anulaba cualquier caché. Ahora se guarda 10 minutos del lado del visitante.
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
+const leerCache = <T,>(clave: string): T | null => {
+  try {
+    const crudo = localStorage.getItem(clave);
+    if (!crudo) return null;
+    const { t, data } = JSON.parse(crudo);
+    if (!t || Date.now() - t > CACHE_TTL_MS) return null;
+    return data as T;
+  } catch { return null; }
+};
+
+const guardarCache = (clave: string, data: unknown) => {
+  try { localStorage.setItem(clave, JSON.stringify({ t: Date.now(), data })); } catch { /* modo privado */ }
+};
 
 const cleanPrice = (val: any): number => {
     if (typeof val === 'number') return val;
@@ -24,10 +42,13 @@ const cleanImageUrl = (val: any): string => {
 
 export const fetchMenuFromSheet = async (): Promise<MenuItem[]> => {
   if (!GOOGLE_SHEET_URL) return MENU_ITEMS;
-  
+
+  const cacheado = leerCache<MenuItem[]>('kayso_menu_v1');
+  if (cacheado && cacheado.length) return cacheado;
+
   try {
     // Standard fetch is often more robust for Google Apps Script redirects than using specific credential modes
-    const response = await fetch(`${GOOGLE_SHEET_URL}?type=Menu&t=${Date.now()}`);
+    const response = await fetch(`${GOOGLE_SHEET_URL}?type=Menu`);
     
     if (!response.ok) {
         // Silent fallback - no need to alarm the console
@@ -41,13 +62,15 @@ export const fetchMenuFromSheet = async (): Promise<MenuItem[]> => {
     }
     
     // Validate and format data
-    return data.map((item: any) => ({
+    const items = data.map((item: any) => ({
         ...item,
         category: cleanString(item.category), // Clean category text
         price: cleanPrice(item.price), // Robust parsing
         image: cleanImageUrl(item.image), // Aggressively clean image URL
         popular: String(item.popular).toLowerCase() === 'true'
     }));
+    guardarCache('kayso_menu_v1', items);
+    return items;
   } catch (error) {
     // Silent fail to constants - The user sees the site working via fallback
     // console.warn("Using offline menu backup");
@@ -55,33 +78,14 @@ export const fetchMenuFromSheet = async (): Promise<MenuItem[]> => {
   }
 };
 
-export const fetchBlogFromSheet = async (): Promise<BlogPost[]> => {
-  if (!GOOGLE_SHEET_URL) return BLOG_POSTS;
-
-  try {
-    const response = await fetch(`${GOOGLE_SHEET_URL}?type=Blog&t=${Date.now()}`);
-    
-    if (!response.ok) {
-        return BLOG_POSTS;
-    }
-
-    const data = await response.json();
-    
-    if (!data || data.error || !Array.isArray(data)) {
-        return BLOG_POSTS;
-    }
-    return data;
-  } catch (error) {
-    // Silent fail to constants
-    return BLOG_POSTS;
-  }
-};
-
 export const fetchReviewsFromSheet = async (): Promise<Testimonial[]> => {
     if (!GOOGLE_SHEET_URL) return TESTIMONIALS;
   
     try {
-      const response = await fetch(`${GOOGLE_SHEET_URL}?type=Reviews&t=${Date.now()}`);
+      const cacheadas = leerCache<Testimonial[]>('kayso_reviews_v1');
+      if (cacheadas && cacheadas.length) return cacheadas;
+
+      const response = await fetch(`${GOOGLE_SHEET_URL}?type=Reviews`);
       
       if (!response.ok) return TESTIMONIALS;
   
@@ -89,7 +93,7 @@ export const fetchReviewsFromSheet = async (): Promise<Testimonial[]> => {
       
       if (!data || data.error || !Array.isArray(data)) return TESTIMONIALS;
 
-      return data.map((item: any) => ({
+      const reviews = data.map((item: any) => ({
           id: item.id || Math.random().toString(),
           name: item.name || 'Cliente Kayso',
           handle: 'Local Guide', // Google style
@@ -98,6 +102,8 @@ export const fetchReviewsFromSheet = async (): Promise<Testimonial[]> => {
           stars: Number(item.stars) || 5,
           date: item.date || 'Reciente'
       }));
+      guardarCache('kayso_reviews_v1', reviews);
+      return reviews;
     } catch (error) {
       return TESTIMONIALS;
     }

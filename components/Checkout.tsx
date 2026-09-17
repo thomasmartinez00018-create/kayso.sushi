@@ -4,6 +4,7 @@ import { useCart } from '../contexts/CartContext';
 import { DeliveryMode, PaymentMethod, Branch, CheckoutData } from '../types';
 import { trackAndRedirectFromCheckout } from '../services/trackingService';
 import { getCashDiscountRate } from '../constants';
+import { gellyDisponibleHoy, fraseAtencion, TIEMPO_ENTREGA } from '../services/horarios';
 
 interface CheckoutProps {
   onBack: () => void;
@@ -12,6 +13,11 @@ interface CheckoutProps {
 
 export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
   const { items, subtotal, clear } = useCart();
+
+  // Gelly y Obes no abre lunes ni martes y cierra a fin de mes: ofrecerla esos días manda
+  // el pedido a un local cerrado (30 mensajes, 0 ventas en agosto).
+  const gellyDisponible = gellyDisponibleHoy();
+  const atencion = fraseAtencion();
 
   const [customerName, setCustomerName] = useState('');
   const [branch, setBranch] = useState<Branch | null>(null);
@@ -26,11 +32,12 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
   const errors = useMemo(() => {
     const e: { [k: string]: string } = {};
     if (!branch) e.branch = 'Elegí una sucursal.';
+    if (branch === 'gelly' && !gellyDisponible) e.branch = 'Gelly y Obes no atiende hoy. Elegí Pte. Perón.';
     if (!mode) e.mode = 'Indicá si es delivery o retiro.';
     if (mode === 'delivery' && address.trim().length < 6) e.address = 'Ingresá una dirección válida.';
     if (!payment) e.payment = 'Elegí la forma de pago.';
     return e;
-  }, [branch, mode, address, payment]);
+  }, [branch, mode, address, payment, gellyDisponible]);
 
   const canSubmit = Object.keys(errors).length === 0 && items.length > 0 && !submitting;
 
@@ -63,10 +70,10 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
         <div className="max-w-md w-full text-center">
           <ShoppingCart size={48} className="text-gray-700 mx-auto mb-4" />
           <h2 className="text-white font-black font-display text-2xl mb-2">Tu pedido está vacío</h2>
-          <p className="text-gray-500 text-sm mb-6">Agregá productos desde el menú antes de continuar.</p>
+          <p className="text-gray-400 text-sm mb-6">Agregá productos desde el menú antes de continuar.</p>
           <button
             onClick={onBack}
-            className="bg-kayso-orange hover:bg-red-700 text-white px-6 py-3 rounded-xl font-bold text-sm"
+            className="bg-kayso-orange-deep hover:bg-red-700 text-white px-6 py-3 rounded-xl font-bold text-sm"
           >
             Volver al menú
           </button>
@@ -92,7 +99,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
           </h1>
           <p className="text-gray-400 text-sm mb-3">Completá los datos para que preparemos tu pedido sin demoras.</p>
           <div className="inline-flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/25 text-[#25D366] px-3 py-1.5 rounded-full text-[11px] font-bold">
-            <Clock size={12} /> Solo 30 segundos · Te respondemos por WhatsApp en 2 min
+            <Clock size={12} aria-hidden="true" /> Solo 30 segundos · {atencion}
           </div>
         </div>
 
@@ -106,7 +113,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
               <div key={item.id} className="flex justify-between items-start gap-3 text-sm">
                 <span className="text-gray-300 flex-1">
                   <span className="text-white font-bold">{item.quantity}x</span> {item.name}
-                  {item.details && <span className="block text-gray-600 text-[11px] mt-0.5">{item.details}</span>}
+                  {item.details && <span className="block text-gray-400 text-[11px] mt-0.5">{item.details}</span>}
                 </span>
                 <span className="text-white font-black font-display whitespace-nowrap">
                   ${(item.price * item.quantity).toLocaleString('es-AR')}
@@ -123,10 +130,10 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
             </div>
           )}
           <div className="border-t border-gray-800 pt-3 flex justify-between items-center">
-            <span className="text-gray-500 text-xs uppercase tracking-widest font-bold">Total</span>
+            <span className="text-gray-400 text-xs uppercase tracking-widest font-bold">Total</span>
             <span className="flex items-baseline gap-2">
               {discountRate > 0 && (
-                <span className="text-gray-600 text-base font-display line-through">${subtotal.toLocaleString('es-AR')}</span>
+                <span className="text-gray-400 text-base font-display line-through">${subtotal.toLocaleString('es-AR')}</span>
               )}
               <span className="text-kayso-orange font-black font-display text-2xl">${finalTotal.toLocaleString('es-AR')}</span>
             </span>
@@ -139,8 +146,10 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
             <MapPin size={15} className="text-kayso-orange" /> Sucursal
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <BranchOption selected={branch === 'peron'} onClick={() => setBranch('peron')} title="Pte. Perón" subtitle="San Miguel" />
-            <BranchOption selected={branch === 'gelly'} onClick={() => setBranch('gelly')} title="Gelly y Obes" subtitle="San Miguel" />
+            <BranchOption selected={branch === 'peron'} onClick={() => setBranch('peron')} title="Pte. Perón" subtitle="Av. Pte. Perón 1991, San Miguel" />
+            {gellyDisponible && (
+              <BranchOption selected={branch === 'gelly'} onClick={() => setBranch('gelly')} title="Gelly y Obes" subtitle="Gelly y Obes 2308, San Miguel" />
+            )}
           </div>
           {attemptedSubmit && errors.branch && <FieldError message={errors.branch} />}
         </section>
@@ -197,7 +206,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
         {/* Customer Name (opcional, al final) */}
         <section className="mb-6">
           <label className="block text-white font-bold text-sm mb-2 flex items-center gap-2">
-            <User size={15} className="text-kayso-orange" /> Tu nombre <span className="text-gray-600 text-xs font-normal">(opcional)</span>
+            <User size={15} className="text-kayso-orange" /> Tu nombre <span className="text-gray-400 text-xs font-normal">(opcional)</span>
           </label>
           <input
             type="text"
@@ -211,7 +220,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
         {/* Notes */}
         <section className="mb-6">
           <label className="block text-white font-bold text-sm mb-2 flex items-center gap-2">
-            <FileText size={15} className="text-kayso-orange" /> Notas adicionales <span className="text-gray-600 text-xs font-normal">(opcional)</span>
+            <FileText size={15} className="text-kayso-orange" /> Notas adicionales <span className="text-gray-400 text-xs font-normal">(opcional)</span>
           </label>
           <textarea
             value={notes}
@@ -223,19 +232,19 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
         </section>
 
         {/* Trust signal */}
-        <div className="mb-2 flex items-start gap-2 text-gray-500 text-[11px] leading-relaxed">
+        <div className="mb-2 flex items-start gap-2 text-gray-400 text-[11px] leading-relaxed">
           <Shield size={13} className="text-[#25D366] flex-shrink-0 mt-0.5" />
-          <p>Tu pedido va directo al WhatsApp de la sucursal elegida. <span className="text-gray-400">Confirmamos disponibilidad y tiempo en menos de 2 minutos.</span></p>
+          <p>Tu pedido va directo al WhatsApp de la sucursal elegida. <span className="text-gray-300">Te confirmamos disponibilidad en horario de atención. El delivery tarda {TIEMPO_ENTREGA}.</span></p>
         </div>
 
         {/* Submit button — sticky */}
         <div className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-xl border-t border-gray-800 p-4 z-40 pb-safe">
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             <div className="flex-1 w-full sm:w-auto">
-              <p className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Total</p>
+              <p className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">Total</p>
               <div className="flex items-baseline gap-2">
                 {discountRate > 0 && (
-                  <span className="text-gray-600 text-base font-display line-through">${subtotal.toLocaleString('es-AR')}</span>
+                  <span className="text-gray-400 text-base font-display line-through">${subtotal.toLocaleString('es-AR')}</span>
                 )}
                 <p className="text-white font-black font-display text-2xl">${finalTotal.toLocaleString('es-AR')}</p>
               </div>
@@ -249,10 +258,10 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
               className={`w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-black font-display text-sm transition-all shadow-lg ${
                 canSubmit
                   ? 'bg-[#25D366] hover:bg-[#1ebe5d] text-white shadow-[#25D366]/30 hover:scale-105'
-                  : 'bg-gray-800 text-gray-500 cursor-not-allowed'
+                  : 'bg-gray-800 text-gray-400 cursor-not-allowed'
               }`}
             >
-              <Check size={18} /> Enviar pedido — respuesta en 2 min
+              <Check size={18} /> Enviar pedido por WhatsApp
             </button>
           </div>
         </div>
@@ -276,10 +285,10 @@ const BranchOption: React.FC<{ selected: boolean; onClick: () => void; title: st
       </span>
     )}
     <div className="flex items-center gap-2 mb-1">
-      <MapPin size={16} className={selected ? 'text-kayso-orange' : 'text-gray-500'} />
+      <MapPin size={16} className={selected ? 'text-kayso-orange' : 'text-gray-400'} />
       <h3 className="text-white font-black font-display text-base">{title}</h3>
     </div>
-    <p className="text-gray-500 text-xs">{subtitle}</p>
+    <p className="text-gray-400 text-xs">{subtitle}</p>
   </button>
 );
 
@@ -297,9 +306,9 @@ const ModeOption: React.FC<{ selected: boolean; onClick: () => void; icon: React
         <Check size={12} className="text-white" />
       </span>
     )}
-    <div className={`mb-2 ${selected ? 'text-kayso-orange' : 'text-gray-500'}`}>{icon}</div>
+    <div className={`mb-2 ${selected ? 'text-kayso-orange' : 'text-gray-400'}`}>{icon}</div>
     <h3 className="text-white font-black font-display text-base mb-0.5">{title}</h3>
-    <p className="text-gray-500 text-xs">{subtitle}</p>
+    <p className="text-gray-400 text-xs">{subtitle}</p>
   </button>
 );
 
@@ -317,7 +326,7 @@ const PaymentOption: React.FC<{ selected: boolean; onClick: () => void; icon: Re
         <Check size={12} className="text-white" />
       </span>
     )}
-    <div className={selected ? 'text-kayso-orange' : 'text-gray-500'}>{icon}</div>
+    <div className={selected ? 'text-kayso-orange' : 'text-gray-400'}>{icon}</div>
     <h3 className="text-white font-bold text-sm">{title}</h3>
     {badge && <span className="text-[#25D366] text-[10px] font-black uppercase tracking-wide leading-tight">{badge}</span>}
   </button>

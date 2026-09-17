@@ -204,7 +204,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
           onClick={() => handleSelectSize(size)}
           className="group bg-gray-800 border-2 border-gray-700 hover:border-kayso-orange rounded-2xl p-8 transition-all text-left relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 bg-gray-700 text-gray-400 text-xs font-bold px-3 py-1 rounded-bl-xl group-hover:bg-kayso-orange group-hover:text-white transition-colors">
+          <div className="absolute top-0 right-0 bg-gray-700 text-gray-400 text-xs font-bold px-3 py-1 rounded-bl-xl group-hover:bg-kayso-orange-deep group-hover:text-white transition-colors">
             {size.slots} Gustos
           </div>
           <h3 className="text-3xl font-bold font-display text-white mb-2">{size.pieces} <span className="text-xl font-normal font-sans text-gray-400">Piezas</span></h3>
@@ -273,7 +273,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
                   <button 
                     onClick={() => handleUpdateRoll(roll.id, 1)} 
                     disabled={isMaxed}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isMaxed ? 'bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-kayso-orange text-white hover:bg-orange-600'}`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isMaxed ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : 'bg-kayso-orange-deep text-white hover:bg-orange-600'}`}
                   >
                     <Plus size={14} />
                   </button>
@@ -315,8 +315,8 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
                     {selectedExtras[item.id] > 0 && (
                       <button onClick={() => handleUpdateExtra(item.id, -1)} className="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center hover:bg-gray-600"><Minus size={14} /></button>
                     )}
-                    <span className={`font-bold w-6 text-center ${selectedExtras[item.id] > 0 ? 'text-white' : 'text-gray-600'}`}>{selectedExtras[item.id] || 0}</span>
-                    <button onClick={() => handleUpdateExtra(item.id, 1)} className="w-8 h-8 rounded-full bg-kayso-orange text-white flex items-center justify-center hover:bg-orange-600"><Plus size={14} /></button>
+                    <span className={`font-bold w-6 text-center ${selectedExtras[item.id] > 0 ? 'text-white' : 'text-gray-400'}`}>{selectedExtras[item.id] || 0}</span>
+                    <button onClick={() => handleUpdateExtra(item.id, 1)} className="w-8 h-8 rounded-full bg-kayso-orange-deep text-white flex items-center justify-center hover:bg-orange-600"><Plus size={14} /></button>
                 </div>
               </div>
             ))}
@@ -396,7 +396,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
                 {step === 2 && isSelectionComplete && (
                    <button
                      onClick={() => setStep(3)}
-                     className="w-full sm:w-auto bg-kayso-orange hover:bg-red-600 text-white px-8 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg animate-pulse"
+                     className="w-full sm:w-auto bg-kayso-orange-deep hover:bg-red-600 text-white px-8 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg animate-pulse"
                    >
                      Siguiente Paso <ChevronRight size={20} />
                    </button>
@@ -405,7 +405,7 @@ export const ComboBuilder: React.FC<ComboBuilderProps> = ({ menuItems = [], onAd
                 {step === 3 && (
                   <button
                     onClick={handleAddComboToCart}
-                    className="w-full sm:w-auto bg-kayso-orange hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black font-display flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg shadow-kayso-orange/25"
+                    className="w-full sm:w-auto bg-kayso-orange-deep hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black font-display flex items-center justify-center gap-3 transition-transform hover:scale-105 shadow-lg shadow-kayso-orange/25"
                   >
                     <ShoppingCart size={18} className="flex-shrink-0" />
                     <span className="text-sm">Agregar al pedido</span>

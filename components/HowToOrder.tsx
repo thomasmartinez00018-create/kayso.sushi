@@ -2,6 +2,7 @@ import React from 'react';
 import { MapPin, Clock, UtensilsCrossed, MessageCircle } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
+import { ZONA_DELIVERY, TIEMPO_ENTREGA } from '../services/horarios';
 
 interface HowToOrderProps {
   onRedirect?: (url: string) => void;
@@ -12,7 +13,7 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
     const url = trackAndRedirectToWhatsApp(
       'Hola! Vi cómo funciona el pedido en la web y quiero arrancar. ¿Hacen delivery a mi zona en San Miguel/Muñiz?',
       WHATSAPP_NUMBER,
-      { resumen: 'CTA sección Cómo Pedir', zona: 'San Miguel/Muñiz' }
+      { resumen: 'CTA sección Cómo Pedir', zona: ZONA_DELIVERY }
     );
     if (onRedirect) onRedirect(url);
   };
@@ -25,12 +26,12 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
     {
       icon: <MapPin className="text-kayso-orange" size={32} />,
       title: "2. Chequeá zona",
-      description: "Llegamos a San Miguel, Muñiz, Bella Vista y J.C. Paz con nuestro delivery propio."
+      description: `Llegamos a ${ZONA_DELIVERY} con nuestro delivery propio.`
     },
     {
       icon: <Clock className="text-kayso-orange" size={32} />,
       title: "3. Esperá tranqui",
-      description: "Preparamos todo en el momento con pesca del día. El tiempo promedio es 45-60 min."
+      description: `Preparamos todo en el momento. El delivery tarda ${TIEMPO_ENTREGA}.`
     }
   ];
 
@@ -69,13 +70,13 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
               </div>
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.25em] mb-1.5">Paso 0{index + 1}</p>
               <h3 className="text-lg font-black text-white mb-3 font-display">{step.title.replace(/^\d+\.\s/, '')}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{step.description}</p>
+              <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-16 flex flex-col items-center gap-5">
-          <div className="flex items-center gap-3 text-gray-600">
+          <div className="flex items-center gap-3 text-gray-400">
             <div className="w-12 h-px bg-gray-800"></div>
             <p className="text-xs font-bold uppercase tracking-widest">¿Listo para pedir?</p>
             <div className="w-12 h-px bg-gray-800"></div>

@@ -1,0 +1,596 @@
+[
+ {
+  "id": "101",
+  "name": "Combinado de Salmón (15 Piezas)",
+  "description": "Incluye Rolls: New York, Phila, Philadelphia, Niguiris de Salmón, Mango Roll y Salmón Grill",
+  "price": 20500,
+  "category": "Combinados de Salmón",
+  "image": "https://i.postimg.cc/ftSNX4Jt/DSC-0126.jpg",
+  "popular": false
+ },
+ {
+  "id": "102",
+  "name": "Combinado de Salmón (20 Piezas)",
+  "description": "Incluye Rolls: New York, Phila, Philadelphia, Niguiris de Salmón, Mango Roll y Salmón Grill",
+  "price": 26500,
+  "category": "Combinados de Salmón",
+  "image": "https://i.postimg.cc/ftSNX4Jt/DSC-0126.jpg",
+  "popular": false
+ },
+ {
+  "id": "103",
+  "name": "Combinado de Salmón (30 Piezas)",
+  "description": "Incluye Rolls: New York, Phila, Philadelphia, Niguiris de Salmón, Mango Roll y Salmón Grill",
+  "price": 40500,
+  "category": "Combinados de Salmón",
+  "image": "https://i.postimg.cc/ftSNX4Jt/DSC-0126.jpg",
+  "popular": false
+ },
+ {
+  "id": "104",
+  "name": "Combinado de Salmón (45 Piezas)",
+  "description": "Incluye Rolls: New York, Phila, Philadelphia, Niguiris de Salmón, Mango Roll y Salmón Grill",
+  "price": 61000,
+  "category": "Combinados de Salmón",
+  "image": "https://i.postimg.cc/ftSNX4Jt/DSC-0126.jpg",
+  "popular": false
+ },
+ {
+  "id": "105",
+  "name": "Combinado de Salmón (60 Piezas)",
+  "description": "Incluye Rolls: New York, Phila, Philadelphia, Niguiris de Salmón, Mango Roll y Salmón Grill",
+  "price": 80000,
+  "category": "Combinados de Salmón",
+  "image": "https://i.postimg.cc/ftSNX4Jt/DSC-0126.jpg",
+  "popular": false
+ },
+ {
+  "id": "106",
+  "name": "Combinado Premium (15 Piezas)",
+  "description": "Incluye Rolls: Futurama, Teriyaki, Buenos Aires, Mango Roll, Katu Roll y Alaska",
+  "price": 22000,
+  "category": "Combinados Premium",
+  "image": "https://i.postimg.cc/9fC46Ytj/IMG-1040.avif",
+  "popular": false
+ },
+ {
+  "id": "107",
+  "name": "Combinado Premium (20 Piezas)",
+  "description": "Incluye Rolls: Futurama, Teriyaki, Buenos Aires, Mango Roll, Katu Roll y Alaska",
+  "price": 28000,
+  "category": "Combinados Premium",
+  "image": "https://i.postimg.cc/9fC46Ytj/IMG-1040.avif",
+  "popular": false
+ },
+ {
+  "id": "108",
+  "name": "Combinado Premium (30 Piezas)",
+  "description": "Incluye Rolls: Futurama, Teriyaki, Buenos Aires, Mango Roll, Katu Roll y Alaska",
+  "price": 44000,
+  "category": "Combinados Premium",
+  "image": "https://i.postimg.cc/9fC46Ytj/IMG-1040.avif",
+  "popular": false
+ },
+ {
+  "id": "109",
+  "name": "Combinado Premium (45 Piezas)",
+  "description": "Incluye Rolls: Futurama, Teriyaki, Buenos Aires, Mango Roll, Katu Roll y Alaska",
+  "price": 64500,
+  "category": "Combinados Premium",
+  "image": "https://i.postimg.cc/9fC46Ytj/IMG-1040.avif",
+  "popular": false
+ },
+ {
+  "id": "110",
+  "name": "Combinado Premium (60 Piezas)",
+  "description": "Incluye Rolls: Futurama, Teriyaki, Buenos Aires, Mango Roll, Katu Roll y Alaska",
+  "price": 86500,
+  "category": "Combinados Premium",
+  "image": "https://i.postimg.cc/9fC46Ytj/IMG-1040.avif",
+  "popular": false
+ },
+ {
+  "id": "111",
+  "name": "Combinado Classic (15 Piezas)",
+  "description": "Incluye Rolls: California, Salmón Grill y Vegetarianos",
+  "price": 17500,
+  "category": "Combinados Clásicos",
+  "image": "https://i.postimg.cc/Z0Z0416L/SUSHI-KAYSO.jpg",
+  "popular": false
+ },
+ {
+  "id": "112",
+  "name": "Combinado Classic (20 Piezas)",
+  "description": "Incluye Rolls: California, Salmón Grill y Vegetarianos",
+  "price": 23000,
+  "category": "Combinados Clásicos",
+  "image": "https://i.postimg.cc/Z0Z0416L/SUSHI-KAYSO.jpg",
+  "popular": false
+ },
+ {
+  "id": "113",
+  "name": "Combinado Classic (30 Piezas)",
+  "description": "Incluye Rolls: California, Salmón Grill y Vegetarianos",
+  "price": 34000,
+  "category": "Combinados Clásicos",
+  "image": "https://i.postimg.cc/Z0Z0416L/SUSHI-KAYSO.jpg",
+  "popular": false
+ },
+ {
+  "id": "114",
+  "name": "Combinado Classic (45 Piezas)",
+  "description": "Incluye Rolls: California, Salmón Grill y Vegetarianos",
+  "price": 50000,
+  "category": "Combinados Clásicos",
+  "image": "https://i.postimg.cc/Z0Z0416L/SUSHI-KAYSO.jpg",
+  "popular": false
+ },
+ {
+  "id": "115",
+  "name": "Combinado Classic (60 Piezas)",
+  "description": "Incluye Rolls: California, Salmón Grill y Vegetarianos",
+  "price": 66000,
+  "category": "Combinados Clásicos",
+  "image": "https://i.postimg.cc/Z0Z0416L/SUSHI-KAYSO.jpg",
+  "popular": false
+ },
+ {
+  "id": "201",
+  "name": "Langostinos Rebozados (x7)",
+  "description": "Langostinos empanados, incluye salsa agridulce",
+  "price": 14000,
+  "category": "Entraditas",
+  "image": "https://i.postimg.cc/4Hmy02L0/unnamed-(15).jpg",
+  "popular": false
+ },
+ {
+  "id": "202",
+  "name": "Spring Rolls (x3)",
+  "description": "Rellenos de carne y cebolla o verduras. Incluye salsa agridulce",
+  "price": 5000,
+  "category": "Entraditas",
+  "image": "https://i.postimg.cc/CxjHYqGs/PHOTO-2025-07-18-20-07-04.jpg",
+  "popular": false
+ },
+ {
+  "id": "203",
+  "name": "Spring Rolls (x5)",
+  "description": "Rellenos de carne y cebolla o verduras. Incluye salsa agridulce",
+  "price": 8000,
+  "category": "Entraditas",
+  "image": "https://i.postimg.cc/CxjHYqGs/PHOTO-2025-07-18-20-07-04.jpg",
+  "popular": false
+ },
+ {
+  "id": "204",
+  "name": "Nuggets de Pollo (x8)",
+  "description": "Rebozadas, incluye salsa agridulce",
+  "price": 9000,
+  "category": "Entraditas",
+  "image": "https://i.postimg.cc/RJNhYpsT/unnamed-(13).jpg",
+  "popular": false
+ },
+ {
+  "id": "301",
+  "name": "Rolls Calentitos (x10)",
+  "description": "A elección del sushiman. Incluye rolls con salmón y rolls con langostinos",
+  "price": 15000,
+  "category": "Hot Rolls",
+  "image": "https://i.postimg.cc/3W7WYP2m/ROLLS-CALENTITOS.jpg",
+  "popular": false
+ },
+ {
+  "id": "302",
+  "name": "Rolls Calentitos (x5)",
+  "description": "A elección del sushiman. Incluye rolls con salmón y rolls con langostinos",
+  "price": 8000,
+  "category": "Hot Rolls",
+  "image": "https://i.postimg.cc/3W7WYP2m/ROLLS-CALENTITOS.jpg",
+  "popular": false
+ },
+ {
+  "id": "401",
+  "name": "Chirashi Salad Langostinos Rebozados",
+  "description": "Arroz de sushi, queso philadelphia, palta y semillas",
+  "price": 16500,
+  "category": "Ensaladas",
+  "image": "https://i.postimg.cc/8Jd5LHg7/CHIRASHI-DE-LANGOSTINOS.jpg",
+  "popular": false
+ },
+ {
+  "id": "402",
+  "name": "Chirashi Salad Salmón Fresco",
+  "description": "Arroz de sushi, queso philadelphia, palta y semillas",
+  "price": 16500,
+  "category": "Ensaladas",
+  "image": "https://i.postimg.cc/MMJHcLNn/CHIRASHI-DE-SALMON-FRESCO.jpg",
+  "popular": false
+ },
+ {
+  "id": "404",
+  "name": "Chirashi Salad Salmón Teriyaki",
+  "description": "Arroz de sushi, queso philadelphia, palta y semillas",
+  "price": 16500,
+  "category": "Ensaladas",
+  "image": "https://i.postimg.cc/TygkSWFD/Gemini-Generated-Image-4vc0l14vc0l14vc0.png",
+  "popular": false
+ },
+ {
+  "id": "405",
+  "name": "Chirashi Salad Kanikama",
+  "description": "Arroz de sushi, queso philadelphia, palta y semillas",
+  "price": 15000,
+  "category": "Ensaladas",
+  "image": "https://i.postimg.cc/ykgbr2XW/Chirashii-se-kanikama.jpg",
+  "popular": false
+ },
+ {
+  "id": "406",
+  "name": "Chirashi Salad Chicken",
+  "description": "Arroz de sushi, queso philadelphia, palta y semillas",
+  "price": 15000,
+  "category": "Ensaladas",
+  "image": "https://i.postimg.cc/Hr2W9yjk/Imagen-de-Whats-App-2025-12-01-a-las-14-12-31-5fe79332.jpg",
+  "popular": false
+ },
+ {
+  "id": "407",
+  "name": "Chirashi Salad Vegetariana",
+  "description": "Arroz de sushi, queso philadelphia, palta y semillas, zanahoria dulce y pepino",
+  "price": 15000,
+  "category": "Ensaladas",
+  "image": "https://i.postimg.cc/cgGCKz2C/CHIRASHI-VEGETARIANA.jpg",
+  "popular": false
+ },
+ {
+  "id": "501",
+  "name": "Niguiri de Salmón (x6)",
+  "description": "Bocado de arroz recubierto en salmón",
+  "price": 12000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/5Y5083Wn/NIGUIRI.jpg",
+  "popular": false
+ },
+ {
+  "id": "502",
+  "name": "Niguiri de Salmón Flamea (x6)",
+  "description": "Bocado de arroz recubierto en salmón flameado",
+  "price": 13000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/59B08khP/IMG-2103.avif",
+  "popular": false
+ },
+ {
+  "id": "503",
+  "name": "Geishas (x6)",
+  "description": "Lámina de salmón, queso philadelphia y palta",
+  "price": 13000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/W4m470H2/GEISHAS.jpg",
+  "popular": false
+ },
+ {
+  "id": "504",
+  "name": "Geishas Alaska (x6)",
+  "description": "Lámina de salmón, queso philadelphia y lluvia de ciboulette",
+  "price": 13000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/W4m470H2/GEISHAS.jpg",
+  "popular": false
+ },
+ {
+  "id": "505",
+  "name": "Tamago (x6)",
+  "description": "Salmón, queso philadelphia y ciboulette",
+  "price": 15000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/90JwbRq3/PHOTO-2025-11-26-16-24-56.jpg",
+  "popular": false
+ },
+ {
+  "id": "506",
+  "name": "Kayso Roll (x6)",
+  "description": "Tamago, philadelphia, salmón ahumado, mango y lluvia de batatas fritas",
+  "price": 16000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/nV005HY3/PHOTO-2025-11-26-16-04-29.jpg",
+  "popular": false
+ },
+ {
+  "id": "601",
+  "name": "Tomato Roll (x10)",
+  "description": "Ciboulette, queso philadelphia y zanahoria precocida. Cubierto en tomate",
+  "price": 13000,
+  "category": "Vegetarianos",
+  "image": "https://i.postimg.cc/mkf5ZFXX/PHOTO-2025-11-22-17-56-54.jpg",
+  "popular": false
+ },
+ {
+  "id": "602",
+  "name": "Veggie Classic (x10)",
+  "description": "Queso philadelphia, zanahoria y pepino precocido. Bañado con salsa teriyaki",
+  "price": 13000,
+  "category": "Vegetarianos",
+  "image": "https://i.postimg.cc/tZGJ1cwG/VEGETARIANO-CLASSIC.jpg",
+  "popular": false
+ },
+ {
+  "id": "603",
+  "name": "Veggie Mango (x10)",
+  "description": "Queso philadelphia, mango, cubierto con ciboulette. Bañado con salsa maracuyá",
+  "price": 13000,
+  "category": "Vegetarianos",
+  "image": "https://i.postimg.cc/2q6w0rd5/unnamed-(12).jpg",
+  "popular": false
+ },
+ {
+  "id": "605",
+  "name": "Ciboulette (x10)",
+  "description": "Queso philadelphia, palta y ciboulette",
+  "price": 13000,
+  "category": "Vegetarianos",
+  "image": "https://i.postimg.cc/Hr2W9yjj/Imagen-de-Whats-App-2025-12-01-a-las-15-04-44-5100a6d4.jpg",
+  "popular": false
+ },
+ {
+  "id": "606",
+  "name": "Combinado Vegetariano (20 unid)",
+  "description": "Surtido de rolls vegetarianos",
+  "price": 25000,
+  "category": "Vegetarianos",
+  "image": "https://i.postimg.cc/k6PGVHz5/VEGGIES-SURTIDOS.jpg",
+  "popular": false
+ },
+ {
+  "id": "701",
+  "name": "Philadelphia (x10)",
+  "description": "Salmón y queso philadelphia",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/rR8pjr8w/PHILADELPHIA.jpg",
+  "popular": false
+ },
+ {
+  "id": "702",
+  "name": "New York Phila (x10)",
+  "description": "Salmón, philadelphia y palta",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/WFm30nc5/NEW-YORK-PHILA.jpg",
+  "popular": false
+ },
+ {
+  "id": "703",
+  "name": "Buenos Aires (x10)",
+  "description": "Langostino, phila y palta recubierto en salmón",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/1n1Xgd2w/BUENOS-AIRES.jpg",
+  "popular": false
+ },
+ {
+  "id": "704",
+  "name": "California (x10)",
+  "description": "Kanikama, queso philadelphia y palta",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/2Lz5GZz1/ROLL-CALIFORNIA.jpg",
+  "popular": false
+ },
+ {
+  "id": "705",
+  "name": "Salmón Grill (x10)",
+  "description": "Salmón cocido y queso phila",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/w1VxQm3v/Imagen-de-Whats-App-2025-12-01-a-las-14-08-52-1604d9cc.jpg",
+  "popular": false
+ },
+ {
+  "id": "706",
+  "name": "Alaska (x10)",
+  "description": "Salmón, philadelphia y lluvia de verdeo",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/TLv1ysFV/ALASKA.jpg",
+  "popular": false
+ },
+ {
+  "id": "707",
+  "name": "Futurama (x10)",
+  "description": "Langostinos rebozados y philadelphia",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/fyXYvTfT/peya5.jpg",
+  "popular": false
+ },
+ {
+  "id": "708",
+  "name": "Teriyaki (x10)",
+  "description": "Salmón teriyaki y queso philadelphia",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/YqNxgP0v/peya2-teri.jpg",
+  "popular": false
+ },
+ {
+  "id": "709",
+  "name": "Mexican (x10)",
+  "description": "Salmón marinado con lima recubierto con salsa guacamole",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/1fnjYb0k/Mexican.jpg",
+  "popular": false
+ },
+ {
+  "id": "710",
+  "name": "Smoke (x10)",
+  "description": "Salmón ahumado, philadelphia y tomates secos",
+  "price": 16000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/FYmsSZFd/Imagen-de-Whats-App-2025-12-01-a-las-10-54-02-fbfd4deb.jpg",
+  "popular": false
+ },
+ {
+  "id": "711",
+  "name": "Mango Roll (x10)",
+  "description": "Salmón, queso philadelphia, mango y lluvia de almendras caramelizadas",
+  "price": 16000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/1n0tDH1F/Mango-Roll.jpg",
+  "popular": false
+ },
+ {
+  "id": "712",
+  "name": "Punta Cana (x10)",
+  "description": "Palta, philadelphia y salmón ahumado",
+  "price": 16000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/Y2fZ65Dq/PHOTO-2026-08-23-19-25-31.jpg",
+  "popular": false
+ },
+ {
+  "id": "801",
+  "name": "Temakis (x1)",
+  "description": "Cono de alga nori relleno con palta, queso phila y salmon fresco",
+  "price": 9000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/KRkHsCrS/Temaki.jpg",
+  "popular": false
+ },
+ {
+  "id": "802",
+  "name": "Sashimi de Salmón (x5)",
+  "description": "Finas fetas de salmón fresco",
+  "price": 15000,
+  "category": "Rolls Especiales",
+  "image": "https://i.postimg.cc/8zVg4KNg/sashimi-de-salmon-receta.jpg",
+  "popular": false
+ },
+ {
+  "id": "713",
+  "name": "SUGAR ROLL",
+  "description": "Kanikama rebozado y palta, recubierto en queso phila con flameado azucarado",
+  "price": 16000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/PNGZPL9W/PHOTO-2025-11-21-11-11-23.jpg",
+  "popular": false
+ },
+ {
+  "id": "714",
+  "name": "KATU ROLL",
+  "description": "Palta y queso phila, recubierto en salmon, banado en salsa agridulce y semillas de chia",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/xdzTss4R/Catu-Roll.jpg",
+  "popular": false
+ },
+ {
+  "id": "715",
+  "name": "Avocado roll",
+  "description": "Salmon, queso phila, recubierto en palta.",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/tRtdSD09/PHOTO-2025-12-02-21-11-37.jpg",
+  "popular": false
+ },
+ {
+  "id": "716",
+  "name": "Skin roll",
+  "description": "Piel de salmon crocante, queso phila y ciboulette, recubierto en Kanikama",
+  "price": 15000,
+  "category": "Nuestros Rolls",
+  "image": "https://i.postimg.cc/j5hX7htN/Whats-App-Image-2025-11-21-at-1-15-20-PM.jpg",
+  "popular": false
+ },
+ {
+  "id": "720",
+  "name": "Sushi Burger de Salmón Fresco",
+  "description": "Hamburguesa de sushi rebozada con salmón fresco, queso philadelphia y palta.",
+  "price": 18000,
+  "category": "Sushi Burger",
+  "image": "https://i.postimg.cc/JhQpNg88/PHOTO-2025-11-26-16-04-30-(1).jpg",
+  "popular": false
+ },
+ {
+  "id": "721",
+  "name": "Sushi Burger de Salmón Cocido",
+  "description": "Hamburguesa de sushi con salmón cocido, queso philadelphia y palta.",
+  "price": 18000,
+  "category": "Sushi Burger",
+  "image": "https://i.postimg.cc/y8XLzdNG/PHOTO-2026-05-27-20-35-34.jpg",
+  "popular": false
+ },
+ {
+  "id": "722",
+  "name": "Sushi Burger de Langostinos",
+  "description": "Hamburguesa de sushi con langostinos rebozados, queso philadelphia y palta.",
+  "price": 18000,
+  "category": "Sushi Burger",
+  "image": "https://i.postimg.cc/Gh5wY4Qq/6c8cbeda-4839-4088-a597-991b57c0dd05.jpg",
+  "popular": false
+ },
+ {
+  "id": "723",
+  "name": "Sushi Burger de Kanikama",
+  "description": "Hamburguesa de sushi con kanikama, queso philadelphia y palta.",
+  "price": 18000,
+  "category": "Sushi Burger",
+  "image": "",
+  "popular": false
+ },
+ {
+  "id": "724",
+  "name": "Sushi Burger Veggie",
+  "description": "Hamburguesa de sushi vegetariana con palta, queso philadelphia y verduras frescas.",
+  "price": 18000,
+  "category": "Sushi Burger",
+  "image": "",
+  "popular": false
+ },
+ {
+  "id": "725",
+  "name": "Pancho Sushi de Salmón Fresco",
+  "description": "Pancho de sushi rebozado con salmón fresco, queso philadelphia y palta.",
+  "price": 16000,
+  "category": "Pancho Sushi",
+  "image": "https://i.postimg.cc/NF8FF1T7/PHOTO-2025-11-26-16-04-30.jpg",
+  "popular": false
+ },
+ {
+  "id": "726",
+  "name": "Pancho Sushi de Salmón Cocido",
+  "description": "Pancho de sushi con salmón cocido, queso philadelphia y palta.",
+  "price": 16000,
+  "category": "Pancho Sushi",
+  "image": "https://i.postimg.cc/FKwdWbQ6/PHOTO-2026-05-27-21-09-55.jpg",
+  "popular": false
+ },
+ {
+  "id": "727",
+  "name": "Pancho Sushi de Langostinos",
+  "description": "Pancho de sushi con langostinos rebozados, queso philadelphia y palta.",
+  "price": 16000,
+  "category": "Pancho Sushi",
+  "image": "",
+  "popular": false
+ },
+ {
+  "id": "728",
+  "name": "Pancho Sushi de Kanikama",
+  "description": "Pancho de sushi con kanikama, queso philadelphia y palta.",
+  "price": 16000,
+  "category": "Pancho Sushi",
+  "image": "",
+  "popular": false
+ },
+ {
+  "id": "729",
+  "name": "Pancho Sushi Veggie",
+  "description": "Pancho de sushi vegetariano con palta, queso philadelphia y verduras frescas.",
+  "price": 16000,
+  "category": "Pancho Sushi",
+  "image": "https://i.postimg.cc/d1XB9ZW7/PHOTO-2026-05-27-20-48-24.jpg",
+  "popular": false
+ }
+]

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Star, MessageCircle } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
+import { estadoHoy, fraseAtencion, ZONA_DELIVERY, RESENAS_GOOGLE } from '../services/horarios';
 
 interface HeroProps {
   onViewMenu: () => void;
@@ -12,6 +13,8 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirect }) => {
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
+  // Horario real de hoy: los lunes no abre ninguna sucursal y Perón abre también al mediodía.
+  const hoy = estadoHoy();
 
   const handleViewPremium = () => {
     const menuSection = document.getElementById('menu');
@@ -26,7 +29,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
     const url = trackAndRedirectToWhatsApp(
       'Hola! Vi la web de Kayso y quiero hacer un pedido para hoy. ¿Tienen disponibilidad y hacen delivery a San Miguel/Muñiz?',
       WHATSAPP_NUMBER,
-      { resumen: 'Contacto desde Hero', zona: 'San Miguel/Muñiz', modalidad: 'A definir' }
+      { resumen: 'Contacto desde Hero', zona: ZONA_DELIVERY, modalidad: 'A definir' }
     );
     if (onRedirect) onRedirect(url);
     setFallbackUrl(url);
@@ -47,13 +50,21 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
     <div className="relative bg-kayso-dark overflow-hidden min-h-[85vh] flex items-center">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=75&w=1200&auto=format&fit=crop"
-          alt="Sushi Background Kayso" 
-          className="w-full h-full object-cover opacity-40 scale-105 animate-slow-zoom"
-          // @ts-ignore
-          fetchpriority="high"
-        />
+        <picture>
+          <source media="(max-width: 767px)" srcSet="/img/hero-portrait.webp" width={720} height={700} />
+          <source media="(min-width: 768px)" srcSet="/img/hero-wide.webp" width={1080} height={480} />
+          <img
+            src="/img/hero-wide.jpg"
+            alt=""
+            aria-hidden="true"
+            width={1080}
+            height={480}
+            className="w-full h-full object-cover opacity-40"
+            decoding="async"
+            // @ts-ignore
+            fetchpriority="high"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-kayso-dark via-kayso-dark/80 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-kayso-dark via-kayso-dark/60 to-transparent"></div>
       </div>
@@ -76,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         <div className="md:w-2/3 lg:w-1/2">
           {promoMessage && (
-            <div className="mb-5 inline-flex items-center gap-2 bg-kayso-orange text-white px-4 py-2 rounded-full text-xs sm:text-sm font-black uppercase tracking-wide animate-fade-in-up shadow-lg shadow-kayso-orange/30">
+            <div className="mb-5 inline-flex items-center gap-2 bg-kayso-orange-deep text-white px-4 py-2 rounded-full text-xs sm:text-sm font-black uppercase tracking-wide animate-fade-in-up shadow-lg shadow-kayso-orange/30">
               🔥 {promoMessage}
             </div>
           )}
@@ -101,15 +112,15 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Combos desde</p>
               <p className="text-white text-xl font-black font-display leading-none">$17.500</p>
-              <p className="text-gray-600 text-[9px] font-bold mt-0.5">· 15 PIEZAS</p>
+              <p className="text-gray-400 text-[9px] font-bold mt-0.5">· 15 PIEZAS</p>
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
-              <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Abierto hoy</p>
-              <p className="text-white text-sm font-bold leading-none">18:30 a 22:30hs</p>
+              <p className="text-gray-400 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">{hoy.etiqueta}</p>
+              <p className="text-white text-sm font-bold leading-none">{hoy.detalle}</p>
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
-              <p className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
-              <p className="text-white text-xs font-bold leading-none">San Miguel · Muñiz · B. Vista · J.C. Paz</p>
+              <p className="text-gray-400 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
+              <p className="text-white text-xs font-bold leading-none">{ZONA_DELIVERY}</p>
             </div>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Pagando en efectivo</p>
@@ -124,7 +135,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up mt-2 sm:mt-0" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onOpenBuilder}
-              className="group relative overflow-hidden bg-kayso-orange text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/30"
+              className="group relative overflow-hidden bg-kayso-orange-deep text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/30"
               style={{ boxShadow: '0 8px 32px rgba(255,34,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)' }}
             >
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
@@ -143,13 +154,13 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" />)}
               </div>
-              <span className="text-yellow-500/80 text-[10px] font-black uppercase tracking-wider">4.9 Google (+90)</span>
+              <span className="text-yellow-500 text-[10px] font-black uppercase tracking-wider">{RESENAS_GOOGLE}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-600 tracking-widest uppercase">
+            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 tracking-widest uppercase">
               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
               Delivery propio
             </div>
-            <span className="text-[10px] font-bold text-gray-600 tracking-widest uppercase">San Miguel · Muñiz</span>
+            <span className="text-[10px] font-bold text-gray-400 tracking-widest uppercase">{ZONA_DELIVERY}</span>
           </div>
 
           <div className="mt-6 animate-fade-in" style={{ animationDelay: '0.6s' }}>
@@ -162,7 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <MessageCircle size={18} className="relative z-10" />
               <span className="relative z-10">Pedí directo por WhatsApp</span>
             </button>
-            <p className="text-gray-500 text-[10px] font-semibold mt-2 ml-1 tracking-wide">Responden en 2 min &middot; 4.9&#9733; en Google (90+ reviews)</p>
+            <p className="text-gray-400 text-[10px] font-semibold mt-2 ml-1 tracking-wide">{fraseAtencion()}</p>
             {fallbackUrl && (
               <a
                 href={fallbackUrl}

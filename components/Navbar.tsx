@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
               ))}
               <button
                 onClick={() => setView('BUILDER')}
-                className="bg-kayso-orange hover:bg-red-700 text-white px-4 py-2 rounded-full font-bold font-display text-sm transition-transform hover:scale-105 shadow-lg shadow-kayso-orange/20"
+                className="bg-kayso-orange-deep hover:bg-red-700 text-white px-4 py-2 rounded-full font-bold font-display text-sm transition-transform hover:scale-105 shadow-lg shadow-kayso-orange/20"
               >
                 Armá tu Combo
               </button>
@@ -74,6 +74,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={isOpen}
               className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -107,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
                   setView('BUILDER');
                   setIsOpen(false);
                 }}
-                className="w-full mt-4 bg-kayso-orange text-white px-3 py-3 rounded-md font-bold font-display text-base text-center"
+                className="w-full mt-4 bg-kayso-orange-deep text-white px-3 py-3 rounded-md font-bold font-display text-base text-center"
               >
                 Armá tu Combo
               </button>

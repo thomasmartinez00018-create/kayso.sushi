@@ -17,17 +17,17 @@
     <meta name="facebook-domain-verification" content="xmkz2zgpxkgn82gtpsea3uyuxj1bmn" />
 
     <title>Kayso Sushi | El Mejor Sushi en San Miguel</title>
-    <meta name="description" content="El mejor sushi delivery en San Miguel, José C. Paz, Muñiz y Bella Vista. Pedí online tus rolls favoritos, combos y sushi burgers." />
+    <meta name="description" content="Sushi delivery en San Miguel y Muñiz. Armá tu combo y pedí por WhatsApp: rolls, combinados y sushi burgers. Retiro y delivery propio." />
 
     <!-- Open Graph / Meta Ads -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_AR" />
     <meta property="og:url" content="https://www.kaysosushi.store/" />
     <meta property="og:title" content="Kayso Sushi | Pedí tu Sushi por WhatsApp en San Miguel" />
-    <meta property="og:description" content="Combos desde $17.500 · 15 piezas. Armá tu combo y pedí directo por WhatsApp. Delivery propio en San Miguel, Muñiz y Bella Vista." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1200&auto=format&fit=crop" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Combos desde $17.500 · 15 piezas. Armá tu combo y pedí directo por WhatsApp. Delivery propio en San Miguel y Muñiz." />
+    <meta property="og:image" content="https://www.kaysosushi.store/img/hero-wide.jpg" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="480" />
     <meta property="og:site_name" content="Kayso Sushi" />
 
     <!-- Canonical -->
@@ -73,8 +73,9 @@
     }
     </script>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/bvS81MjF/Diseno-sin-titulo.png" />
+    <!-- Favicon (local, 32px: antes era un PNG de 101 KB servido desde postimg) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Meta Pixel Code (Script part stays in Head) -->
     <script>
@@ -96,18 +97,13 @@
     </script>
     <!-- End Meta Pixel Code Part 1 -->
 
-    <!-- LCP Hero Image Preload -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1553621042-f6e147245754?q=75&w=1200&auto=format&fit=crop" />
+    <!-- Precarga del hero (local). En mobile pesa 10 KB; antes eran 1200px de Unsplash. -->
+    <link rel="preload" as="image" href="/img/hero-portrait.webp" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/img/hero-wide.webp" media="(min-width: 768px)" fetchpriority="high" />
 
-    <!-- Image & Font Optimization -->
-    <link rel="preconnect" href="https://images.unsplash.com" />
+    <!-- Las fotos del menú viven en postimg; el resto de los dominios externos ya no se usa. -->
     <link rel="preconnect" href="https://i.postimg.cc" />
-    <link rel="preconnect" href="https://image.pollinations.ai" />
     <link rel="dns-prefetch" href="https://i.postimg.cc" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
   </head>
   <body class="bg-kayso-dark text-white">
     <!-- Meta Pixel Code Part 2 (Noscript goes here in body) -->

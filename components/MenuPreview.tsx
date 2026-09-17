@@ -20,7 +20,7 @@ const AddToCartButton: React.FC<{ item: MenuItem; label?: string; variant?: 'pri
   const baseClass = 'w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm';
   const styles =
     variant === 'primary'
-      ? 'bg-kayso-orange hover:bg-red-700 text-white shadow-lg shadow-kayso-orange/15'
+      ? 'bg-kayso-orange-deep hover:bg-red-700 text-white shadow-lg shadow-kayso-orange/15'
       : 'bg-kayso-orange/10 hover:bg-kayso-orange border border-kayso-orange/25 hover:border-transparent text-kayso-orange hover:text-white';
 
   return (
@@ -40,7 +40,7 @@ const ComboOrderButtons: React.FC<{
       <AddToCartButton item={selectedItem} label="Agregar al pedido" variant="primary" />
       <button
         onClick={onOpenBuilder}
-        className="w-full bg-transparent hover:bg-white/5 text-gray-500 hover:text-gray-300 border border-gray-800 hover:border-gray-600 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm"
+        className="w-full bg-transparent hover:bg-white/5 text-gray-400 hover:text-gray-300 border border-gray-800 hover:border-gray-600 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all text-sm"
       >
         <UtensilsCrossed size={15} />
         Personalizar
@@ -165,7 +165,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
           <h2 className="text-4xl md:text-5xl font-black font-display text-white mb-4 leading-tight">
             Nuestros <span className="text-kayso-orange">Hits</span>
           </h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-sm">
+          <p className="text-gray-400 max-w-xl mx-auto text-sm">
             Desde los clásicos que nunca fallan hasta nuestras creaciones exclusivas.
           </p>
         </div>
@@ -177,7 +177,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
           >
             <div className="bg-gray-900/30 backdrop-blur-sm rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 h-full w-full">
               <div className="flex items-center gap-6">
-                <div className="bg-white text-kayso-orange p-4 rounded-full shadow-lg group-hover:rotate-12 transition-transform duration-500">
+                <div className="bg-white text-kayso-orange-deep p-4 rounded-full shadow-lg group-hover:rotate-12 transition-transform duration-500">
                   <UtensilsCrossed size={32} />
                 </div>
                 <div className="text-center md:text-left">
@@ -189,7 +189,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
                   </p>
                 </div>
               </div>
-              <button className="bg-white text-kayso-orange px-6 py-3 rounded-xl font-bold flex items-center gap-2 group-hover:bg-gray-100 transition-colors shadow-lg whitespace-nowrap">
+              <button className="bg-white text-kayso-orange-deep px-6 py-3 rounded-xl font-bold flex items-center gap-2 group-hover:bg-gray-100 transition-colors shadow-lg whitespace-nowrap">
                 Usar Armador <ArrowRight size={20} />
               </button>
             </div>
@@ -203,8 +203,8 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ fullMenu = false, item
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
                 activeCategory === cat
-                  ? 'bg-kayso-orange text-white shadow-lg shadow-kayso-orange/20'
-                  : 'bg-transparent text-gray-500 border border-gray-800 hover:border-gray-600 hover:text-gray-300'
+                  ? 'bg-kayso-orange-deep text-white shadow-lg shadow-kayso-orange/20'
+                  : 'bg-transparent text-gray-400 border border-gray-800 hover:border-gray-600 hover:text-gray-300'
               }`}
             >
               {cat}
@@ -237,7 +237,7 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
       />
       {item.popular && (
-        <div className="absolute top-3 right-3 z-10 bg-kayso-orange text-white text-[9px] font-black px-2.5 py-1 rounded flex items-center gap-1 shadow-lg uppercase tracking-widest">
+        <div className="absolute top-3 right-3 z-10 bg-kayso-orange-deep text-white text-[9px] font-black px-2.5 py-1 rounded flex items-center gap-1 shadow-lg uppercase tracking-widest">
           <Flame size={10} /> TOP
         </div>
       )}
@@ -254,7 +254,7 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
       <h3 className="text-lg font-black text-white group-hover:text-kayso-orange transition-colors mb-2 font-display leading-tight">
         {item.name}
       </h3>
-      <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">
+      <p className="text-gray-400 text-sm mb-5 flex-grow leading-relaxed">
         {item.description}
       </p>
       <AddToCartButton item={item} />
@@ -299,7 +299,7 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
           decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute top-3 right-3 z-10 bg-kayso-orange text-white text-[9px] font-black px-2.5 py-1 rounded uppercase tracking-widest shadow-lg">
+        <div className="absolute top-3 right-3 z-10 bg-kayso-orange-deep text-white text-[9px] font-black px-2.5 py-1 rounded uppercase tracking-widest shadow-lg">
           COMBOS
         </div>
         <div className="absolute bottom-3 right-3 z-10 bg-black/70 backdrop-blur-sm border border-white/10 px-2.5 py-1 rounded-lg">
@@ -312,7 +312,7 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
         </h3>
 
         <div className="mb-4">
-          <p className="text-[9px] text-gray-600 mb-2 uppercase font-black tracking-[0.2em]">Elegí el tamaño:</p>
+          <p className="text-[9px] text-gray-400 mb-2 uppercase font-black tracking-[0.2em]">Elegí el tamaño:</p>
           <div className="flex flex-wrap gap-2">
             {items.map(variant => {
               const pieces = getPieces(variant.name);
@@ -323,7 +323,7 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
                   onClick={() => setSelectedItem(variant)}
                   className={`px-3 py-1.5 text-xs rounded-lg font-black transition-all ${
                     isSelected
-                      ? 'bg-kayso-orange text-white shadow-md shadow-kayso-orange/20'
+                      ? 'bg-kayso-orange-deep text-white shadow-md shadow-kayso-orange/20'
                       : 'bg-gray-900 text-gray-400 border border-gray-800 hover:border-gray-600 hover:text-gray-200'
                   }`}
                 >
@@ -334,7 +334,7 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
           </div>
         </div>
 
-        <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">
+        <p className="text-gray-400 text-sm mb-5 flex-grow leading-relaxed">
           {selectedItem.description}
         </p>
 

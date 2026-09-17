@@ -17,6 +17,10 @@ export default {
       colors: {
         kayso: {
           orange: '#FF2200',
+          // Mismo naranja pero más oscuro, para texto chico en blanco (el #FF2200 da 3.83:1)
+          'orange-deep': '#E01E00',
+          // Naranja para TEXTO sobre gris/negro (el #FF2200 da 3.83:1 sobre bg-gray-800)
+          'orange-text': '#FF5233',
           dark: '#050505',
           gray: '#1f1f1f',
           light: '#f4f4f5',

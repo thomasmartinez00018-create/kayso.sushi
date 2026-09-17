@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MenuItem } from '../types';
 import { ComboBuilder } from './ComboBuilder';
 import { ArrowDown, Clock, MessageCircle, Bike, Star } from 'lucide-react';
+import { ZONA_DELIVERY, TIEMPO_ENTREGA, RESENAS_GOOGLE, fraseAtencion, gellyCerroDefinitivo } from '../services/horarios';
 
 interface Props {
   menuItems: MenuItem[];
@@ -34,6 +35,7 @@ const useReveal = () => {
 
 export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) => {
   const builderRef = useRef<HTMLDivElement | null>(null);
+  const atencion = fraseAtencion();
   const pasos = useReveal();
 
   const scrollToBuilder = () => {
@@ -58,7 +60,7 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
             style={{ animationDelay: '0.05s', animationFillMode: 'forwards' }}
           >
             <Star size={15} className="text-kayso-orange" fill="currentColor" />
-            <span className="text-xs font-bold tracking-wide text-white/90">4.9 ★ en Google · +90 reseñas</span>
+            <span className="text-xs font-bold tracking-wide text-white/90">{RESENAS_GOOGLE}</span>
           </div>
 
           <h1
@@ -74,7 +76,7 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
             style={{ animationDelay: '0.22s', animationFillMode: 'forwards' }}
           >
             Elegí pieza por pieza lo que más te gusta. Lo armamos fresco y te lo
-            llevamos <span className="text-white font-medium">esta noche</span>. Delivery propio en San Miguel y Muñiz.
+            llevamos <span className="text-white font-medium">esta noche</span>. Delivery propio en {ZONA_DELIVERY}.
           </p>
 
           <div
@@ -83,12 +85,12 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
           >
             <button
               onClick={scrollToBuilder}
-              className="group bg-kayso-orange hover:bg-red-700 text-white font-bold font-display text-lg px-10 py-4 rounded-full shadow-xl shadow-kayso-orange/25 transition-all hover:scale-[1.03] active:scale-[0.98] flex items-center gap-3"
+              className="group bg-kayso-orange-deep hover:bg-red-700 text-white font-bold font-display text-lg px-10 py-4 rounded-full shadow-xl shadow-kayso-orange/25 transition-all hover:scale-[1.03] active:scale-[0.98] flex items-center gap-3"
             >
               Empezá a armarlo
               <ArrowDown size={20} className="group-hover:translate-y-1 transition-transform" />
             </button>
-            <span className="text-sm text-gray-500">Te confirmamos por WhatsApp en 2 minutos</span>
+            <span className="text-sm text-gray-400">{atencion}</span>
           </div>
         </div>
       </section>
@@ -102,8 +104,8 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               { icon: <Star size={26} />, t: 'Armás tu combo', d: 'Elegís el tamaño y los rolls que más te gustan. A tu manera.' },
-              { icon: <MessageCircle size={26} />, t: 'Confirmamos en 2 min', d: 'Tu pedido llega listo a nuestro WhatsApp. Te respondemos al toque.' },
-              { icon: <Bike size={26} />, t: 'Llega en ~30 min', d: 'Delivery propio a San Miguel y Muñiz. Fresco, a tu casa.' },
+              { icon: <MessageCircle size={26} />, t: 'Te confirmamos', d: 'Tu pedido llega listo a nuestro WhatsApp. Te respondemos en horario de atención.' },
+              { icon: <Bike size={26} />, t: `Llega en ${TIEMPO_ENTREGA}`, d: `Delivery propio a ${ZONA_DELIVERY}. Fresco, a tu casa.` },
             ].map((p, i) => (
               <div
                 key={i}
@@ -118,7 +120,7 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
                   {p.icon}
                 </div>
                 <h3 className="font-display font-bold text-lg mb-2">{p.t}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{p.d}</p>
+                <p className="text-gray-300 text-sm leading-relaxed">{p.d}</p>
               </div>
             ))}
           </div>
@@ -139,7 +141,9 @@ export const ArmaTuComboLanding: React.FC<Props> = ({ menuItems, onCheckout }) =
       {/* ============ FIRMA ============ */}
       <footer className="py-10 text-center border-t border-white/5">
         <p className="font-display font-black text-2xl tracking-tight">KAYSO<span className="text-kayso-orange">.</span></p>
-        <p className="text-gray-500 text-sm mt-1">Gelly y Obes 2308 · Pte. Perón 1991 — San Miguel · Noches 18:30 a 22:30</p>
+        <p className="text-gray-400 text-sm mt-1">
+          {gellyCerroDefinitivo() ? 'Av. Pte. Perón 1991 — San Miguel' : 'Gelly y Obes 2308 · Av. Pte. Perón 1991 — San Miguel'} · Noches 18:30 a 22:30
+        </p>
       </footer>
     </div>
   );

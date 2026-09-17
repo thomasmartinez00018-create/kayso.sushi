@@ -72,7 +72,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
         // CART-AWARE MODE: primary CTA drives to checkout, not to WhatsApp
         <button
           onClick={handleViewCart}
-          className="relative flex items-center gap-3 bg-kayso-orange hover:bg-red-700 text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 pl-4 pr-5 py-3"
+          className="relative flex items-center gap-3 bg-kayso-orange-deep hover:bg-red-700 text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 pl-4 pr-5 py-3"
           style={{ boxShadow: '0 4px 24px rgba(255,34,0,0.5)' }}
           aria-label={`Ver tu pedido — ${count} productos`}
         >
@@ -80,7 +80,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
           <div className="relative z-10 flex items-center gap-2.5">
             <div className="relative">
               <ShoppingBag size={20} className="flex-shrink-0" />
-              <span className="absolute -top-2 -right-2 bg-white text-kayso-orange border-2 border-kayso-orange text-[10px] font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+              <span className="absolute -top-2 -right-2 bg-white text-kayso-orange-deep border-2 border-kayso-orange text-[10px] font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
                 {count}
               </span>
             </div>

@@ -59,7 +59,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
             </div>
             <div>
               <h2 className="text-white font-black font-display text-lg leading-none">Tu Pedido</h2>
-              <p className="text-gray-500 text-[10px] uppercase tracking-widest mt-1">
+              <p className="text-gray-400 text-[10px] uppercase tracking-widest mt-1">
                 {items.length} {items.length === 1 ? 'producto' : 'productos'}
               </p>
             </div>
@@ -80,7 +80,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
               <ShoppingBag size={30} className="text-gray-700" />
             </div>
             <h3 className="text-white font-black font-display text-xl mb-2">Tu pedido está vacío</h3>
-            <p className="text-gray-500 text-sm mb-6 leading-relaxed">
+            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Agregá productos del menú para empezar a armar tu pedido.
             </p>
             <button
@@ -88,7 +88,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
                 closeDrawer();
                 onContinueShopping?.();
               }}
-              className="bg-kayso-orange hover:bg-red-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-kayso-orange/20"
+              className="bg-kayso-orange-deep hover:bg-red-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-kayso-orange/20"
             >
               Ver menú
             </button>
@@ -120,14 +120,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
                       <h4 className="text-white font-bold text-sm leading-tight line-clamp-2">{item.name}</h4>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="text-gray-600 hover:text-red-500 transition-colors flex-shrink-0"
+                        className="text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
                         aria-label={`Eliminar ${item.name}`}
                       >
                         <Trash2 size={14} />
                       </button>
                     </div>
                     {item.details && (
-                      <p className="text-gray-600 text-[11px] mt-0.5 line-clamp-2">{item.details}</p>
+                      <p className="text-gray-400 text-[11px] mt-0.5 line-clamp-2">{item.details}</p>
                     )}
                     <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center gap-2">
@@ -159,10 +159,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
             {/* Footer */}
             <div className="border-t border-gray-800 px-5 py-4 bg-black/40 backdrop-blur-md">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-gray-500 text-xs uppercase tracking-widest font-bold">Subtotal</span>
+                <span className="text-gray-400 text-xs uppercase tracking-widest font-bold">Subtotal</span>
                 <span className="text-white font-black font-display text-2xl">${subtotal.toLocaleString('es-AR')}</span>
               </div>
-              <p className="text-gray-600 text-[11px] mb-3 leading-relaxed">
+              <p className="text-gray-400 text-[11px] mb-3 leading-relaxed">
                 Envío y forma de pago se coordinan en el siguiente paso.
               </p>
               <button
@@ -170,7 +170,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
                   closeDrawer();
                   onCheckout();
                 }}
-                className="w-full bg-kayso-orange hover:bg-red-700 text-white py-3.5 rounded-xl font-black font-display text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-kayso-orange/25"
+                className="w-full bg-kayso-orange-deep hover:bg-red-700 text-white py-3.5 rounded-xl font-black font-display text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-kayso-orange/25"
               >
                 Finalizar pedido <ArrowRight size={16} />
               </button>
@@ -179,7 +179,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
                   closeDrawer();
                   onContinueShopping?.();
                 }}
-                className="w-full mt-2 text-gray-500 hover:text-gray-300 text-xs py-2 transition-colors"
+                className="w-full mt-2 text-gray-400 hover:text-gray-300 text-xs py-2 transition-colors"
               >
                 Seguir agregando productos
               </button>
