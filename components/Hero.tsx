@@ -51,7 +51,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <picture>
-          <source media="(max-width: 767px)" srcSet="/img/hero-portrait.webp" width={720} height={700} />
+          <source media="(max-width: 767px)" srcSet="/img/hero-portrait.webp" width={750} height={580} />
           <source media="(min-width: 768px)" srcSet="/img/hero-wide.webp" width={1080} height={480} />
           <img
             src="/img/hero-wide.jpg"
