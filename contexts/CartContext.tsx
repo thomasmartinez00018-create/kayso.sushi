@@ -17,6 +17,7 @@ interface CartContextValue {
   closeDrawer: () => void;
   toggleDrawer: () => void;
   showToast: (message: string) => void;
+  syncPrices: (priceFor: (productId: string) => number | undefined) => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -103,6 +104,24 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const clear = useCallback(() => setItems([]), []);
+
+  // El carrito queda guardado en el celular. Si los precios cambiaron desde que la persona
+  // agregó el producto, al volver veía (y mandaba) el precio viejo. Esto lo corrige con el
+  // precio actual del menú cada vez que el menú se carga.
+  const syncPrices = useCallback((priceFor: (productId: string) => number | undefined) => {
+    setItems(prev => {
+      let cambio = false;
+      const next = prev.map(i => {
+        const actual = priceFor(String(i.productId));
+        if (typeof actual === 'number' && actual > 0 && actual !== i.price) {
+          cambio = true;
+          return { ...i, price: actual };
+        }
+        return i;
+      });
+      return cambio ? next : prev;
+    });
+  }, []);
   const openDrawer = useCallback(() => setDrawerOpen(true), []);
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
   const toggleDrawer = useCallback(() => setDrawerOpen(d => !d), []);
@@ -126,6 +145,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         closeDrawer,
         toggleDrawer,
         showToast,
+        syncPrices,
       }}
     >
       {children}

@@ -24,8 +24,8 @@ export const fechaAR = (d: Date = new Date()): string =>
 
 // --- SUCURSALES ---
 
-// Gelly y Obes cierra: Gladys lo avisó el 7-sep-2026 ("antes de fin de septiembre"), sin fecha exacta.
-// Desde este día la sucursal deja de ofrecerse en la web. Ajustar cuando Gladys confirme el día.
+// Gelly y Obes: Gladys confirmó el 18-sep-2026 que el último día que atiende es el 30 de septiembre.
+// El local sigue abierto hasta fin de octubre solo para guardar cosas, sin tomar pedidos.
 export const GELLY_CIERRA = '2026-10-01';
 
 export const PERON_DIAS_MEDIODIA = [2, 3, 4, 5, 6]; // martes a sábado, 11:30 a 14:30
@@ -98,8 +98,12 @@ export const fraseAtencion = (d: Date = new Date()): string => {
 
 // --- TEXTOS COMPARTIDOS (una sola versión de cada promesa) ---
 
-/** Zona real de reparto: el mismo radio que cubren los anuncios desde Perón. */
-export const ZONA_DELIVERY = 'San Miguel y Muñiz';
+/** Zona real de reparto (Gladys, 18-sep-2026). */
+export const ZONA_DELIVERY = 'San Miguel, Muñiz y parte de Bella Vista';
+
+/** Hasta dónde llega en Bella Vista, para el que duda si le llega. */
+export const ZONA_DETALLE =
+  'En Bella Vista llegamos al centro y la zona de la estación, hasta Ruta 8. No llegamos a la zona de Camino del Buen Aire ni a Barrio Obligado.';
 
 /** Tiempo de entrega. Único valor en toda la web. */
 export const TIEMPO_ENTREGA = '45 a 60 min';

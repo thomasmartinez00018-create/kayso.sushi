@@ -1,5 +1,5 @@
 import { CartItem, CheckoutData } from '../types';
-import { getCashDiscountRate } from '../constants';
+import { getCashDiscountRate, getCashDiscount } from '../constants';
 
 export const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUk07_6e3m4kbpSKEJW1K5yUDmUtCzEbNrPTDMiWo7LreAmaXIybt0vosZrI8yUaQI4w/exec';
 
@@ -187,7 +187,9 @@ function buildCheckoutMessage(clientId: string, items: CartItem[], data: Checkou
   const modeIcon = mode === 'delivery' ? '🛵' : '🏪';
   const modeLabel = mode === 'delivery' ? 'Delivery' : 'Retiro en sucursal';
 
-  let msg = `*Pedido Kayso Sushi*\nID: ${clientId}\n\n`;
+  // El número de pedido queda guardado en la planilla con los productos y precios reales.
+  // Si alguien edita el mensaje antes de mandarlo, el local lo detecta buscando este número.
+  let msg = `*Pedido Kayso Sushi Nº ${clientId}*\n\n`;
   if (customerName) msg += `👤 *Cliente:* ${customerName}\n`;
   msg += `🏬 *Sucursal:* ${branchLabel}\n`;
   msg += `${modeIcon} *Modalidad:* ${modeLabel}\n`;
@@ -203,11 +205,11 @@ function buildCheckoutMessage(clientId: string, items: CartItem[], data: Checkou
   });
 
   const discountRate = getCashDiscountRate(payment);
-  if (discountRate > 0) {
-    const discount = Math.round(total * discountRate);
+  const discount = getCashDiscount(items, payment);
+  if (discount > 0) {
     const finalTotal = total - discount;
     msg += `\nSubtotal: $${total.toLocaleString('es-AR')}\n`;
-    msg += `Descuento efectivo (${Math.round(discountRate * 100)}% OFF): −$${discount.toLocaleString('es-AR')}\n`;
+    msg += `Descuento efectivo (${Math.round(discountRate * 100)}% OFF, sin bebidas/salsas/postres): −$${discount.toLocaleString('es-AR')}\n`;
     msg += `\n*TOTAL A COBRAR: $${finalTotal.toLocaleString('es-AR')}*\n`;
   } else {
     msg += `\n*TOTAL: $${total.toLocaleString('es-AR')}*\n`;
@@ -217,6 +219,7 @@ function buildCheckoutMessage(clientId: string, items: CartItem[], data: Checkou
     msg += `\n📝 *Notas:* ${notes.trim()}\n`;
   }
 
+  msg += `\n_Los precios de este pedido quedan registrados con el Nº ${clientId}._`;
   msg += `\nGracias! 🍣`;
   return msg;
 }
@@ -348,7 +351,7 @@ export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutDa
 
   // `total` llega como subtotal: el mensaje de WhatsApp aplica el descuento en efectivo por su cuenta.
   // A Meta le mandamos lo que realmente se cobra, así el valor de los eventos no queda inflado.
-  const chargedTotal = total - Math.round(total * getCashDiscountRate(data.payment));
+  const chargedTotal = total - getCashDiscount(items, data.payment);
   const { leadEventId, purchaseEventId, qualifiedLeadEventId } = fireCheckoutEvents(clientId, items, data, chargedTotal);
 
   // Open WhatsApp inside click handler (popup blocker compat)

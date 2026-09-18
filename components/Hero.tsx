@@ -40,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
     if (typeof window === 'undefined') return null;
     const p = new URLSearchParams(window.location.search).get('promo');
     const PROMOS: Record<string, string> = {
-      miercoles: 'Los miércoles: 20% OFF pagando en efectivo',
+      miercoles: 'Miércoles y jueves: 20% OFF pagando en efectivo',
       enviogratis: 'Envío GRATIS en la zona céntrica de San Miguel',
     };
     return p && PROMOS[p] ? PROMOS[p] : null;
@@ -120,11 +120,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-400 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
-              <p className="text-white text-xs font-bold leading-none">{ZONA_DELIVERY}</p>
+              <p className="text-white text-xs font-bold leading-none">San Miguel · Muñiz · B. Vista</p>
             </div>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Pagando en efectivo</p>
-              <p className="text-white text-xs font-bold leading-none">10% OFF · Miérc. 20% OFF</p>
+              <p className="text-white text-xs font-bold leading-none">20% OFF mié y jue</p>
             </div>
           </div>
           

@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin, Clock, UtensilsCrossed, MessageCircle } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
-import { ZONA_DELIVERY, TIEMPO_ENTREGA } from '../services/horarios';
+import { ZONA_DELIVERY, ZONA_DETALLE, TIEMPO_ENTREGA } from '../services/horarios';
 
 interface HowToOrderProps {
   onRedirect?: (url: string) => void;
@@ -26,7 +26,7 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
     {
       icon: <MapPin className="text-kayso-orange" size={32} />,
       title: "2. Chequeá zona",
-      description: `Llegamos a ${ZONA_DELIVERY} con nuestro delivery propio.`
+      description: `Llegamos a ${ZONA_DELIVERY} con nuestro delivery propio. ${ZONA_DETALLE}`
     },
     {
       icon: <Clock className="text-kayso-orange" size={32} />,

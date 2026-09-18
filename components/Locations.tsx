@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
 import { WHATSAPP_GELLY, WHATSAPP_PERON } from '../constants';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
-import { gellyCerroDefinitivo, gellyDisponibleHoy, ZONA_DELIVERY } from '../services/horarios';
+import { gellyCerroDefinitivo, gellyDisponibleHoy, ZONA_DELIVERY, ZONA_DETALLE } from '../services/horarios';
 
 /**
  * El mapa embebido de Google baja ~200 KB de JavaScript por sucursal y bloquea la pintura.
@@ -141,6 +141,7 @@ export const Locations: React.FC = () => {
               <h3 className="text-xl font-bold text-white mb-3">🛵 Envío a domicilio</h3>
               <p className="text-gray-300 mb-2"><span className="text-kayso-orange-text font-bold">GRATIS</span> en la zona céntrica de San Miguel.</p>
               <p className="text-gray-300 mb-4">Resto de {ZONA_DELIVERY} entre <span className="font-bold text-white">$1.500 y $3.000</span> según tu barrio.</p>
+              <p className="text-gray-400 text-sm mb-4">{ZONA_DETALLE}</p>
               <a
                 href="https://goo.gl/maps/jgtWdWvo47fQjyYN8"
                 target="_blank"
@@ -152,8 +153,8 @@ export const Locations: React.FC = () => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-3">💵 Pagando en efectivo</h3>
-              <p className="text-gray-300 mb-2"><span className="text-kayso-orange-text font-bold">10% de descuento</span> todos los días.</p>
-              <p className="text-gray-300"><span className="text-kayso-orange-text font-bold">20% de descuento</span> los miércoles.</p>
+              <p className="text-gray-300 mb-2"><span className="text-kayso-orange-text font-bold">20% de descuento</span> los miércoles y jueves.</p>
+              <p className="text-gray-400 text-sm">En rolls, combos, ensaladas y demás sushi. No incluye bebidas, salsas, postres ni envío.</p>
             </div>
           </div>
         </div>

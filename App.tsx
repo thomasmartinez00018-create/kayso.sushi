@@ -14,7 +14,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { CartToast } from './components/CartToast';
 
 
-import { CartProvider } from './contexts/CartContext';
+import { CartProvider, useCart } from './contexts/CartContext';
 
 // Estas pantallas no se ven al entrar: se bajan cuando se abren. Antes viajaban en el
 // mismo archivo de 383 KB que bloqueaba la primera pintura.
@@ -30,7 +30,7 @@ const Cargando = () => (
 );
 import { ViewState, MenuItem, Testimonial } from './types';
 import { fetchMenuFromSheet, fetchReviewsFromSheet } from './services/sheetService';
-import { MENU_ITEMS, TESTIMONIALS } from './constants';
+import { MENU_ITEMS, TESTIMONIALS, COMBO_SIZES, BUILDER_UPSELLS } from './constants';
 
 const getInitialView = (): ViewState => {
   if (typeof window !== 'undefined') {
@@ -47,6 +47,19 @@ function AppInner() {
   // El menú de respaldo ya es el de la planilla (snapshot), así que se puede mostrar sin esperar.
   const [loading, setLoading] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState<string>('');
+  const { syncPrices } = useCart();
+
+  // Cada vez que llega el menú (respaldo o planilla), el carrito toma los precios de hoy.
+  useEffect(() => {
+    syncPrices(productId => {
+      const delMenu = menuItems.find(m => String(m.id) === productId);
+      if (delMenu) return delMenu.price;
+      const combo = productId.match(/^custom-combo-(\d+)$/);
+      if (combo) return COMBO_SIZES.find(c => c.pieces === Number(combo[1]))?.basePrice;
+      if (productId.startsWith('extra-')) return BUILDER_UPSELLS.find(e => `extra-${e.id}` === productId)?.price;
+      return undefined;
+    });
+  }, [menuItems, syncPrices]);
 
   const handleRedirect = (url: string) => {
     setRedirectUrl(url);

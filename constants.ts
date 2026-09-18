@@ -17,14 +17,45 @@ export const WHATSAPP_PERON = "5491128627514";
 export const WHATSAPP_NUMBER = WHATSAPP_PERON;
 
 // --- DESCUENTO EN EFECTIVO (fuente única: checkout + mensaje de WhatsApp) ---
-export const CASH_DISCOUNT_BASE = 0.10;      // 10% todos los días pagando en efectivo
-export const CASH_DISCOUNT_WEDNESDAY = 0.20; // 20% los miércoles
+// Regla que pasó Gladys por audio el 18-sep-2026: 20% miércoles y jueves pagando en efectivo,
+// sobre el sushi (rolls, combos, ensaladas, etc.). No aplica a bebidas, salsas, envío ni postres.
+// Con otro medio de pago no hay descuento.
+// El 10% de todos los días NO lo mencionó: queda en 0 hasta que lo confirme. Si sigue, es 0.10.
+export const CASH_DISCOUNT_BASE = 0;
+export const CASH_DISCOUNT_PROMO = 0.20;
+export const CASH_DISCOUNT_DAYS = [3, 4]; // 3 = miércoles, 4 = jueves (hora argentina)
+
+/** Extras del armador que no llevan descuento: bebidas, salsas, condimentos y postres. */
+export const NO_DISCOUNT_EXTRAS = [
+  'u_palitos', 'u_soja', 'u_ba', 'u_teri', 'u_mara', 'u_wasabi', 'u_jengibre', // salsas y condimentos
+  'u_coca', 'u_coca_zero', 'u_agua',                                           // bebidas
+  'u_franui',                                                                  // postre
+];
+
+/** ¿Este producto del carrito entra en el descuento en efectivo? */
+export const isDiscountable = (productId: string | number): boolean => {
+  const pid = String(productId); // los ids de la planilla llegan como número
+  return !NO_DISCOUNT_EXTRAS.some(id => pid === `extra-${id}` || pid === id);
+};
 
 /** Tasa de descuento vigente pagando en efectivo según el día (0 si no es efectivo). */
 export const getCashDiscountRate = (payment?: string | null): number => {
   if (payment !== 'efectivo') return 0;
-  const isWednesday = new Date().getDay() === 3; // 3 = miércoles
-  return isWednesday ? CASH_DISCOUNT_WEDNESDAY : CASH_DISCOUNT_BASE;
+  const dia = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Argentina/Buenos_Aires', weekday: 'short' })
+    .format(new Date());
+  const idx = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(dia);
+  return CASH_DISCOUNT_DAYS.includes(idx) ? CASH_DISCOUNT_PROMO : CASH_DISCOUNT_BASE;
+};
+
+/** Monto del descuento en efectivo: solo sobre los productos que lo llevan. */
+export const getCashDiscount = (
+  items: Array<{ productId: string | number; price: number; quantity: number }>,
+  payment?: string | null,
+): number => {
+  const rate = getCashDiscountRate(payment);
+  if (rate === 0) return 0;
+  const base = items.filter(i => isDiscountable(i.productId)).reduce((n, i) => n + i.price * i.quantity, 0);
+  return Math.round(base * rate);
 };
 
 // --- MENU DATA (RESPALDO) ---
