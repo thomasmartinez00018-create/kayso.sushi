@@ -3,7 +3,7 @@ import { ArrowLeft, MapPin, Truck, Store, Banknote, CreditCard, Smartphone, File
 import { useCart } from '../contexts/CartContext';
 import { DeliveryMode, PaymentMethod, Branch, CheckoutData } from '../types';
 import { trackAndRedirectFromCheckout } from '../services/trackingService';
-import { getCashDiscountRate, getCashDiscount } from '../constants';
+import { getCashDiscountRate, getCashDiscount, NO_DISCOUNT_TEXT } from '../constants';
 import { gellyDisponibleHoy, fraseAtencion, TIEMPO_ENTREGA } from '../services/horarios';
 
 interface CheckoutProps {
@@ -42,7 +42,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
   const canSubmit = Object.keys(errors).length === 0 && items.length > 0 && !submitting;
 
   const discountRate = getCashDiscountRate(payment);
-  // Solo sobre el sushi: bebidas, salsas y postres no llevan descuento.
+  // No llevan descuento: salsas, bebidas, spring rolls, langostinos rebozados y Franui.
   const discount = getCashDiscount(items, payment);
   const finalTotal = subtotal - discount;
 
@@ -125,7 +125,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
           {discount > 0 && (
             <div className="flex justify-between items-center text-sm mb-1 animate-fade-in">
               <span className="text-[#25D366] font-bold flex items-center gap-1.5">
-                <Banknote size={14} /> Descuento efectivo ({Math.round(discountRate * 100)}% OFF, sin bebidas/salsas/postres)
+                <Banknote size={14} /> Descuento efectivo ({Math.round(discountRate * 100)}% OFF)
               </span>
               <span className="text-[#25D366] font-black font-display whitespace-nowrap">−${discount.toLocaleString('es-AR')}</span>
             </div>
@@ -197,7 +197,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
         <section className="mb-6">
           <label className="block text-white font-bold text-sm mb-3">Forma de pago</label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <PaymentOption selected={payment === 'efectivo'} onClick={() => setPayment('efectivo')} icon={<Banknote size={20} />} title="Efectivo" badge="20% OFF mié y jue" />
+            <PaymentOption selected={payment === 'efectivo'} onClick={() => setPayment('efectivo')} icon={<Banknote size={20} />} title="Efectivo" badge="10% OFF · mié y jue 20%" />
             <PaymentOption selected={payment === 'transferencia'} onClick={() => setPayment('transferencia')} icon={<CreditCard size={20} />} title="Transferencia" />
             <PaymentOption selected={payment === 'mercadopago'} onClick={() => setPayment('mercadopago')} icon={<Smartphone size={20} />} title="Mercado Pago" />
           </div>
@@ -250,7 +250,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
                 <p className="text-white font-black font-display text-2xl">${finalTotal.toLocaleString('es-AR')}</p>
               </div>
               {discount > 0 && (
-                <p className="text-[#25D366] text-[10px] font-bold">{Math.round(discountRate * 100)}% OFF pagando en efectivo (no incluye bebidas, salsas ni postres)</p>
+                <p className="text-[#25D366] text-[10px] font-bold">{Math.round(discountRate * 100)}% OFF pagando en efectivo (no incluye {NO_DISCOUNT_TEXT})</p>
               )}
             </div>
             <button

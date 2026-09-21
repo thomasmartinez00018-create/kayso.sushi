@@ -1,5 +1,5 @@
 import { CartItem, CheckoutData } from '../types';
-import { getCashDiscountRate, getCashDiscount } from '../constants';
+import { getCashDiscountRate, getCashDiscount, NO_DISCOUNT_TEXT } from '../constants';
 
 export const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUk07_6e3m4kbpSKEJW1K5yUDmUtCzEbNrPTDMiWo7LreAmaXIybt0vosZrI8yUaQI4w/exec';
 
@@ -209,7 +209,7 @@ function buildCheckoutMessage(clientId: string, items: CartItem[], data: Checkou
   if (discount > 0) {
     const finalTotal = total - discount;
     msg += `\nSubtotal: $${total.toLocaleString('es-AR')}\n`;
-    msg += `Descuento efectivo (${Math.round(discountRate * 100)}% OFF, sin bebidas/salsas/postres): −$${discount.toLocaleString('es-AR')}\n`;
+    msg += `Descuento efectivo (${Math.round(discountRate * 100)}% OFF, sin ${NO_DISCOUNT_TEXT}): −$${discount.toLocaleString('es-AR')}\n`;
     msg += `\n*TOTAL A COBRAR: $${finalTotal.toLocaleString('es-AR')}*\n`;
   } else {
     msg += `\n*TOTAL: $${total.toLocaleString('es-AR')}*\n`;

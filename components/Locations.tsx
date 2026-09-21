@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
-import { WHATSAPP_GELLY, WHATSAPP_PERON } from '../constants';
+import { WHATSAPP_GELLY, WHATSAPP_PERON, NO_DISCOUNT_TEXT } from '../constants';
 import { trackAndRedirectToWhatsApp } from '../services/trackingService';
 import { gellyCerroDefinitivo, gellyDisponibleHoy, ZONA_DELIVERY, ZONA_DETALLE } from '../services/horarios';
 
@@ -153,8 +153,9 @@ export const Locations: React.FC = () => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-white mb-3">💵 Pagando en efectivo</h3>
+              <p className="text-gray-300 mb-2"><span className="text-kayso-orange-text font-bold">10% de descuento</span> lunes, martes, viernes, sábado y domingo.</p>
               <p className="text-gray-300 mb-2"><span className="text-kayso-orange-text font-bold">20% de descuento</span> los miércoles y jueves.</p>
-              <p className="text-gray-400 text-sm">En rolls, combos, ensaladas y demás sushi. No incluye bebidas, salsas, postres ni envío.</p>
+              <p className="text-gray-400 text-sm">No incluye {NO_DISCOUNT_TEXT}.</p>
             </div>
           </div>
         </div>

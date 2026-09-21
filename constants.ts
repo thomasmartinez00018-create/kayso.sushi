@@ -17,25 +17,34 @@ export const WHATSAPP_PERON = "5491128627514";
 export const WHATSAPP_NUMBER = WHATSAPP_PERON;
 
 // --- DESCUENTO EN EFECTIVO (fuente única: checkout + mensaje de WhatsApp) ---
-// Regla que pasó Gladys por audio el 18-sep-2026: 20% miércoles y jueves pagando en efectivo,
-// sobre el sushi (rolls, combos, ensaladas, etc.). No aplica a bebidas, salsas, envío ni postres.
+// Regla escrita por Gladys el 21-sep-2026, pagando en efectivo:
+//   lunes, martes, viernes, sábado y domingo: 10% · miércoles y jueves: 20%.
+// En ambos NO se aplica a: salsas, bebidas, spring rolls, langostinos rebozados y Franui.
 // Con otro medio de pago no hay descuento.
-// El 10% de todos los días NO lo mencionó: queda en 0 hasta que lo confirme. Si sigue, es 0.10.
-export const CASH_DISCOUNT_BASE = 0;
+export const CASH_DISCOUNT_BASE = 0.10;
 export const CASH_DISCOUNT_PROMO = 0.20;
 export const CASH_DISCOUNT_DAYS = [3, 4]; // 3 = miércoles, 4 = jueves (hora argentina)
 
-/** Extras del armador que no llevan descuento: bebidas, salsas, condimentos y postres. */
+/** Texto corto de lo que no lleva descuento, igual en toda la web. */
+export const NO_DISCOUNT_TEXT = 'salsas, bebidas, spring rolls, langostinos rebozados ni Franui';
+
+/** Extras del armador que no llevan descuento (la lista de Gladys). */
 export const NO_DISCOUNT_EXTRAS = [
-  'u_palitos', 'u_soja', 'u_ba', 'u_teri', 'u_mara', 'u_wasabi', 'u_jengibre', // salsas y condimentos
-  'u_coca', 'u_coca_zero', 'u_agua',                                           // bebidas
-  'u_franui',                                                                  // postre
+  'u_soja', 'u_ba', 'u_teri', 'u_mara', // salsas
+  'u_coca', 'u_coca_zero', 'u_agua',    // bebidas
+  'u_langostinos',                      // langostinos rebozados
+  'u_franui',                           // Franui
 ];
 
+/** Productos del menú sin descuento, por nombre (los ids de la planilla pueden cambiar). */
+// Anclado al inicio: la "Chirashi Salad Langostinos Rebozados" es ensalada y SÍ lleva descuento.
+const NO_DISCOUNT_NAMES = /^(spring\s*rolls?|langostinos\s+rebozados|franui|salsa|coca-cola|agua)/i;
+
 /** ¿Este producto del carrito entra en el descuento en efectivo? */
-export const isDiscountable = (productId: string | number): boolean => {
+export const isDiscountable = (productId: string | number, name = ''): boolean => {
   const pid = String(productId); // los ids de la planilla llegan como número
-  return !NO_DISCOUNT_EXTRAS.some(id => pid === `extra-${id}` || pid === id);
+  if (NO_DISCOUNT_EXTRAS.some(id => pid === `extra-${id}` || pid === id)) return false;
+  return !NO_DISCOUNT_NAMES.test(name);
 };
 
 /** Tasa de descuento vigente pagando en efectivo según el día (0 si no es efectivo). */
@@ -49,12 +58,12 @@ export const getCashDiscountRate = (payment?: string | null): number => {
 
 /** Monto del descuento en efectivo: solo sobre los productos que lo llevan. */
 export const getCashDiscount = (
-  items: Array<{ productId: string | number; price: number; quantity: number }>,
+  items: Array<{ productId: string | number; price: number; quantity: number; name?: string }>,
   payment?: string | null,
 ): number => {
   const rate = getCashDiscountRate(payment);
   if (rate === 0) return 0;
-  const base = items.filter(i => isDiscountable(i.productId)).reduce((n, i) => n + i.price * i.quantity, 0);
+  const base = items.filter(i => isDiscountable(i.productId, i.name)).reduce((n, i) => n + i.price * i.quantity, 0);
   return Math.round(base * rate);
 };
 
