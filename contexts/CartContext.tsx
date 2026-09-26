@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { CartItem } from '../types';
+import { trackAddToCart } from '../services/trackingService';
 
 const STORAGE_KEY = 'kayso_cart_v1';
 
@@ -83,6 +84,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return [...prev, newItem];
     });
     showToast(`Agregado: ${item.name}`);
+    trackAddToCart({ productId: item.productId, name: item.name, price: item.price, quantity: quantityToAdd });
 
     // Teaching moment: when the cart goes from empty to 1 item, auto-open
     // the drawer so the user learns the flow (multi-product order).

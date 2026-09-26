@@ -43,6 +43,48 @@ function getVisitorId(fallback: string): string {
   try { return localStorage.getItem('_kayso_vid') || fallback; } catch { return fallback; }
 }
 
+// --- AddToCart: se dispara cuando un producto entra de verdad al carrito, con su valor en pesos ---
+// Antes lo contaba una regla armada a mano en Meta sobre el texto del botón "Armá tu combo":
+// medía toques de ese botón, sin valor ni moneda. Ahora sale del código, en el navegador y por
+// el servidor con el mismo ID para que Meta no lo cuente dos veces.
+export function trackAddToCart(item: { productId: string | number; name: string; price: number; quantity: number }): void {
+  if (typeof window === 'undefined') return;
+  const eventId = generateEventId();
+  const value = Math.round(item.price * item.quantity);
+  const contents = [{ id: String(item.productId), quantity: item.quantity, item_price: item.price }];
+  const queryParams = getQueryParams();
+  const fbp = getCookie('_fbp');
+  const fbc = getCookie('_fbc') || (queryParams.fbclid ? `fb.1.${Date.now()}.${queryParams.fbclid}` : '');
+
+  if ((window as any).fbq) {
+    (window as any).fbq('track', 'AddToCart', {
+      content_name: item.name,
+      content_ids: [String(item.productId)],
+      content_type: 'product',
+      contents,
+      value,
+      currency: 'ARS',
+    }, { eventID: eventId });
+  }
+
+  fetch('/api/meta-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: 'AddToCart',
+      eventId,
+      content_name: item.name,
+      external_id: getVisitorId(eventId),
+      fbp,
+      fbc,
+      value,
+      currency: 'ARS',
+      contents,
+      num_items: item.quantity,
+    }),
+  }).catch(() => {});
+}
+
 // --- Contact event (dedup per session + CAPI + ContactRedirected) ---
 function fireContactEvent(contentName: string, clientId: string): void {
   const sessionKey = `_fired_contact_${contentName}`;
