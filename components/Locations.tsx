@@ -83,7 +83,7 @@ export const Locations: React.FC = () => {
                   WHATSAPP_GELLY,
                   { resumen: 'Contacto Sucursal Gelly y Obes', zona: 'Gelly y Obes — San Miguel', modalidad: 'A definir' }
                 )}
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
+                className="bg-[#0B7A3E] hover:bg-[#096632] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
               >
                 <MessageCircle size={20} aria-hidden="true" />
                 {gellyHoy ? 'Pedir a Gelly y Obes' : 'Hoy no atiende · escribile igual'}
@@ -125,7 +125,7 @@ export const Locations: React.FC = () => {
                   WHATSAPP_PERON,
                   { resumen: 'Contacto Sucursal Pte. Perón', zona: 'Pte. Perón — San Miguel', modalidad: 'A definir' }
                 )}
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
+                className="bg-[#0B7A3E] hover:bg-[#096632] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors shadow-lg w-full"
               >
                 <MessageCircle size={20} aria-hidden="true" />
                 Pedir a Pte. Perón

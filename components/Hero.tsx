@@ -27,7 +27,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
 
   const handleWhatsAppOrder = () => {
     const url = trackAndRedirectToWhatsApp(
-      'Hola! Vi la web de Kayso y quiero hacer un pedido para hoy. ¿Tienen disponibilidad y hacen delivery a San Miguel/Muñiz?',
+      'Hola! Vi la web de Kayso y quiero hacer un pedido para hoy. ¿Tienen disponibilidad y hacen delivery a San Miguel, Muñiz o Bella Vista?',
       WHATSAPP_NUMBER,
       { resumen: 'Contacto desde Hero', zona: ZONA_DELIVERY, modalidad: 'A definir' }
     );
@@ -94,7 +94,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
 
           <div className="flex items-center gap-4 mb-5 sm:mb-8 animate-fade-in-up">
             <div className="w-8 h-px bg-kayso-orange flex-shrink-0"></div>
-            <span className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.28em]">San Miguel & Muñiz</span>
+            <span className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.28em]">San Miguel · Muñiz · Bella Vista</span>
             <div className="flex text-yellow-500 gap-0.5">
               {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" />)}
             </div>
@@ -166,10 +166,10 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
           <div className="mt-6 animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <button
               onClick={handleWhatsAppOrder}
-              className="relative flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-6 py-3.5 rounded-2xl font-black text-sm transition-all hover:scale-105 active:scale-95 shadow-lg"
+              className="relative flex items-center gap-2.5 bg-[#0B7A3E] hover:bg-[#096632] text-white px-6 py-3.5 rounded-2xl font-black text-sm transition-all hover:scale-105 active:scale-95 shadow-lg"
               style={{ boxShadow: '0 4px 20px rgba(37,211,102,0.35)' }}
             >
-              <span className="absolute inset-0 rounded-2xl bg-[#25D366] animate-ping opacity-20 pointer-events-none"></span>
+              <span className="absolute inset-0 rounded-2xl bg-[#0B7A3E] animate-ping opacity-20 pointer-events-none"></span>
               <MessageCircle size={18} className="relative z-10" />
               <span className="relative z-10">Pedí directo por WhatsApp</span>
             </button>

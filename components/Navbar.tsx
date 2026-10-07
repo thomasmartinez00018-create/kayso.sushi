@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
     const url = trackAndRedirectToWhatsApp(
       'Hola! Estoy en la web de Kayso y quiero hacer un pedido. ¿Hacen delivery a mi zona en San Miguel?',
       WHATSAPP_NUMBER,
-      { resumen: 'CTA Navbar WhatsApp', zona: 'San Miguel/Muñiz' }
+      { resumen: 'CTA Navbar WhatsApp', zona: 'San Miguel/Muñiz/Bella Vista' }
     );
     if (onRedirect) onRedirect(url);
     setIsOpen(false);
@@ -62,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
               </button>
               <button
                 onClick={handleWhatsApp}
-                className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-2 rounded-full font-bold font-display text-sm transition-transform hover:scale-105 shadow-lg"
+                className="flex items-center gap-1.5 bg-[#0B7A3E] hover:bg-[#096632] text-white px-4 py-2 rounded-full font-bold font-display text-sm transition-transform hover:scale-105 shadow-lg"
               >
                 <MessageCircle size={15} />
                 WhatsApp
@@ -115,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, setView, onRedirect
               </button>
               <button
                 onClick={handleWhatsApp}
-                className="w-full mt-2 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-3 py-3 rounded-md font-bold font-display text-base"
+                className="w-full mt-2 flex items-center justify-center gap-2 bg-[#0B7A3E] hover:bg-[#096632] text-white px-3 py-3 rounded-md font-bold font-display text-base"
               >
                 <MessageCircle size={18} />
                 Pedí por WhatsApp

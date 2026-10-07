@@ -50,9 +50,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
 
   const handleWhatsApp = () => {
     const url = trackAndRedirectToWhatsApp(
-      'Hola! Estoy mirando los combos en la web. Quiero hacer un pedido — ¿hacen delivery a mi zona?',
+      'Hola! Estoy mirando los combos en la web. Quiero hacer un pedido. ¿Hacen delivery a mi zona?',
       WHATSAPP_NUMBER,
-      { resumen: 'Botón flotante WhatsApp', zona: 'San Miguel/Muñiz' }
+      { resumen: 'Botón flotante WhatsApp', zona: 'San Miguel/Muñiz/Bella Vista' }
     );
     onRedirect(url);
     setFallbackUrl(url);
@@ -95,11 +95,11 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ onRedirect }
         // EMPTY CART: classic WhatsApp CTA
         <button
           onClick={handleWhatsApp}
-          className="relative flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 px-5 py-3.5"
+          className="relative flex items-center gap-2.5 bg-[#0B7A3E] hover:bg-[#096632] text-white rounded-full shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 px-5 py-3.5"
           style={{ boxShadow: '0 4px 24px rgba(37,211,102,0.45)' }}
           aria-label="Pedí por WhatsApp"
         >
-          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25 pointer-events-none"></span>
+          <span className="absolute inset-0 rounded-full bg-[#0B7A3E] animate-ping opacity-25 pointer-events-none"></span>
           <MessageCircle size={20} className="flex-shrink-0 relative z-10" />
           <span className="font-black text-sm whitespace-nowrap relative z-10">Pedí por WhatsApp</span>
         </button>

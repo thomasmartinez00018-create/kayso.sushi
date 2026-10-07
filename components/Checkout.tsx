@@ -258,7 +258,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
               disabled={items.length === 0}
               className={`w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-black font-display text-sm transition-all shadow-lg ${
                 canSubmit
-                  ? 'bg-[#25D366] hover:bg-[#1ebe5d] text-white shadow-[#25D366]/30 hover:scale-105'
+                  ? 'bg-[#0B7A3E] hover:bg-[#096632] text-white shadow-[#0B7A3E]/30 hover:scale-105'
                   : 'bg-gray-800 text-gray-400 cursor-not-allowed'
               }`}
             >

@@ -3,6 +3,18 @@ import React from 'react';
 import { Instagram, MapPin, Clock, Star, MessageCircle } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { RESENAS_GOOGLE, ZONA_DELIVERY, gellyCerroDefinitivo } from '../services/horarios';
+import { WHATSAPP_PERON } from '../constants';
+import { trackAndRedirectToWhatsApp } from '../services/trackingService';
+
+// El número del pie era un enlace pelado: el mensaje llegaba vacío y Meta no se enteraba del toque
+// (tarjeta de la web, 7-oct-2026). Ahora sale con texto y avisa a Meta como el resto de los botones.
+const MENSAJE_PIE = 'Hola! Vi la web de Kayso y quiero hacer un pedido. ¿Hacen delivery a mi zona?';
+const hrefPie = `https://wa.me/${WHATSAPP_PERON}?text=${encodeURIComponent(MENSAJE_PIE)}`;
+const abrirWhatsAppPie = (e: React.MouseEvent) => {
+  e.preventDefault();
+  const url = trackAndRedirectToWhatsApp(MENSAJE_PIE, WHATSAPP_PERON, { resumen: 'Pie de página WhatsApp Perón', zona: ZONA_DELIVERY });
+  window.open(url, '_blank', 'noopener');
+};
 
 export const Footer: React.FC = () => {
   return (
@@ -56,8 +68,8 @@ export const Footer: React.FC = () => {
                  <div>
                     <p className="text-white font-bold">Presidente Perón</p>
                     <p>Av. Pte. Perón 1991</p>
-                    <a href="https://wa.me/5491128627514" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-[#25D366] hover:text-green-400 transition-colors font-bold">
-                      <MessageCircle size={13} /> 11 2862-7514
+                    <a href={hrefPie} onClick={abrirWhatsAppPie} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 min-h-[44px] py-2 text-[#25D366] hover:text-green-400 transition-colors font-bold">
+                      <MessageCircle size={16} aria-hidden="true" /> 11 2862-7514
                     </a>
                 </div>
               </div>

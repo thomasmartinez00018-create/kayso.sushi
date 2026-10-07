@@ -11,7 +11,7 @@ interface HowToOrderProps {
 export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
   const handleWhatsApp = () => {
     const url = trackAndRedirectToWhatsApp(
-      'Hola! Vi cómo funciona el pedido en la web y quiero arrancar. ¿Hacen delivery a mi zona en San Miguel/Muñiz?',
+      'Hola! Vi cómo funciona el pedido en la web y quiero arrancar. ¿Hacen delivery a mi zona en San Miguel, Muñiz o Bella Vista?',
       WHATSAPP_NUMBER,
       { resumen: 'CTA sección Cómo Pedir', zona: ZONA_DELIVERY }
     );
@@ -83,10 +83,10 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
           </div>
           <button
             onClick={handleWhatsApp}
-            className="relative flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-10 py-4 rounded-2xl font-black text-base transition-all hover:scale-105 active:scale-95"
+            className="relative flex items-center gap-3 bg-[#0B7A3E] hover:bg-[#096632] text-white px-10 py-4 rounded-2xl font-black text-base transition-all hover:scale-105 active:scale-95"
             style={{ boxShadow: '0 4px 32px rgba(37,211,102,0.35), inset 0 1px 0 rgba(255,255,255,0.2)' }}
           >
-            <span className="absolute inset-0 rounded-2xl bg-[#25D366] animate-ping opacity-15 pointer-events-none"></span>
+            <span className="absolute inset-0 rounded-2xl bg-[#0B7A3E] animate-ping opacity-15 pointer-events-none"></span>
             <MessageCircle size={20} className="relative z-10" />
             <span className="relative z-10 font-black tracking-wide">Hacer mi pedido por WhatsApp</span>
           </button>
