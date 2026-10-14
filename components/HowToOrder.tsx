@@ -57,13 +57,14 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
           {steps.map((step, index) => (
             <div key={index} className="relative bg-[#080808] border border-gray-800/80 hover:border-gray-700 rounded-2xl p-8 text-center overflow-hidden transition-all group cursor-default">
               {/* Big decorative step number */}
+              {/* El número va como contenido de ::before: es decoración (contraste 1,02 a 1 a propósito)
+                  y como texto real contaba como 3 fallas serias de accesibilidad (tarjeta web, 14-oct-2026). */}
               <div
-                className="absolute -top-3 -right-1 font-black leading-none font-display select-none pointer-events-none"
+                className="absolute -top-3 -right-1 font-black leading-none font-display select-none pointer-events-none before:content-[attr(data-n)]"
                 style={{ fontSize: '7rem', color: 'rgba(255,34,0,0.055)' }}
+                data-n={`0${index + 1}`}
                 aria-hidden="true"
-              >
-                0{index + 1}
-              </div>
+              />
               {/* Icon */}
               <div className="relative bg-kayso-orange/[0.08] border border-kayso-orange/15 group-hover:bg-kayso-orange/15 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors">
                 {step.icon}

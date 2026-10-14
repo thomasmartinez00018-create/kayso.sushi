@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ArrowLeft, MapPin, Truck, Store, Banknote, CreditCard, Smartphone, FileText, User, Check, ShoppingCart, AlertCircle, Clock, Shield } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { DeliveryMode, PaymentMethod, Branch, CheckoutData } from '../types';
 import { trackAndRedirectFromCheckout } from '../services/trackingService';
+import { gaBeginCheckout } from '../services/analytics';
 import { getCashDiscountRate, getCashDiscount, NO_DISCOUNT_TEXT } from '../constants';
 import { gellyDisponibleHoy, fraseAtencion, TIEMPO_ENTREGA } from '../services/horarios';
 
@@ -13,6 +14,9 @@ interface CheckoutProps {
 
 export const Checkout: React.FC<CheckoutProps> = ({ onBack, onComplete }) => {
   const { items, subtotal, clear } = useCart();
+
+  // Abrir esta pantalla es el "inicio de pedido" en Analytics (una vez por apertura).
+  useEffect(() => { if (items.length) gaBeginCheckout(items, subtotal); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Gelly y Obes no abre lunes ni martes y cierra a fin de mes: ofrecerla esos días manda
   // el pedido a un local cerrado (30 mensajes, 0 ventas en agosto).

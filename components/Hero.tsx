@@ -94,7 +94,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
 
           <div className="flex items-center gap-4 mb-5 sm:mb-8 animate-fade-in-up">
             <div className="w-8 h-px bg-kayso-orange flex-shrink-0"></div>
-            <span className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.28em]">San Miguel · Muñiz · Bella Vista</span>
+            <span className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.16em] sm:tracking-[0.28em] whitespace-nowrap">San Miguel · Muñiz · B. Vista</span>
             <div className="flex text-yellow-500 gap-0.5">
               {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" />)}
             </div>

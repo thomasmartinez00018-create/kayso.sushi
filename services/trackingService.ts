@@ -1,5 +1,6 @@
 import { CartItem, CheckoutData } from '../types';
 import { getCashDiscountRate, getCashDiscount, NO_DISCOUNT_TEXT } from '../constants';
+import { gaAddToCart, gaWhatsapp, gaPurchase } from './analytics';
 
 export const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUk07_6e3m4kbpSKEJW1K5yUDmUtCzEbNrPTDMiWo7LreAmaXIybt0vosZrI8yUaQI4w/exec';
 
@@ -49,6 +50,7 @@ function getVisitorId(fallback: string): string {
 // el servidor con el mismo ID para que Meta no lo cuente dos veces.
 export function trackAddToCart(item: { productId: string | number; name: string; price: number; quantity: number }): void {
   if (typeof window === 'undefined') return;
+  gaAddToCart(item);
   const eventId = generateEventId();
   const value = Math.round(item.price * item.quantity);
   const contents = [{ id: String(item.productId), quantity: item.quantity, item_price: item.price }];
@@ -148,6 +150,7 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
   const contentName = orderDetails.resumen || 'Pedido WhatsApp';
 
   fireContactEvent(contentName, clientId);
+  gaWhatsapp(contentName);
 
   const leadEventId = generateEventId();
   // SOFT lead — user clicked WA but didn't pre-qualify. No fake value/currency to keep ROAS data clean.
@@ -395,6 +398,7 @@ export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutDa
   // A Meta le mandamos lo que realmente se cobra, así el valor de los eventos no queda inflado.
   const chargedTotal = total - getCashDiscount(items, data.payment);
   const { leadEventId, purchaseEventId, qualifiedLeadEventId } = fireCheckoutEvents(clientId, items, data, chargedTotal);
+  gaPurchase(clientId, items, chargedTotal, data.payment, BRANCH_PHONES[data.branch].label);
 
   // Open WhatsApp inside click handler (popup blocker compat)
   window.open(whatsappUrl, '_blank');
