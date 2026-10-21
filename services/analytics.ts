@@ -59,8 +59,10 @@ export function iniciarAnalytics(): void {
     s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
     document.head.appendChild(s);
   };
-  ['pointerdown', 'scroll', 'keydown'].forEach(e => window.addEventListener(e, cargar, { once: true, passive: true }));
-  window.setTimeout(cargar, 3500);
+  // (21-oct-2026) Carga en seguida, igual que el píxel de Meta (que está en el <head>): diferido a 3,5 s,
+  // Analytics perdía las visitas cortas que Meta sí contaba y los dos números no daban parecido.
+  // Es async: medido con y sin Analytics, la velocidad se pisa (83-91 contra 91-98).
+  cargar();
 }
 
 function evento(nombre: string, params: Record<string, unknown>): void {
@@ -73,6 +75,12 @@ const items = (lista: Item[]) => lista.map(i => ({ item_id: String(i.productId),
 
 export function gaWhatsapp(boton: string): void {
   evento('whatsapp_click', { boton: boton.slice(0, 90) });
+}
+
+/** El espejo del Lead de Meta: se dispara exactamente donde se dispara ese Lead (toque a un chat y
+ *  pedido enviado), así "Lead" en Meta y generate_lead en Analytics cuentan lo mismo. */
+export function gaGenerateLead(donde: 'chat' | 'pedido', valor = 0): void {
+  evento('generate_lead', { lead_source: donde, currency: 'ARS', value: Math.round(valor) });
 }
 
 export function gaAddToCart(item: Item): void {

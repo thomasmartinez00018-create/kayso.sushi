@@ -43,6 +43,7 @@ export default async function handler(req: any, res: any) {
     currency,
     contents,
     num_items,
+    order_id, // Nº KS- del pedido: el mismo transaction_id que va a Google Analytics
     // Customer information for EMQ
     fn, // first name (raw, will be hashed)
     ln, // last name (raw, will be hashed)
@@ -84,6 +85,8 @@ export default async function handler(req: any, res: any) {
   if (currency && value != null && value > 0) customData.currency = currency;
   if (contents) customData.contents = contents;
   if (num_items != null) customData.num_items = num_items;
+  if (contents) customData.content_type = 'product';
+  if (order_id) customData.order_id = order_id;
 
   const eventPayload = {
     data: [

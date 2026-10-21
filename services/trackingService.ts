@@ -1,6 +1,6 @@
 import { CartItem, CheckoutData } from '../types';
 import { getCashDiscountRate, getCashDiscount, NO_DISCOUNT_TEXT } from '../constants';
-import { gaAddToCart, gaWhatsapp, gaPurchase } from './analytics';
+import { gaAddToCart, gaWhatsapp, gaPurchase, gaGenerateLead } from './analytics';
 
 export const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUk07_6e3m4kbpSKEJW1K5yUDmUtCzEbNrPTDMiWo7LreAmaXIybt0vosZrI8yUaQI4w/exec';
 
@@ -92,6 +92,8 @@ function fireContactEvent(contentName: string, clientId: string): void {
   const sessionKey = `_fired_contact_${contentName}`;
   if (sessionStorage.getItem(sessionKey)) return;
   sessionStorage.setItem(sessionKey, '1');
+  // whatsapp_click de Analytics sale acá, después del mismo control de repetidos: así cuenta igual que Contact de Meta.
+  gaWhatsapp(contentName);
 
   const eventId = generateEventId();
   const queryParams = getQueryParams();
@@ -150,7 +152,7 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
   const contentName = orderDetails.resumen || 'Pedido WhatsApp';
 
   fireContactEvent(contentName, clientId);
-  gaWhatsapp(contentName);
+  gaGenerateLead('chat');
 
   const leadEventId = generateEventId();
   // SOFT lead — user clicked WA but didn't pre-qualify. No fake value/currency to keep ROAS data clean.
@@ -380,6 +382,26 @@ function fireCheckoutEvents(clientId: string, items: CartItem[], data: CheckoutD
     }),
   }).catch(() => {});
 
+  // 4. Purchase (navegador + servidor): el pedido enviado, con el mismo Nº KS- y el mismo monto que el
+  // purchase de Google Analytics (21-oct-2026). Así "Compras" en Meta y en Analytics cuentan lo mismo.
+  // El event_id es fijo por pedido: si el navegador y el servidor llegan los dos, Meta cuenta uno.
+  const compraEventId = `compra-${clientId}`;
+  const contenidos = items.map(i => ({ id: String(i.productId), quantity: i.quantity, item_price: i.price }));
+  if (typeof window !== 'undefined' && (window as any).fbq) {
+    (window as any).fbq('track', 'Purchase', {
+      value: total, currency: 'ARS', contents: contenidos, content_type: 'product', num_items: numItems, order_id: clientId,
+    }, { eventID: compraEventId });
+  }
+  fetch('/api/meta-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: 'Purchase', eventId: compraEventId, order_id: clientId, content_name: contentName,
+      external_id: getVisitorId(clientId), fbp, fbc, value: total, currency: 'ARS', contents: contenidos, num_items: numItems,
+      fn: firstName, ln: lastName,
+    }),
+  }).catch(() => {});
+
   return { leadEventId, purchaseEventId, qualifiedLeadEventId };
 }
 
@@ -399,6 +421,7 @@ export const trackAndRedirectFromCheckout = (items: CartItem[], data: CheckoutDa
   const chargedTotal = total - getCashDiscount(items, data.payment);
   const { leadEventId, purchaseEventId, qualifiedLeadEventId } = fireCheckoutEvents(clientId, items, data, chargedTotal);
   gaPurchase(clientId, items, chargedTotal, data.payment, BRANCH_PHONES[data.branch].label);
+  gaGenerateLead('pedido', chargedTotal);
 
   // Open WhatsApp inside click handler (popup blocker compat)
   window.open(whatsappUrl, '_blank');
