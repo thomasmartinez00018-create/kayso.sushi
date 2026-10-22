@@ -140,13 +140,12 @@ export const trackAndRedirectToWhatsApp = (baseMessage: string, phoneNumber: str
   const fbc = getCookie('_fbc') || (queryParams.fbclid ? `fb.1.${Date.now()}.${queryParams.fbclid}` : '');
   const timestamp = new Date().toISOString();
 
-  const trackingTags: string[] = [];
-  if (orderDetails.zona) trackingTags.push(`Zona: ${orderDetails.zona}`);
-  if (orderDetails.tipo) trackingTags.push(`Tipo: ${orderDetails.tipo}`);
-  if (orderDetails.modalidad) trackingTags.push(`Modalidad: ${orderDetails.modalidad}`);
-  trackingTags.push(`ID: ${clientId}`);
-
-  const whatsappMessage = `${baseMessage}\n\n(${trackingTags.join(' · ')})`;
+  // (22-oct-2026) El código va dentro de la primera frase y el mensaje queda en un solo renglón.
+  // Antes iba al final en un renglón aparte "(Zona · Modalidad · ID: KS-…)": la gente lo borra (en Kinova
+  // llegaba entero 15 de cada 100 veces en renglón aparte y 75 dentro de la frase) y se lee como automático.
+  // Zona y modalidad siguen yendo a la planilla en el payload de abajo.
+  const conCodigo = baseMessage.replace(/^(Hola!\s+(?:\b(?:Pte|Av|Dr|Dra|Sr|Sra)\.|[^.?!])+)([.?!])/, `$1 (cód ${clientId})$2`); // "Pte." no corta la frase
+  const whatsappMessage = conCodigo !== baseMessage ? conCodigo : `${baseMessage} (cód ${clientId})`;
 
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
   const contentName = orderDetails.resumen || 'Pedido WhatsApp';

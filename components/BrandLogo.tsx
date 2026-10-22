@@ -17,6 +17,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ variant = 'navbar', classN
             <img 
                 src={LOGO_URL} 
                 alt="Kayso Sushi Logo" 
+                width={256}
+                height={256}
                 className="h-32 w-auto object-contain hover:scale-105 transition-transform duration-300"
             />
         ) : (
@@ -36,6 +38,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ variant = 'navbar', classN
             <img 
                 src={LOGO_URL} 
                 alt="Kayso Sushi Logo" 
+                width={256}
+                height={256}
                 className="h-12 w-auto object-contain"
             />
         ) : (

@@ -156,3 +156,9 @@ body::after {
   background: #ff2200;
   border-radius: 2px;
 }
+
+/* (22-oct-2026) Letra de lectura en el celular: de 14 a 16 px. El texto chico (text-sm) de párrafos y listas
+   sube a 1rem solo debajo de 768 px; rótulos y precios (text-xs) quedan como están. */
+@media (max-width: 767px) {
+  section p.text-sm, section li.text-sm { font-size: 1rem; line-height: 1.5rem; }
+}

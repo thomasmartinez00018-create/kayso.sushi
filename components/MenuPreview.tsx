@@ -232,6 +232,8 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
         key={item.image}
         src={item.image}
         alt={item.name}
+        width={600}
+        height={416}
         loading="lazy"
         decoding="async"
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -295,6 +297,8 @@ const GroupedMenuItemCard: React.FC<{ items: MenuItem[]; onOpenBuilder?: () => v
           key={displayImage}
           src={displayImage}
           alt={selectedItem.name}
+          width={600}
+          height={416}
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
