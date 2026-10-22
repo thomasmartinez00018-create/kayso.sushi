@@ -163,3 +163,13 @@ body::after {
 @media (max-width: 767px) {
   section p.text-sm:not(.leading-none), section li.text-sm { font-size: 1rem; line-height: 1.5rem; }
 }
+
+/* (22-oct-2026) Quien pidió "reducir movimiento" en el celular no ve animaciones: entran ya en su lugar. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

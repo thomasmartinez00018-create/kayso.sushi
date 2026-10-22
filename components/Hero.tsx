@@ -94,7 +94,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
 
           <div className="flex items-center gap-4 mb-5 sm:mb-8 animate-fade-in-up">
             <div className="w-8 h-px bg-kayso-orange flex-shrink-0"></div>
-            <span className="text-kayso-orange text-[10px] font-black uppercase tracking-[0.16em] sm:tracking-[0.28em] whitespace-nowrap">San Miguel · Muñiz · B. Vista</span>
+            <span className="text-kayso-orange text-[13px] font-black tracking-wide whitespace-nowrap">San Miguel · Muñiz · B. Vista</span>
             <div className="flex text-yellow-500 gap-0.5">
               {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" />)}
             </div>
@@ -120,11 +120,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-400 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
-              <p className="text-white text-xs font-bold leading-none">San Miguel · Muñiz · B. Vista</p>
+              <p className="text-white text-[13px] font-bold leading-none">San Miguel · Muñiz · B. Vista</p>
             </div>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Pagando en efectivo</p>
-              <p className="text-white text-xs font-bold leading-none">10% OFF · Mié y jue 20% OFF</p>
+              <p className="text-white text-[13px] font-bold leading-none">10% OFF · Mié y jue 20% OFF</p>
             </div>
           </div>
           
@@ -154,13 +154,13 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <div className="flex text-yellow-500">
                 {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="currentColor" />)}
               </div>
-              <span className="text-yellow-500 text-[10px] font-black uppercase tracking-wider">{RESENAS_GOOGLE}</span>
+              <span className="text-yellow-500 text-[13px] font-black">{RESENAS_GOOGLE}</span>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 tracking-widest uppercase">
               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
               Delivery propio
             </div>
-            <span className="text-[10px] font-bold text-gray-400 tracking-widest uppercase">{ZONA_DELIVERY}</span>
+            <span className="text-[13px] font-bold text-gray-400">{ZONA_DELIVERY}</span>
           </div>
 
           <div className="mt-6 animate-fade-in" style={{ animationDelay: '0.6s' }}>
@@ -173,7 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
               <MessageCircle size={18} className="relative z-10" />
               <span className="relative z-10">Pedí directo por WhatsApp</span>
             </button>
-            <p className="text-gray-400 text-[10px] font-semibold mt-2 ml-1 tracking-wide">{fraseAtencion()}</p>
+            <p className="text-gray-400 text-[13px] font-semibold mt-2 ml-1">{fraseAtencion()}</p>
             {fallbackUrl && (
               <a
                 href={fallbackUrl}

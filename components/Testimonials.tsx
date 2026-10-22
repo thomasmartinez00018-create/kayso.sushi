@@ -25,9 +25,9 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
                     <path d="M12 5.38C13.62 5.38 15.06 5.94 16.2 7.03L19.34 3.89C17.45 2.13 14.97 1.05 12 1.05C7.68 1.05 3.91 3.44 2.16 6.93L5.84 9.78C6.71 7.17 9.13 5.38 12 5.38Z" fill="#EA4335"/>
                 </svg>
               </span>
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">OPINIONES DE CLIENTES</p>
+              <p className="text-gray-400 font-bold tracking-wide text-[13px]">Opiniones de clientes</p>
            </div>
-          <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black mb-2">— Opiniones de clientes —</p>
+          <p className="text-[13px] text-gray-400 tracking-wide font-black mb-2">— Opiniones de clientes —</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-0 font-display">
             Lo que dicen nuestros <span className="text-kayso-orange">clientes</span>
           </h2>
@@ -88,7 +88,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
             href="https://www.google.com/maps/search/kayso+sushi+san+miguel/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-all text-xs font-bold uppercase tracking-widest border border-gray-800 hover:border-gray-600 px-5 py-2.5 rounded-lg"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-all text-sm font-bold border border-gray-800 hover:border-gray-600 px-5 py-2.5 rounded-lg"
           >
             Ver todas las reseñas en Google <Star size={12} />
           </a>
