@@ -75,8 +75,11 @@ export const estadoHoy = (d: Date = new Date()): EstadoHoy => {
     return { abierto: false, etiqueta: 'Hoy cerrado', detalle: 'Consultanos por WhatsApp' };
   }
 
-  const adentro = tramos.some(([a, b]) => min >= a && min < b);
-  if (adentro) return { abierto: true, etiqueta: 'Abierto ahora', detalle: texto };
+  // (22-oct-2026) Abierto: solo hasta qué hora. Con los dos tramos ("11:30 a 14:30hs y 18:30 a 22:30hs") el
+  // renglón ocupaba una fila más en el celular y las reseñas de Google quedaban debajo de la primera pantalla
+  // justo en el horario en que la gente pide.
+  const tramoActual = tramos.find(([a, b]) => min >= a && min < b);
+  if (tramoActual) return { abierto: true, etiqueta: 'Abierto ahora', detalle: `hasta las ${fmt(tramoActual[1])}hs` };
 
   const siguiente = tramos.find(([a]) => min < a);
   if (siguiente) return { abierto: false, etiqueta: `Abre ${fmt(siguiente[0])}`, detalle: `${fmt(siguiente[0])} a ${fmt(siguiente[1])}hs` };
