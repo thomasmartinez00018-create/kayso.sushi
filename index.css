@@ -131,14 +131,14 @@ body::after {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0 12px 12px 0;
+  border-radius: 0 4px 4px 0;
 }
 .pill-accent-muted {
   border-left: 2px solid rgba(255, 255, 255, 0.18);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0 12px 12px 0;
+  border-radius: 0 4px 4px 0;
 }
 
 /* ── Section heading underline accent ── */
@@ -154,14 +154,18 @@ body::after {
   width: 40%;
   height: 2px;
   background: #ff2200;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
-/* (22-oct-2026) Letra de lectura en el celular: de 14 a 16 px. El texto chico (text-sm) de párrafos y listas
-   sube a 1rem solo debajo de 768 px; rótulos y precios (text-xs) quedan como están.
+/* (22-oct-2026) Letra de lectura en el celular: de 14 a 16 px. (29-oct-2026) De 16 a 18 px: párrafos y listas de texto
+   chico o base suben a 1.125rem solo debajo de 768 px; rótulos y precios (text-xs) quedan como están.
    Los rótulos de la primera pantalla (leading-none) tampoco: agrandarlos empujaba las reseñas fuera de la vista. */
 @media (max-width: 767px) {
-  section p.text-sm:not(.leading-none), section li.text-sm { font-size: 1rem; line-height: 1.5rem; }
+  section p.text-sm:not(.leading-none), section li.text-sm,
+  section p.text-base:not(.leading-none), section li.text-base { font-size: 1.125rem; line-height: 1.75rem; }
+  /* Párrafos y listas sin clase de tamaño (eran 16 px por defecto). Las clases text-xs, text-sm y text-[Npx] de
+     Tailwind pesan más que este selector y los rótulos siguen como están. */
+  section p, section li { font-size: 1.125rem; line-height: 1.75rem; }
 }
 
 /* (22-oct-2026) Quien pidió "reducir movimiento" en el celular no ve animaciones: entran ya en su lugar. */

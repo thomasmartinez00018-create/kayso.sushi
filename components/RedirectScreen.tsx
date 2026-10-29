@@ -33,7 +33,7 @@ export const RedirectScreen: React.FC<RedirectScreenProps> = ({ whatsappUrl }) =
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full bg-green-600 hover:bg-green-500 text-white py-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-lg shadow-green-600/20 group hover:scale-[1.03]"
+            className="w-full bg-green-600 hover:bg-green-500 text-white py-5 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-lg shadow-green-600/20 group hover:scale-[1.03]"
           >
             <MessageCircle size={28} className="group-hover:rotate-12 transition-transform" aria-hidden="true" />
             IR HACIA WHATSAPP

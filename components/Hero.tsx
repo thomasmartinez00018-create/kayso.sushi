@@ -135,7 +135,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up mt-2 sm:mt-0" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onOpenBuilder}
-              className="group relative overflow-hidden bg-kayso-orange-deep text-white px-10 py-5 rounded-2xl font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/30"
+              className="group relative overflow-hidden bg-kayso-orange-deep text-white px-10 py-5 rounded-full font-black font-display text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-2xl shadow-kayso-orange/30"
               style={{ boxShadow: '0 8px 32px rgba(255,34,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)' }}
             >
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
@@ -143,7 +143,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </button>
             <button
               onClick={handleViewPremium}
-              className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl border border-white/[0.1] hover:border-white/20 text-white px-10 py-5 rounded-2xl font-black font-display text-lg transition-all flex items-center justify-center gap-2"
+              className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl border border-white/[0.1] hover:border-white/20 text-white px-10 py-5 rounded-xl font-black font-display text-lg transition-all flex items-center justify-center gap-2"
             >
               Ver selecciones
             </button>
@@ -166,14 +166,14 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
           <div className="mt-6 animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <button
               onClick={handleWhatsAppOrder}
-              className="relative flex items-center gap-2.5 bg-[#0B7A3E] hover:bg-[#096632] text-white px-6 py-3.5 rounded-2xl font-black text-sm transition-all hover:scale-105 active:scale-95 shadow-lg"
+              className="relative flex items-center gap-2.5 bg-[#0B7A3E] hover:bg-[#096632] text-white px-6 py-3.5 rounded-xl font-black text-sm transition-all hover:scale-105 active:scale-95 shadow-lg"
               style={{ boxShadow: '0 4px 20px rgba(37,211,102,0.35)' }}
             >
-              <span className="absolute inset-0 rounded-2xl bg-[#0B7A3E] animate-ping opacity-20 pointer-events-none"></span>
+              <span className="absolute inset-0 rounded-xl bg-[#0B7A3E] animate-ping opacity-20 pointer-events-none"></span>
               <MessageCircle size={18} className="relative z-10" />
               <span className="relative z-10">Pedí directo por WhatsApp</span>
             </button>
-            <p className="text-gray-400 text-[13px] font-semibold mt-2 ml-1">{fraseAtencion()}</p>
+            <p className="text-gray-400 text-lg md:text-[13px] font-semibold mt-2 ml-1">{fraseAtencion()}</p>
             {fallbackUrl && (
               <a
                 href={fallbackUrl}

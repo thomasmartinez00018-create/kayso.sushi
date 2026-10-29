@@ -66,7 +66,7 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
                 aria-hidden="true"
               />
               {/* Icon */}
-              <div className="relative bg-kayso-orange/[0.08] border border-kayso-orange/15 group-hover:bg-kayso-orange/15 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors">
+              <div className="relative bg-kayso-orange/[0.08] border border-kayso-orange/15 group-hover:bg-kayso-orange/15 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 transition-colors">
                 {step.icon}
               </div>
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.25em] mb-1.5">Paso 0{index + 1}</p>
@@ -84,10 +84,10 @@ export const HowToOrder: React.FC<HowToOrderProps> = ({ onRedirect }) => {
           </div>
           <button
             onClick={handleWhatsApp}
-            className="relative flex items-center gap-3 bg-[#0B7A3E] hover:bg-[#096632] text-white px-10 py-4 rounded-2xl font-black text-base transition-all hover:scale-105 active:scale-95"
+            className="relative flex items-center gap-3 bg-[#0B7A3E] hover:bg-[#096632] text-white px-10 py-4 rounded-xl font-black text-base transition-all hover:scale-105 active:scale-95"
             style={{ boxShadow: '0 4px 32px rgba(37,211,102,0.35), inset 0 1px 0 rgba(255,255,255,0.2)' }}
           >
-            <span className="absolute inset-0 rounded-2xl bg-[#0B7A3E] animate-ping opacity-15 pointer-events-none"></span>
+            <span className="absolute inset-0 rounded-xl bg-[#0B7A3E] animate-ping opacity-15 pointer-events-none"></span>
             <MessageCircle size={20} className="relative z-10" />
             <span className="relative z-10 font-black tracking-wide">Hacer mi pedido por WhatsApp</span>
           </button>

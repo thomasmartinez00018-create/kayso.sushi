@@ -14,6 +14,12 @@ export default {
   ],
   theme: {
     extend: {
+      // (29-oct-2026) Tres curvas en toda la web: 0 en fotos, bandas y tarjetas, 4 px en sellos, rótulos, campos y botones
+      // chicos, y redondeada entera (rounded-full) en el botón de pedir y los círculos. Antes eran 9 medidas distintas.
+      borderRadius: {
+        sm: '4px', DEFAULT: '4px', md: '4px', lg: '4px', xl: '4px',
+        '2xl': '0', '3xl': '0',
+      },
       colors: {
         kayso: {
           orange: '#FF2200',

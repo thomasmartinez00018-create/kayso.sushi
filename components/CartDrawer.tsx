@@ -80,7 +80,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onCheckout, onContinueSh
               <ShoppingBag size={30} className="text-gray-700" />
             </div>
             <h3 className="text-white font-black font-display text-xl mb-2">Tu pedido está vacío</h3>
-            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+            <p className="text-gray-400 text-lg md:text-sm mb-6 leading-relaxed">
               Agregá productos del menú para empezar a armar tu pedido.
             </p>
             <button

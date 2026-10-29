@@ -27,7 +27,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
               </span>
               <p className="text-gray-400 font-bold tracking-wide text-[13px]">Opiniones de clientes</p>
            </div>
-          <p className="text-[13px] text-gray-400 tracking-wide font-black mb-2">— Opiniones de clientes —</p>
+          <p className="text-lg md:text-[13px] text-gray-400 tracking-wide font-black mb-2">— Opiniones de clientes —</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-0 font-display">
             Lo que dicen nuestros <span className="text-kayso-orange">clientes</span>
           </h2>
