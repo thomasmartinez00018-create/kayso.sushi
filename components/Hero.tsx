@@ -120,11 +120,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewMenu, onOpenBuilder, onRedirec
             </div>
             <div className="pill-accent-muted bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-gray-400 text-[9px] font-bold uppercase tracking-[0.15em] mb-0.5">Zona de entrega</p>
-              <p className="text-white text-[13px] font-bold leading-none">San Miguel · Muñiz · B. Vista</p>
+              <p className="text-white text-[17px] font-bold leading-none">San Miguel · Muñiz · B. Vista</p>
             </div>
             <div className="pill-accent bg-black/50 backdrop-blur-md px-4 py-3">
               <p className="text-kayso-orange text-[9px] font-black uppercase tracking-[0.15em] mb-0.5">Pagando en efectivo</p>
-              <p className="text-white text-[13px] font-bold leading-none">10% OFF · Mié y jue 20% OFF</p>
+              <p className="text-white text-[17px] font-bold leading-none">10% OFF · Mié y jue 20% OFF</p>
             </div>
           </div>
           
